@@ -1,0 +1,80 @@
+<!--
+  Generated template for the DeliveryslotPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content fullscreen>
+  <div class="product-banner">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <div class="profile-pic-small">
+            <img alt="" src="assets/imgs/profile-pic.png">
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <ion-list no-lines>Deb</ion-list>
+          <ion-list no-lines>Date 22-12-2018 </ion-list>
+        </ion-col>
+        <ion-col col-5>
+          <ion-list no-lines>Value 1280</ion-list>
+          <ion-list no-lines>Savings 200</ion-list>
+          <ion-list no-lines>Iteam 4</ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <div class="product-pic-small">
+            <img alt="" src="assets/imgs/brinjal-green.jpg">
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+  <div class="cart-body">
+    <div class="page-tab">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button ></button>
+          </ion-col>
+          <ion-col col-3>
+            <button></button>
+          </ion-col>
+          <ion-col col-3>
+            <button class="active"></button>
+          </ion-col>
+          <ion-col col-3>
+            <button></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="delivery-slot">
+      <h3>Choose Preferred Delivery Slot</h3>
+      <ion-card (click)="gotoPayMode()">
+        <ion-item>
+          Express Delivery within 3 Hrs <button>Rs. 130</button>
+        </ion-item>
+      </ion-card>
+      <ion-card (click)="gotoPayMode()">
+        <ion-item>
+          28-12-2018 7.30pm to 9.30 pm <button>Rs. 50</button>
+        </ion-item>
+      </ion-card>
+      <ion-card (click)="gotoPayMode()">
+        <ion-item>
+            30-12-2018 7.30pm to 9.30 pm <button>Free</button>
+        </ion-item>
+      </ion-card>
+    
+
+
+    </div>
+
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,21 @@
+page-profile {
+    .profile-body  {
+        height:100%;
+        //border: 1px solid #000;
+    }
+    .profile-body  ion-item {
+        border-bottom: 1px solid #000;
+        padding: 10px 10px 10px 26px;
+        font-size:20px;
+    }
+    .profile-forward {
+        float: right;
+        color: #92d9e2;
+        font-size: 27px;
+        font-weight: bold;
+    }
+    .profile-body {
+        width:100%;
+        margin:0px;
+    }
+}

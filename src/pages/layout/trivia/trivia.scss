@@ -1,0 +1,34 @@
+page-trivia {
+    .product-banner {
+        width: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    .recipe-detail-content {
+        color:#78a2dc;
+        padding: 10px 10px 10px 30px;
+    }
+    .recipe-title {
+        text-align: center;
+        color:#78a2dc;
+    }
+    .recipe-sub-title {
+        text-align: center;
+        color:#78a2dc;
+        line-height: 0.5;
+    }
+    .recipe-below-content {
+        width:50%;
+        margin: 0 auto;
+    }
+    .recipe-below-content .recipe-rate {
+        background: #e9b0b8;
+    }
+    .recipe-below-content .recipe-share {
+        background: #b0e3e9;
+    }
+    .recipe-below-content button {
+        color:#649bd6;
+    }
+}

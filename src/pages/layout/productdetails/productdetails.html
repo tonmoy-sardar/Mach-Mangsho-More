@@ -1,0 +1,71 @@
+<!--
+  Generated template for the ProductdetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--
+  Generated template for the FoodvaluePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content fullscreen>
+    <div class="product-banner">
+        <h5 class="pro-title">Cauliflower</h5>
+        <div class="product-pic">
+            <img src="assets/imgs/brinjal-green.jpg" alt="" />
+
+            <!-- <button class="sold-out">Sold Out</button> -->
+            <button class="sold-out">Available</button>
+        </div>
+    </div>
+    <div class="product-body">
+        <div class="product-foodvalue">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <ion-list>Quantity <span> {{rangeValue}}</span></ion-list>
+                        <ion-list>Rate :<span> {{rangeValue}}</span></ion-list>
+
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-list>
+                            <ion-item class="pro-range-slider">
+                                <ion-range min="1" max="20" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
+                            </ion-item>
+                        </ion-list>
+
+                    </ion-col>
+                    <ion-col col-4 class="pro-btn">
+
+                        <button>Cart</button>
+                        <button (click)="gotoCart()">Buy</button>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row class="price-saving">
+                    <ion-col col-6>Price <span>12</span></ion-col>
+                    <ion-col col-6 red-saving>Savings <span>12</span> </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <div class="pro-button-round fvalue" (click)="gotoFoodValue()"><a>Food Value</a></div>
+                    </ion-col>
+                    <ion-col col-4>
+                        <div class="pro-button-round recipe" (click)="gotoRecipe()"><a>Recipe</a></div>
+                    </ion-col>
+                    <ion-col col-4>
+                        <div class="pro-button-round trivia" (click)="gotoTrivia()"><a>Trivia</a></div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+        </div>
+
+    </div>
+
+</ion-content>

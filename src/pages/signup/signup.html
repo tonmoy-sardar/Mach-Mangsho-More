@@ -1,0 +1,56 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>signup</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+</ion-content> -->
+<ion-content padding class="signup-page">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="Ionic logo">
+    </div>
+
+    <div class="signup-form-body">
+        <ion-title><h3 class="signup-form-title">Signup Page</h3></ion-title>
+      <form [formGroup]="signupForm" novalidate (submit)="signUp()">
+      <ion-list class="signup-body">
+          <ion-item class="mb-1">
+              <ion-input type="text"  name="name" formControlName="name" [ngClass]="displayFieldCss(signupForm,'name')" placeholder="Name"></ion-input>
+            </ion-item>
+        <ion-item class="mb-1">
+          <ion-input type="email"  name="email" formControlName="email" [ngClass]="displayFieldCss(signupForm,'email')" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item class="mb-1">
+          <ion-input type="text" name="contact" formControlName="contact" [ngClass]="displayFieldCss(signupForm,'contact')" placeholder="Contact" ></ion-input>
+        </ion-item>
+      
+        <ion-item class="mb-1">
+          <ion-input type="password" name="password" formControlName="password" [ngClass]="displayFieldCss(signupForm,'password')" placeholder="Password"></ion-input>
+        </ion-item>
+      
+      </ion-list>
+      <ion-row responsive-sm class="signup-bottom">
+        <ion-col class="pl-0 pr-0">
+          <button ion-button color="primary" block>Sign Up</button>
+        </ion-col>
+      </ion-row>
+      </form>
+     
+      <p class="text-center not-member" (click)="gotoSignin()"> Existing User? <span class="creat">Login</span> </p>
+    </div>
+
+
+
+</ion-content>
+

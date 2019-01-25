@@ -1,0 +1,22 @@
+page-profileedit {
+    .profile-edit-body {
+        height:100%;
+    }
+    .profile-edit-body .profile-edit-title {
+        border:1px solid #ccc;
+        background: #eef9fa;
+    }
+    .profile-edit-body .profile-edit-title > ion-col {
+        border-right: 1px solid #ccc;
+    }
+
+   .profile-edit-body h3 {
+        font-size:1.6rem;
+    }
+    .centerize {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+

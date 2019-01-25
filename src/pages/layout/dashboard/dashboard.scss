@@ -1,0 +1,109 @@
+page-dashboard {
+    .dashboard-page {
+        position: relative;
+    }
+    // .cart-icon {
+    //     color:#B51E19;
+    // }
+    // .sub-header {
+    //     min-height:0px;
+    // }
+    // .top-header-button {
+    //     background: none;
+    //     color: #1a87fe;
+    //     font-size: 16px;
+    // }
+    // .cart-icon {
+    //     height: 30px;
+    // }
+    // .sub-header-menu {
+    //     color:#92d9e2;
+    // }
+    // .sub-header-back {
+    //     font-size:25px;
+    //     color:#92d9e2;
+    // }
+    .footer-bottom-right {
+        position: absolute;
+        bottom: 76px;
+        right: 16px;
+        width: 100px;
+        height: 100px;
+        background: #94D8E3;
+        border-radius: 90px 0 0 0;
+    }
+    .footer-bottom-right span {
+        font-size: 20px;
+    }
+    .dashboard-body img {
+        padding-top: 10px;
+    }
+    // .dashboard-body span {
+    //     float: right;
+    // }
+    .dashboard-body .cat-more {
+        -ms-transform: rotate(90deg);
+        /* IE 9 */
+        -webkit-transform: rotate(90deg);
+        /* Safari */
+        transform: rotate(90deg);
+        /* Standard syntax */
+        background: #e2f5f7;
+        padding: 17px;
+        right: -46px;
+        position: absolute;
+        border-radius: 28px;
+        width: 146px;
+        bottom: 45%;
+    }
+    .dashboard-body .cat-more span {
+        font-size: 20px;
+    }
+    .dashboard-body .cat-less {
+        background: #e2f5f7;
+        padding: 6px;
+        border-radius: 28px;
+        width: 104px;
+    }
+    .dashboard-body .cat-less span {
+        font-size: 20px;
+    }
+    .product-vertical-menu {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .product-vertical-menu li:nth-child(1) {
+        bottom: 107px;
+        position: absolute;
+        right: 60px;
+        height: 206px;
+        width: 89px;
+        -webkit-transform: rotate(5deg);
+        transform: rotate(-5deg);
+    }
+    .product-vertical-menu li:nth-child(2) {
+        bottom: 33px;
+        position: absolute;
+        right: 111px;
+        -ms-transform: rotate(13deg);
+        -webkit-transform: rotate(13deg);
+        transform: rotate(-13deg);
+        height: 206px;
+        width: 89px;
+    }
+    .product-vertical-menu li:nth-child(3) {
+        bottom: -47px;
+        position: absolute;
+        right: 138px;
+        -webkit-transform: rotate(-8deg);
+        transform: rotate(-8deg);
+        height: 206px;
+        width: 89px;
+    }
+    .scroll-content {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}

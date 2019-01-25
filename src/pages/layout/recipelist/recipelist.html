@@ -1,0 +1,82 @@
+<!--
+  Generated template for the ProductlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>productlist</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content fullscreen>
+  <div class="product-banner">
+    <h5 class="pro-title">Brinjal</h5>
+    <div class="product-pic">
+      <img src="assets/imgs/brinjal-green.jpg" alt="" />
+    </div>
+  </div>
+  <div class="recipe-list-body">
+    <ion-card>
+      <ion-card-content (click)="gotoDetails()">
+        <ion-grid>
+          <ion-row >
+            <ion-col col-6 (click)="gotoDetails()">
+              <ion-list no-lines class="recipe-name">Bringle Black Round</ion-list>
+              <ion-list no-lines class="recipe-name">বেগুন ভর্তা</ion-list>
+              <ion-list no-lines class="recipe-name">बैंगन भाना</ion-list>
+              <ion-item class="recipe-category"><button class="veg">Veg</button></ion-item>
+            </ion-col>
+            <ion-col col-6 (click)="gotoDetails()">
+              <div class="recipe-image">
+                <img src="assets/imgs/brinjal-roasted.jpg"> 
+                <!-- <button class="recipe-type" ion-button round><span>Cooking</span> <span>10min</span></button>
+                <button class="recipe-language" ion-button round>Bengali</button> -->
+                <button class="market-price" ion-button round><span>Cooking </span>
+                  <small>10min</small>
+              </button>
+              <button class="our-price" ion-button round><span>Bengali </span>
+                 
+              </button>
+              </div>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content (click)="gotoDetails()">
+        <ion-grid>
+          <ion-row >
+            <ion-col col-6>
+              <ion-list no-lines class="recipe-name">Bringle Black Round</ion-list>
+              <ion-list no-lines class="recipe-name">Bringle Black</ion-list>
+              <ion-list no-lines class="recipe-name">Bringle</ion-list>
+              <ion-item class="recipe-category"><button class="veg">Non Veg</button></ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <div class="recipe-image">
+                <img src="assets/imgs/brinjal-spicy.jpg"> 
+                <!-- <button class="recipe-type" ion-button round><span>Cooking</span><span>20 min</span></button>
+                <button class="recipe-language" ion-button round>Bengali</button> -->
+                <button class="market-price" ion-button round><span>Cooking </span>
+                  <small>10min</small>
+              </button>
+              <button class="our-price" ion-button round><span>Bengali </span></button>
+              </div>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>
