@@ -3,20 +3,23 @@
 
     <ion-navbar no-border-bottom style="background-color:none">
         <button class="top-header-button">Help</button>
-        <ion-buttons end>
-            <button ion-button icon-only color="light">
-          <i class="fa fa-shopping-bag fa-2x "></i>
-        </button>
+
+        <ion-buttons end >
+            <button (click)="gotoCartPage()" ion-button icon-only color="light" >
+                    <i class="fa fa-shopping-bag fa-2x "></i>
+                    <span class='badge badge-warning' id='lblCartCount'> {{totalCart}} </span>
+            </button>
             <button class="top-header-button" (click)="gotoProfile()">My Profile</button>
         </ion-buttons>
+
     </ion-navbar>
 
     <ion-toolbar class="sub-header" *ngIf="!subHeaderIsHidden">
         <ion-icon name="ios-arrow-back-outline" class="sub-header-back" (click)="goback()"></ion-icon>
         <ion-buttons end>
             <button ion-button menuToggle color="light" class="sub-header-menu">
-          <ion-icon name="menu"></ion-icon>
-        </button>
+                <ion-icon name="menu"></ion-icon>
+            </button>
         </ion-buttons>
     </ion-toolbar>
 
@@ -49,8 +52,8 @@
          Profile
         </button>
       </ion-list> -->
-      <ion-item (click)="gotoDashboard()">
-           Dashboard
+        <ion-item (click)="gotoDashboard()">
+            Dashboard
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
         <ion-item (click)="gotoOrderHistory()">

@@ -15,27 +15,29 @@
 
 <ion-content fullscreen>
   <div class="product-banner">
-    <h5 class="pro-title">Brinjal</h5>
+    <h5 class="pro-title">{{proDetails.name}}</h5>
     <div class="product-pic">
-      <img src="assets/imgs/brinjal-green.jpg" alt="" />
+        <img [src]="proDetails.image_small != '' && imageBaseUrl+ proDetails.image_small || 'assets/imgs/no-image.png'">
+
     </div>
   </div>
   <div class="recipe-list-body">
-    <ion-card>
+    <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
       <ion-card-content (click)="gotoDetails()">
         <ion-grid>
           <ion-row >
             <ion-col col-6 (click)="gotoDetails()">
-              <ion-list no-lines class="recipe-name">Bringle Black Round</ion-list>
-              <ion-list no-lines class="recipe-name">বেগুন ভর্তা</ion-list>
-              <ion-list no-lines class="recipe-name">बैंगन भाना</ion-list>
+              <ion-list no-lines class="recipe-name">{{recipeList.blog_title}}</ion-list>
+              
+              <!-- <ion-list no-lines class="recipe-name">বেগুন ভর্তা</ion-list>
+              <ion-list no-lines class="recipe-name">बैंगन भाना</ion-list> -->
               <ion-item class="recipe-category"><button class="veg">Veg</button></ion-item>
             </ion-col>
             <ion-col col-6 (click)="gotoDetails()">
               <div class="recipe-image">
-                <img src="assets/imgs/brinjal-roasted.jpg"> 
-                <!-- <button class="recipe-type" ion-button round><span>Cooking</span> <span>10min</span></button>
-                <button class="recipe-language" ion-button round>Bengali</button> -->
+                
+                <img [src]="recipeList.blog_small_image != '' && imageBaseUrl+ recipeList.blog_small_image || 'assets/imgs/no-image.png'">
+
                 <button class="market-price" ion-button round><span>Cooking </span>
                   <small>10min</small>
               </button>
@@ -51,7 +53,7 @@
 
     </ion-card>
 
-    <ion-card>
+    <!-- <ion-card>
       <ion-card-content (click)="gotoDetails()">
         <ion-grid>
           <ion-row >
@@ -64,8 +66,7 @@
             <ion-col col-6>
               <div class="recipe-image">
                 <img src="assets/imgs/brinjal-spicy.jpg"> 
-                <!-- <button class="recipe-type" ion-button round><span>Cooking</span><span>20 min</span></button>
-                <button class="recipe-language" ion-button round>Bengali</button> -->
+               
                 <button class="market-price" ion-button round><span>Cooking </span>
                   <small>10min</small>
               </button>
@@ -77,6 +78,6 @@
         </ion-grid>
       </ion-card-content>
 
-    </ion-card>
+    </ion-card> -->
   </div>
 </ion-content>

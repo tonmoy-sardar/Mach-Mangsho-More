@@ -18,12 +18,12 @@
 </ion-content> -->
 <ion-content fullscreen>
   <div class="profile-banner">
-    <div class="profile-pic">
+    <div class="profile-pic" (click)="presentActionSheet()">
       <!-- <img src="assets/imgs/profile-pic.png" alt="" /> -->
       <img [src]="userImage != '' && imageBaseUrl+ userImage || 'assets/imgs/no-image.png'">
     </div>
     <div class="centerize">
-      <a ion-button round>Change</a>
+      <a ion-button round >Change</a>
     </div>
     
   </div>
@@ -34,15 +34,57 @@
           <h3>Name</h3>
         </ion-col>
         <ion-col col-3>
-          <h3>Edit</h3>
+          <h3 (click)="ShowSaveButton(1)">Edit</h3>
+          <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==1">Save</h3>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12>Deb</ion-col>
+        <!-- <ion-col col-12> {{profileDetails.name}}</ion-col> -->
+        <ion-item class="mb-1">
+          <ion-input type="text" name="name" [(ngModel)]="profileDetails.name" placeholder="Name"></ion-input>
+        </ion-item>
+  
       </ion-row>
     </ion-card>
 
     <ion-card>
+      <ion-row class="profile-edit-title">
+        <ion-col col-9>
+          <h3>Email</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3 (click)="ShowSaveButton(2)">Edit</h3>
+          <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==2">Save</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!-- <ion-col col-12>{{profileDetails.contact}}</ion-col> -->
+        <ion-item class="mb-1">
+          <ion-input type="text" name="email" [(ngModel)]="profileDetails.email" placeholder="Email"></ion-input>
+        </ion-item>
+      </ion-row>
+    </ion-card>
+
+
+    <ion-card>
+      <ion-row class="profile-edit-title">
+        <ion-col col-9>
+          <h3>Contact Number</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3 (click)="ShowSaveButton(3)">Edit</h3>
+          <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==3">Save</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!-- <ion-col col-12>{{profileDetails.contact}}</ion-col> -->
+        <ion-item class="mb-1">
+          <ion-input type="text" name="contact" [(ngModel)]="profileDetails.contact" placeholder="Contact"></ion-input>
+        </ion-item>
+      </ion-row>
+    </ion-card>
+
+    <!-- <ion-card>
       <ion-row class="profile-edit-title">
         <ion-col col-9>
           <h3>Address</h3>
@@ -54,23 +96,11 @@
       <ion-row>
         <ion-col col-12> Shyam Towers, EN - 32, Street Number 8, Kolkata, West Bengal 700091</ion-col>
       </ion-row>
-    </ion-card>
+    </ion-card> -->
 
-    <ion-card>
-      <ion-row class="profile-edit-title">
-        <ion-col col-9>
-          <h3>Contact Number</h3>
-        </ion-col>
-        <ion-col col-3>
-          <h3>Edit</h3>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>9090909090</ion-col>
-      </ion-row>
-    </ion-card>
+    
 
-    <ion-card>
+    <!-- <ion-card>
       <ion-row class="profile-edit-title">
         <ion-col col-9>
           <h3>Saved Address 1</h3>
@@ -96,7 +126,7 @@
       <ion-row>
         <ion-col col-12> Shyam Towers, EN - 32, Street Number 8, Kolkata, West Bengal 700091</ion-col>
       </ion-row>
-    </ion-card>
+    </ion-card> -->
 
  
 

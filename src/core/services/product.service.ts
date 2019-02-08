@@ -1,0 +1,32 @@
+import { Injectable, EventEmitter, Output } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../global';
+
+@Injectable()
+export class ProductService {
+
+  constructor(private http: HttpClient) { }
+
+
+  getCategoryList(): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productcategorylist/')
+  }
+  getProductList(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id)
+  }
+  getProductDetails(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productdetails/'+id)
+  }
+  getFoodValue(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productfoodvalue/'+id)
+  }
+
+  getRecipeList(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'recipedetailsbyproduct/'+id)
+  }
+  
+  
+
+
+}

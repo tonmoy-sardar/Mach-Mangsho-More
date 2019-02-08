@@ -4,6 +4,7 @@ import { Events } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 //import { ApiProvider} from '../../core/api/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { LoginService} from '../../core/services/login.service';
 
 /**
@@ -30,6 +31,7 @@ export class LoginPage {
     public menuCtrl:MenuController,
     public loginService:LoginService,
     private formBuilder: FormBuilder,
+    private spinnerDialog: SpinnerDialog
     ) {
       //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: true,isSubHeaderHidden: true}); 
@@ -60,6 +62,7 @@ export class LoginPage {
 
   signIn() {
     if (this.loginForm.valid) {
+      this.spinnerDialog.show();
       this.loginService.userLogin(this.loginForm.value).subscribe(
         res => {
           console.log("Signin Result ==>",res);
@@ -72,11 +75,12 @@ export class LoginPage {
           this.loginService.loginStatus(true);
           this.presentToast("Succesfully Login");
           this.navCtrl.setRoot('DashboardPage');
-       
+          this.spinnerDialog.hide();
         },
         error => {
           this.presentToast("Please enter valid login credentials");
           console.log(error);
+          this.spinnerDialog.hide();
     
         }
       )
@@ -114,6 +118,10 @@ export class LoginPage {
       position:'top'
     });
     toast.present();
+  }
+
+  gotoDashboard() {
+    this.navCtrl.setRoot('DashboardPage');
   }
 
 

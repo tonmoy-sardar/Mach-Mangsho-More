@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
+import {environment} from '../../../core/global';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import {ProductService} from '../../../core/services/product.service';
+
+
 /**
  * Generated class for the DashboardPage page.
  *
@@ -15,14 +20,20 @@ import { Events } from 'ionic-angular';
 })
 export class DashboardPage {
   showCat:number;
+  categoryList:any =[];
+  imageBaseUrl:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public events: Events,
-    public menuCtrl:MenuController
+    public menuCtrl:MenuController,
+    public productService:ProductService,
+    private spinnerDialog: SpinnerDialog
     ) {
     this.showCat=1; 
     events.publish('hideHeader', { isHeaderHidden: false,isSubHeaderHidden: false}); // For Show- hide Header
+    this.imageBaseUrl = environment.imageBaseUrl;  
+    this.getcategoryList();
   }
 
   ionViewDidLoad() {
@@ -38,8 +49,19 @@ export class DashboardPage {
     this.showCat=1;
   }
 
-  goToProList() {
-    this.navCtrl.push('ProductlistPage');
+  goToProList(id) {
+    this.navCtrl.push('ProductlistPage',{id: id});
+  }
+
+  getcategoryList() {
+    this.productService.getCategoryList().subscribe(
+      res => {
+       this.categoryList = res['result'];
+       console.log("Category List ==>", this.categoryList);
+      },
+      error => {
+      }
+    )
   }
  
 }

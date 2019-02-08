@@ -54,18 +54,18 @@
       </div>
       <div class="delivery-slot">
         <h3>Choose Preferred Delivery Slot</h3>
-        <ion-card (click)="gotoPage()">
-          <ion-item><span>Saved Address 1</span> <span class="address-type">Home</span></ion-item>
+        <ion-card *ngFor="let myAddress of allAddressList; let i = index" (click)="gotoPage()">
+          <ion-item><span>Saved Address </span> <span class="address-type">Home</span></ion-item>
           <ion-item>
             <p>3, Aswini Dutta Road, Kolkata 700029</p>
           </ion-item>
         </ion-card>
-        <ion-card (click)="gotoPage()">
+        <!-- <ion-card (click)="gotoPage()">
           <ion-item><span>Saved Address 2</span> <span class="address-type">Office</span></ion-item>
           <ion-item>
             <p>4, Aswini Dutta Road, Kolkata 700029</p>
           </ion-item>
-        </ion-card>
+        </ion-card> -->
        
         <ion-card class="new-address">
             <ion-item>

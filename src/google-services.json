@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "875326927210",
+    "firebase_url": "https://mach-mangso-more.firebaseio.com",
+    "project_id": "mach-mangso-more",
+    "storage_bucket": "mach-mangso-more.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875326927210:android:b013621fec3823fa",
+        "android_client_info": {
+          "package_name": "io.ionic.machmangsomore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875326927210-0joejqa8av61ng8m03jahd7pnq3nle6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4CFN_1MdF36m3_CvvRRmjY0gHv12lFhc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

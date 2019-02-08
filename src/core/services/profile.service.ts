@@ -12,27 +12,41 @@ export class ProfileService {
   getProfile(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'userprofile/' + id + '/')
   }
+  updateUserProfile(id,data): Observable<any> {
+    console.log(data);
+    return this.http.post(environment.apiEndpoint + 'userprofileupdate/'+id, data)
+  }
 
-//   updatemyProfile(id,profileImage,data): Observable<any> {
-//    // return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, data)
-//    const formData: FormData = new FormData();
-//    if (data) {
-//      for (let key in data) {
-//          formData.append(key, data[key])
-//      }
-//      if(profileImage) { 
-//        formData.append('profile_image', profileImage, profileImage.name);
-//      }
+  updateUserImage(id,body,option): Observable<any> {
+    console.log(body);
+    console.log(option)
+    console.log(environment.apiEndpoint + 'userprofileimageupdate/'+id);
+    return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/'+id, body,option)
+  }
+
+  // updatemyProfile(id,profileImage,data): Observable<any> {
+  //  // return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, data)
+  //  const formData: FormData = new FormData();
+  //  if (data) {
+  //    for (let key in data) {
+  //        formData.append(key, data[key])
+  //    }
+  //    if(profileImage) { 
+  //      formData.append('profile_image', profileImage, profileImage.name);
+  //    }
      
-//      console.log(formData);
-//    }
-//    return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, formData)
-//   }
+  //    console.log(formData);
+  //  }
+  //  return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, formData)
+  // }
 
   updateProfileStatus(data): Observable<any> {
     if (data = true) {
       this.getProfileUpdateStatus.emit(true);
       return
     }
+  }
+  addressList(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'cusaddlistbycusid/' + id + '/')
   }
 }

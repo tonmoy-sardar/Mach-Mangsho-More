@@ -3,14 +3,14 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
 //import { HomePage } from '../pages/home/home';
-
 // core module
 import { CoreModule } from '../../src/core/core.module';
 
-import { Ionic2RatingModule } from 'ionic2-rating';
+
+
+
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     BrowserModule,
     CoreModule,
     IonicModule.forRoot(MyApp),
-    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,7 +30,9 @@ import { Ionic2RatingModule } from 'ionic2-rating';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+
+
   ]
 })
-export class AppModule {}
+export class AppModule { }

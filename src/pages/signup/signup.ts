@@ -4,6 +4,7 @@ import { Events } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastController } from 'ionic-angular';
 import { SignupService } from '../../core/services/signup.service';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
 /**
  * Generated class for the SignupPage page.
@@ -26,7 +27,8 @@ export class SignupPage {
     public events: Events,
     private formBuilder: FormBuilder,
     private toastCtrl: ToastController,
-    public signupService:SignupService
+    public signupService:SignupService,
+    private spinnerDialog: SpinnerDialog
     ) {
       //Header Show Hide Code 
       events.publish('hideHeader', { isHeaderHidden: true,isSubHeaderHidden: true}); 
@@ -50,6 +52,7 @@ export class SignupPage {
 
 
   signUp() {
+    this.spinnerDialog.show();
     if (this.signupForm.valid) {
       this.signupForm.value.otp_verified =  '1';
       this.signupForm.value.address =  '1';
@@ -65,11 +68,12 @@ export class SignupPage {
          // this.signupService.loginStatus(true);
           this.presentToast("Succesfully User Register");
           this.navCtrl.setRoot('LoginPage');
-       
+          this.spinnerDialog.hide();
         },
         error => {
           this.presentToast("Error in User Registration");
           console.log(error);
+          this.spinnerDialog.hide();
     
         }
       )

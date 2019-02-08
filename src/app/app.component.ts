@@ -6,6 +6,7 @@ import { Events } from 'ionic-angular';
 
 import {environment} from '../core/global';
 import {LoginService} from '../core/services/login.service';
+import {CartService} from '../core/services/cart.service';
 
 //import { HomePage } from '../pages/home/home';
 @Component({
@@ -16,6 +17,7 @@ export class MyApp {
   userName:string;
   imageBaseUrl:any;
   userImage:any;
+  totalCart:any;
   @ViewChild(Nav) nav: Nav;
   //rootPage:any = HomePage;
   rootPage:any;
@@ -28,7 +30,8 @@ export class MyApp {
     splashScreen: SplashScreen,
     public loadingCtrl: LoadingController,
     public events: Events,
-    public loginService:LoginService
+    public loginService:LoginService,
+    public cartService:CartService
     ) {
     this.presentLoadingCustom();
     platform.ready().then(() => {
@@ -39,7 +42,7 @@ export class MyApp {
       
       this.rootPage = 'LoginPage';
     });
-
+    cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {
       console.log("Header Data ==>",data);
       this.topHeaderIsHidden = data.isHeaderHidden;
@@ -48,6 +51,14 @@ export class MyApp {
 
     this.imageBaseUrl = environment.imageBaseUrl;
     loginService.getLoggedInStatus.subscribe(status => this.changeStatus(status));
+
+    if (sessionStorage.getItem("cart")) {
+      this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
+      
+    }
+    else {
+      this.totalCart = 0;
+    }
   }
   presentLoadingCustom() {
     let loading = this.loadingCtrl.create({
@@ -91,6 +102,19 @@ export class MyApp {
     }
   }
 
+  cartNumberStatus(status: boolean) {
+    if(status) {
+      if(sessionStorage.getItem("cart")) {
+        this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
+      }
+      else {
+        this.totalCart =0;
+      }
+      
+    }
+    
+  }
+
   gotoDashboard() {
     this.nav.push('DashboardPage');
   }
@@ -112,6 +136,9 @@ export class MyApp {
   gotoOrderHistory() {
 
     this.nav.push('OrderhistoryPage');
+  }
+  gotoCartPage() {
+    this.nav.push('CartPage');
   }
   logOut() {
     this.nav.setRoot('LoginPage');

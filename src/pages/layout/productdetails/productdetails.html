@@ -12,9 +12,11 @@
 -->
 <ion-content fullscreen>
     <div class="product-banner">
-        <h5 class="pro-title">Cauliflower</h5>
+        <h5 class="pro-title">{{proDetails.name}}</h5>
         <div class="product-pic">
-            <img src="assets/imgs/brinjal-green.jpg" alt="" />
+            <!-- <img src="assets/imgs/brinjal-green.jpg" alt="" /> -->
+         
+            <img [src]="proDetails.image_small != '' && imageBaseUrl+ proDetails.image_small || 'assets/imgs/no-image.png'">
 
             <!-- <button class="sold-out">Sold Out</button> -->
             <button class="sold-out">Available</button>
@@ -26,36 +28,38 @@
                 <ion-row>
                     <ion-col col-4>
                         <ion-list>Quantity <span> {{rangeValue}}</span></ion-list>
-                        <ion-list>Rate :<span> {{rangeValue}}</span></ion-list>
+                        <ion-list>Rate :<span> {{proDetails.price}}</span></ion-list>
 
                     </ion-col>
                     <ion-col col-4>
                         <ion-list>
                             <ion-item class="pro-range-slider">
-                                <ion-range min="1" max="20" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
+                                <!-- <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails.price)" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range> -->
+                                <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails)" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
                             </ion-item>
                         </ion-list>
 
                     </ion-col>
                     <ion-col col-4 class="pro-btn">
 
-                        <button>Cart</button>
-                        <button (click)="gotoCart()">Buy</button>
+                        <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Cart</button>
+                        <button (click)="RemoveCart(proDetails)" *ngIf="proDetails.isCart">Remove</button>
+                        <button (click)="buyNow(proDetails)">Buy</button>
 
                     </ion-col>
                 </ion-row>
                 <ion-row class="price-saving">
-                    <ion-col col-6>Price <span>12</span></ion-col>
-                    <ion-col col-6 red-saving>Savings <span>12</span> </ion-col>
+                    <ion-col col-6>Price <span>{{proDetails.totalOurPrice}}</span></ion-col>
+                    <ion-col col-6 red-saving>Savings <span>{{this.proDetails.totalSavings}}</span> </ion-col>
                 </ion-row>
             </ion-grid>
             <ion-grid>
                 <ion-row>
                     <ion-col col-4>
-                        <div class="pro-button-round fvalue" (click)="gotoFoodValue()"><a>Food Value</a></div>
+                        <div class="pro-button-round fvalue" (click)="gotoFoodValue(proDetails.id)"><a>Food Value</a></div>
                     </ion-col>
                     <ion-col col-4>
-                        <div class="pro-button-round recipe" (click)="gotoRecipe()"><a>Recipe</a></div>
+                        <div class="pro-button-round recipe" (click)="gotoRecipe(proDetails.id)"><a>Recipe</a></div>
                     </ion-col>
                     <ion-col col-4>
                         <div class="pro-button-round trivia" (click)="gotoTrivia()"><a>Trivia</a></div>
