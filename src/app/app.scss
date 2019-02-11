@@ -264,7 +264,7 @@ button.btn-menu {
 }
 
 .product-list-body {
-    margin-bottom:25%;
+    margin-bottom: 25%;
 }
 
 .cart-body {
@@ -293,7 +293,6 @@ button.btn-menu {
 }
 
 // App side bar end
-
 // My Address page  start
 .new-address a {
     text-align: center;
@@ -301,12 +300,12 @@ button.btn-menu {
     padding: 15px 10px;
     display: block;
 }
+
 .address-type {
-    float:right;
+    float: right;
 }
 
 // My address page end 
-
 // Page  Food Value 
 .product-foodvalue {
     margin-bottom: 25%;
@@ -317,7 +316,6 @@ button.btn-menu {
     margin-bottom: 25%;
 }
 
-
 // For cart icon in header 
 .badge {
     padding-left: 9px;
@@ -325,13 +323,14 @@ button.btn-menu {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-  }
-  
-  .label-warning[href],
-  .badge-warning[href] {
+}
+
+.label-warning[href],
+.badge-warning[href] {
     background-color: #c67605;
-  }
-  #lblCartCount {
+}
+
+#lblCartCount {
     font-size: 12px;
     background: #1a87fe;
     color: #fff;
@@ -339,5 +338,104 @@ button.btn-menu {
     vertical-align: top;
     margin-left: -10px;
     margin-top: -35px;
-  }
+}
 
+.rating-part {
+    margin: 40px auto;
+    display: table;
+}
+
+.rating-part span {
+    font-size: 42px;
+    position: relative;
+}
+
+.rating-part span small {
+    position: absolute;
+    color: #fff;
+    font-size: 15px;
+    top: 13px;
+    left: 16px;
+    font-weight: bold;
+    z-index: 99;
+}
+
+.center-btn {
+    margin: 39px auto;
+    display: block;
+}
+
+.btn-submit {
+    border: 6px solid #6baef7;
+    box-shadow: 4px 4px 11px 1px rgba(1, 0, 0, 0.20);
+}
+
+.btn-back {
+    border: 6px solid #f35f70;
+    box-shadow: 4px 4px 11px 1px rgba(1, 0, 0, 0.20);
+}
+
+.fvalue {
+    border: 6px solid #f6e145;
+    box-shadow: 4px 4px 11px 1px rgba(1, 0, 0, 0.20);
+}
+
+.recipe {
+    border: 6px solid #f35f70;
+    box-shadow: 4px 4px 11px 1px rgba(1, 0, 0, 0.20);
+}
+
+.trivia {
+    border: 6px solid #6baef7;
+    box-shadow: 4px 4px 11px 1px rgba(1, 0, 0, 0.20);
+}
+
+.price-saving small {
+    color: #f35f70;
+    font-size: 17px;
+}
+
+.price-saving .red-box {
+    border: 2px solid #f35f70 !important;
+}
+
+.product-list-body .delete {
+    background: #ccc;
+    position: absolute;
+    padding: 9px;
+    border-radius: 153px;
+    right: 6px;
+    top: 6px;
+    height: 30px;
+    width: 30px;
+    display: table-caption;
+    line-height: 12px;
+}
+
+.product-list-body .favrate {
+    background: #ccc;
+    position: absolute;
+    padding: 9px;
+    border-radius: 153px;
+    right: 6px;
+    top: 6px;
+    height: 30px;
+    width: 30px;
+    display: table-caption;
+    line-height: 12px;
+}
+
+.product-list-body .card-content-md {
+    position: relative;
+}
+
+.product-list-body .product-detais {
+    position: absolute;
+    left: 0;
+    top: 46px;
+    width: 50%;
+}
+
+.product-list-body .product-detais .list {
+    padding-left: 15px;
+}
