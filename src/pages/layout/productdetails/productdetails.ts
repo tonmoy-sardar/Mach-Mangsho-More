@@ -153,7 +153,9 @@ export class ProductdetailsPage {
         //discounted_price: item.discounted_price,
         image_small: item.image_small,
         quantity: item.quantity+1,
-        totalPrice: item.totalPrice
+        totalOurPrice: item.totalOurPrice,
+        totalMarketPrice: item.totalMarketPrice,
+        totalSavings: item.totalSavings
       }
       var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
       if (this.proDetails.id == item.id) {

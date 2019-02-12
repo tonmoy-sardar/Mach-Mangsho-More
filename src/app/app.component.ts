@@ -39,7 +39,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       splashScreen.hide();
-      
       this.rootPage = 'LoginPage';
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
@@ -71,11 +70,7 @@ export class MyApp {
     });
 
   }
-
-  // toggleMenu() {
-  //   alert();
-  // }
-
+  
   private changeStatus(status: boolean) {
     if (status) {
       this.loadUserInfo();
@@ -115,31 +110,14 @@ export class MyApp {
     
   }
 
-  gotoDashboard() {
-    this.nav.push('DashboardPage');
+  gotoPage(page) {
+    this.nav.push(page);
   }
-  gotoProfile() {
-    this.nav.push('ProfilePage');
-  }
+
   goback() {
     this.nav.pop();
   }
-  gotoEditProfile() {
-    this.nav.push('ProfileeditPage');
-  }
-  gotoViewProfile() {
-    this.nav.push('ProfileviewPage');
-  }
-  gotoWishList() {
-    this.nav.push('WishlistPage');
-  }
-  gotoOrderHistory() {
-
-    this.nav.push('OrderhistoryPage');
-  }
-  gotoCartPage() {
-    this.nav.push('CartPage');
-  }
+  
   logOut() {
     this.nav.setRoot('LoginPage');
   }

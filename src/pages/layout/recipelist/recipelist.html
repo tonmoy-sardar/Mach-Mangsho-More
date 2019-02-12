@@ -23,17 +23,17 @@
   </div>
   <div class="recipe-list-body">
     <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
-      <ion-card-content (click)="gotoDetails()">
+      <ion-card-content (click)="gotoDetails(recipeList.id)">
         <ion-grid>
           <ion-row >
-            <ion-col col-6 (click)="gotoDetails()">
+            <ion-col col-6>
               <ion-list no-lines class="recipe-name">{{recipeList.blog_title}}</ion-list>
               
               <!-- <ion-list no-lines class="recipe-name">বেগুন ভর্তা</ion-list>
               <ion-list no-lines class="recipe-name">बैंगन भाना</ion-list> -->
               <ion-item class="recipe-category"><button class="veg">Veg</button></ion-item>
             </ion-col>
-            <ion-col col-6 (click)="gotoDetails()">
+            <ion-col col-6 >
               <div class="recipe-image">
                 
                 <img [src]="recipeList.blog_small_image != '' && imageBaseUrl+ recipeList.blog_small_image || 'assets/imgs/no-image.png'">

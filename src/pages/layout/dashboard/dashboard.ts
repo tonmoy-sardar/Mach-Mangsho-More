@@ -49,8 +49,8 @@ export class DashboardPage {
     this.showCat=1;
   }
 
-  goToProList(id) {
-    this.navCtrl.push('ProductlistPage',{id: id});
+  goToProList(id,name) {
+    this.navCtrl.push('ProductlistPage',{id: id,name:name});
   }
 
   getcategoryList() {

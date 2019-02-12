@@ -12,16 +12,16 @@ export class ProfileService {
   getProfile(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'userprofile/' + id + '/')
   }
-  updateUserProfile(id,data): Observable<any> {
+  updateUserProfile(id, data): Observable<any> {
     console.log(data);
-    return this.http.post(environment.apiEndpoint + 'userprofileupdate/'+id, data)
+    return this.http.post(environment.apiEndpoint + 'userprofileupdate/' + id, data)
   }
 
-  updateUserImage(id,body,option): Observable<any> {
-    console.log(body);
+  updateUserImage(id, option): Observable<any> {
+    // console.log(body);
     console.log(option)
-    console.log(environment.apiEndpoint + 'userprofileimageupdate/'+id);
-    return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/'+id, body,option)
+    console.log(environment.apiEndpoint + 'userprofileimageupdate/' + id);
+    return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
   }
 
   // updatemyProfile(id,profileImage,data): Observable<any> {
@@ -34,7 +34,7 @@ export class ProfileService {
   //    if(profileImage) { 
   //      formData.append('profile_image', profileImage, profileImage.name);
   //    }
-     
+
   //    console.log(formData);
   //  }
   //  return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, formData)
@@ -48,5 +48,11 @@ export class ProfileService {
   }
   addressList(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'cusaddlistbycusid/' + id + '/')
+  }
+
+
+  updateUserImageNew(id, option): Observable<any> {
+    return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
+    
   }
 }

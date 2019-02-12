@@ -44,7 +44,7 @@
         <button *ngIf="showCat==1" class="cat-more" (click)="moreCategory()"><span >More</span></button>
 
         <ul class="product-vertical-menu">
-            <li  (click)="goToProList(category.id)" *ngFor="let category of categoryList; let i = index">
+            <li  (click)="goToProList(category.id,category.name)" *ngFor="let category of categoryList; let i = index">
                 <!-- <img src="assets/imgs/group1.png"> -->
                 <img [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
               

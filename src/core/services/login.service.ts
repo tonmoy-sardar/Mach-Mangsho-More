@@ -23,6 +23,8 @@ export class LoginService {
   }
 
   userLogin(data): Observable<any> {
+    console.log(data);
+    
     return this.http.post(environment.apiEndpoint + 'userlogin/', data)
   }
 

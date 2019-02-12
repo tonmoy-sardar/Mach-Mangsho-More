@@ -5,11 +5,11 @@
         <button class="top-header-button">Help</button>
 
         <ion-buttons end >
-            <button (click)="gotoCartPage()" ion-button icon-only color="light" >
+            <button (click)="gotoPage('CartPage')" ion-button icon-only color="light" >
                     <i class="fa fa-shopping-bag fa-2x "></i>
                     <span class='badge badge-warning' id='lblCartCount'> {{totalCart}} </span>
             </button>
-            <button class="top-header-button" (click)="gotoProfile()">My Profile</button>
+            <button class="top-header-button" (click)="gotoPage('ProfilePage')">My Profile</button>
         </ion-buttons>
 
     </ion-navbar>
@@ -30,7 +30,6 @@
     </button>
   </ion-content>
 </ion-menu> -->
-
 <ion-menu [content]="mycontent">
     <ion-content>
         <ion-toolbar color="orange">
@@ -52,11 +51,11 @@
          Profile
         </button>
       </ion-list> -->
-        <ion-item (click)="gotoDashboard()">
+        <ion-item (click)="gotoPage('DashboardPage')">
             Dashboard
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item (click)="gotoOrderHistory()">
+        <ion-item (click)="gotoPage('OrderhistoryPage')">
             Order History
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
@@ -64,10 +63,10 @@
         <ion-item>
             Personal Details
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
-            <button class="btn-menu" (click)="gotoEditProfile()">Edit</button>
-            <button class="btn-menu" (click)="gotoViewProfile()">View</button>
+            <button class="btn-menu" (click)="gotoPage('ProfileeditPage')">Edit</button>
+            <button class="btn-menu" (click)="gotoPage('ProfileviewPage')">View</button>
         </ion-item>
-        <ion-item (click)="gotoWishList()">
+        <ion-item (click)="gotoPage('WishlistPage')">
             Wish List
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
@@ -75,10 +74,10 @@
             Spending Pattern
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             Recipes
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
-        </ion-item>
+        </ion-item> -->
         <ion-item (click)="logOut()">
             Logout
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>

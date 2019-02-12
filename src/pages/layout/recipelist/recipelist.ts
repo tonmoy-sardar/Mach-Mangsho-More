@@ -38,8 +38,8 @@ export class RecipelistPage {
     this.recipeList(this.navParams.get('id'));
   }
 
-  gotoDetails() {
-    this.navCtrl.push('RecipedetailsPage');
+  gotoDetails(id) {
+    this.navCtrl.push('RecipedetailsPage',{id:id});
   }
 
   recipeList(id) {

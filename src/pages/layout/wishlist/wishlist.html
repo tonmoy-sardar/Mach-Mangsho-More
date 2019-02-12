@@ -9,7 +9,7 @@
     <div class="product-banner-image">
         <img src="assets/imgs/banner2.jpg" alt="" />
         <div class="product-banner-text">
-            <h1>Vegetables</h1>
+            <h1>Wishlist</h1>
             <div class="product-banner-search">
                 <!-- <ion-grid>
                     <ion-row>
@@ -25,134 +25,55 @@
                 <form id="search-form" class="form-inline" role="form" method="post" action="" target="_blank">
                     <div class="input-group">
                         <input type="text" class="form-control search-form">
-                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
+                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
+                                data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
 
-                        </button>
-                      </span>
+                            </button>
+                        </span>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
     </div>
     <div class="product-list-body">
-        <ion-card>
-            <ion-card-content (click)="gotoDetails()">
+
+        <ion-card *ngFor="let product of whisListProduct; let i = index">
+            <ion-card-content>
                 <ion-grid>
 
                     <ion-row>
                         <ion-col col-6>
-                            <ion-list no-lines>Bringle Black Round</ion-list>
-                            <ion-list no-lines>Bringle Black</ion-list>
-                            <ion-list no-lines>Bringle</ion-list>
+                            <ion-list no-lines>{{product.name}}</ion-list>
                             <ion-item class="pro-status"><button class="pro-available">Available</button></ion-item>
 
                         </ion-col>
                         <ion-col col-6>
-                            <div class="product-image">
-                                <img src="assets/imgs/veg1.png">
-                                <button class="price-trend-up"><ion-icon name="arrow-round-up"></ion-icon></button>
+                            <ion-icon (click)="deleteWishList(product.id)" name="trash"></ion-icon>
+                            <div class="product-image" (click)="gotoDetails(product.id)">
+                                <!-- <img src="assets/imgs/veg1.png"> -->
+                                <img
+                                    [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
 
-                                <button class="market-price" ion-button round><span>20/kg </span>
+                                <button class="price-trend-up">
+                                    <ion-icon name="arrow-round-up"></ion-icon>
+                                </button>
+
+
+                                <button class="market-price" ion-button round><span>{{product.market_price}} / kg
+                                    </span>
                                     <small>Market price</small>
                                 </button>
-                                <button class="our-price" ion-button round><span>18/kg </span>
+                                <button class="our-price" ion-button round><span>{{product.price}} / kg </span>
                                     <small>Our price</small>
                                 </button>
                             </div>
-
-                        </ion-col>
-
-                    </ion-row>
-
-                </ion-grid>
-
-            </ion-card-content>
-
-        </ion-card>
-
-        <ion-card>
-            <ion-card-content (click)="gotoDetails()">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-list no-lines>Bringle Green Round</ion-list>
-                            <ion-list no-lines>Bringle Green</ion-list>
-                            <ion-list no-lines>Bringle</ion-list>
-                            <ion-item class="pro-status"><button class="pro-sold">Sold Out</button></ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <div class="product-image">
-                                <img src="assets/imgs/brinjal-green.jpg">
-                                <button class="price-trend-down"> <ion-icon name="arrow-round-down"></ion-icon></button>
-                                <button class="market-price" ion-button round><span>20/kg </span>
-                                    <small>Market price</small>
-                                </button>
-                                <button class="our-price" ion-button round><span>18/kg </span>
-                                    <small>Our price</small>
-                                </button>
-                            </div>
-
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </ion-card-content>
-
         </ion-card>
-        <ion-card>
-            <ion-card-content (click)="gotoDetails()">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-list no-lines>Bringle Black Round</ion-list>
-                            <ion-list no-lines>Bringle Black</ion-list>
-                            <ion-list no-lines>Bringle</ion-list>
-                            <ion-item class="pro-status"><button class="pro-limited">Limited</button></ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <div class="product-image">
-                                <img src="assets/imgs/veg3.jpg">
-                                <button class="price-trend-same"><i class="fa fa-arrows-h" aria-hidden="true"></i></button>
-                                <div>
-
-                                    <button class="market-price" ion-button round><span>20/kg </span>
-                                        <small>Market price</small>
-                                    </button>
-                                    <button class="our-price" ion-button round><span>18/kg </span>
-                                        <small>Our price</small>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-
-        </ion-card>
-        <ion-card>
-            <ion-card-content (click)="gotoDetails()">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-list no-lines>Bringle Black Round</ion-list>
-                            <ion-list no-lines>Bringle Black</ion-list>
-                            <ion-list no-lines>Bringle</ion-list>
-                            <ion-item class="pro-status"><button class="pro-available">Available</button></ion-item>
-
-                        </ion-col>
-                        <ion-col col-6>
-                            <div class="product-image">
-                                <img src="assets/imgs/veg1.png">
-                            </div>
-
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-
-        </ion-card>
+        <div *ngIf="whisListProduct.length==0">
+            <img src="assets/imgs/no-records.png">
+        </div>
     </div>
 </ion-content>

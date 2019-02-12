@@ -6,18 +6,20 @@
 -->
 
 <ion-content fullscreen>
-  <div class="product-banner" [ngStyle]="{'background': 'url(../assets/imgs/begun_Curry.jpg)'}">
+  <div class="product-banner" [ngStyle]="{'background': 'url(' + recipeBannerImage + ')'}">
+   
     <div class="product-pic">
-      <img src="assets/imgs/begun_Curry.jpg" alt="" />
+      <img [src]="recipeDetails.blog_small_image != '' && imageBaseUrl+ recipeDetails.blog_small_image || 'assets/imgs/no-image.png'" alt="" />
     </div>
   </div>
   <div class="recipe-list-body">
-    <h3 class="recipe-title">Roasted Brinjal</h3>
-    <h4 class="recipe-sub-title">By user Name</h4>
+    <h3 class="recipe-title">{{recipeDetails.blog_title}}</h3>
+    <!-- <h4 class="recipe-sub-title">By user Name</h4> -->
 
       <div class="recipe-detail-content">
-        <div >
-          <ul >
+        <div [innerHtml]="recipeDetails.blog_content">
+          
+          <!-- <ul >
             <li > <span >250</span> <span>grams</span>
               <span >brinjal</span> <span >or
                 eggplant </span></li>
@@ -56,7 +58,7 @@
             <li> <span class="wprm-recipe-ingredient-amount">2</span> <span >tbsp</span>
               <span >coriander leaves</span> <span >chopped
                 (optional)</span></li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <div class="recipe-below-content">
