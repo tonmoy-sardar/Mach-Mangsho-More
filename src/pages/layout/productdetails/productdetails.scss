@@ -7,15 +7,6 @@ page-productdetails {
         display: block;
         line-height: 90px;
     }
-    .fvalue {
-        border: 4px solid #f6e145;
-    }
-    .recipe {
-        border: 4px solid #f35f70;
-    }
-    .trivia {
-        border: 4px solid #6baef7;
-    }
     .pro-range-slider {
         transform: rotate(270deg);
     }
@@ -29,7 +20,7 @@ page-productdetails {
     }
     button.sold-out {
         background: #f35f7078;
-       // background: #deffbe;
+        // background: #deffbe;
         z-index: 999;
         position: absolute;
         padding: 13px;
@@ -40,16 +31,17 @@ page-productdetails {
         top: 22%;
     }
     button.sold-out {
-        
-        background: #deffbe;
+        background: #c7ff91;
         z-index: 999;
         position: absolute;
         padding: 13px;
-        color: #5a91d5;
-        font-size: 20px;
+        color: #000;
+        font-size: 16px;
         border-radius: 0 25px 25px 0;
         left: 0;
         top: 22%;
+        border: 1px solid #c3c3c3;
+        border-left: none
     }
     .pro-btn {
         position: absolute;
@@ -66,12 +58,12 @@ page-productdetails {
     //     padding: 19px;
     //     width: 87px;
     // }
-     .pro-btn button {
+    .pro-btn button {
         display: block;
         background: #caf5f8;
         border: 1px solid #b3b3b3;
         color: #5a91d5;
-        font-size: 17px;
+        font-size: 15px;
         border-radius: 10px 0 0 10px;
         padding: 10px;
         width: 68%;
@@ -91,22 +83,30 @@ page-productdetails {
     }
     ion-list.list.list-md {
         color: #1a41ff;
-        font-size: 19px;
+        font-size: 14px;
     }
     ion-list.list.list-md span {
-        border: 1px solid #1a41ff6b;
+        border: 2px solid #1a41ff6b;
         padding: 4px 11px;
         font-size: 13px;
         text-align: center;
+        width: 42px;
+        height: 27px;
+        display: inline-flex;
+        margin-left: 9px;
     }
     .price-saving {
         color: #1a41ff;
-        font-size: 19px;
+        font-size: 14px;
     }
     .price-saving span {
-        border: 1px solid #1a41ff6b;
+        border: 2px solid #1a41ff6b;
         padding: 4px 11px;
         font-size: 13px;
         text-align: center;
+        width: 60px;
+        height: 27px;
+        display: inline-flex;
+        margin-left: 9px;
     }
 }

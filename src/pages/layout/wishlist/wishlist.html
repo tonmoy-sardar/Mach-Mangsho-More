@@ -25,19 +25,20 @@
                 <form id="search-form" class="form-inline" role="form" method="post" action="" target="_blank">
                     <div class="input-group">
                         <input type="text" class="form-control search-form">
-                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
-                                data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
+                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
 
-                            </button>
-                        </span>
+                        </button>
+                      </span>
                     </div>
                 </form>
             </div>
         </div>
+
+
+
     </div>
     <div class="product-list-body">
-
-        <ion-card *ngFor="let product of whisListProduct; let i = index">
+        <ion-card  *ngFor="let product of whisListProduct; let i = index">
             <ion-card-content>
                 <ion-grid>
 
@@ -48,32 +49,32 @@
 
                         </ion-col>
                         <ion-col col-6>
-                            <ion-icon (click)="deleteWishList(product.id)" name="trash"></ion-icon>
-                            <div class="product-image" (click)="gotoDetails(product.id)">
-                                <!-- <img src="assets/imgs/veg1.png"> -->
-                                <img
-                                    [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
+                            <div class="product-image"  (click)="gotoDetails(product.id)">
+                                <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
 
-                                <button class="price-trend-up">
-                                    <ion-icon name="arrow-round-up"></ion-icon>
-                                </button>
+                                <button class="price-trend-up"><ion-icon name="arrow-round-up"></ion-icon></button>
 
-
-                                <button class="market-price" ion-button round><span>{{product.market_price}} / kg
-                                    </span>
+                                <button class="market-price" ion-button round><span>{{product.market_price}} / kg </span>
                                     <small>Market price</small>
                                 </button>
                                 <button class="our-price" ion-button round><span>{{product.price}} / kg </span>
                                     <small>Our price</small>
                                 </button>
                             </div>
+
                         </ion-col>
+
                     </ion-row>
+
+                    <i class="fa fa-trash delete" aria-hidden="true" (click)=deleteWishList(product.id)></i>
+
                 </ion-grid>
+
             </ion-card-content>
+
         </ion-card>
-        <div *ngIf="whisListProduct.length==0">
-            <img src="assets/imgs/no-records.png">
-        </div>
+
+       
+      
     </div>
 </ion-content>
