@@ -17,8 +17,8 @@ import { Camera } from '@ionic-native/camera';
  import { DocumentViewer,DocumentViewerOptions  } from '@ionic-native/document-viewer/ngx';
  import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
-
-
+ import * as ionicGalleryModal from 'ionic-gallery-modal';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 //services
 import { LoginService } from './services/login.service';
@@ -34,7 +34,8 @@ import { CartService } from './services/cart.service';
     // Ionic2RatingModule 
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ionicGalleryModal.GalleryModalModule,
   ],
   exports: [
     // Ionic2RatingModule 
@@ -60,7 +61,11 @@ import { CartService } from './services/cart.service';
     ProfileService,
     ForgotpasswordService,
     ProductService,
-    CartService
+    CartService,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: ionicGalleryModal.GalleryModalHammerConfig,
+    }
   ]
 })
 export class CoreModule {

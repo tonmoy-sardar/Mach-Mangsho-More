@@ -31,14 +31,30 @@ export class ProductService {
   }
 
   myWishlist(id): Observable<any> {
-    console.log(id);
     return this.http.get(environment.apiEndpoint + 'whishlistbyuserid/'+id)
   }
 
   getrecipeDetails(id): Observable<any> {
-    console.log(id);
     return this.http.get(environment.apiEndpoint + 'recipedetails/'+id)
   }
+
+  myOrderList(id): Observable<any> {
+
+    return this.http.get(environment.apiEndpoint + 'orderlistbycustid/'+id)
+  }
+
+  getriviaDetails(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'producttrivialistbyproductid/'+id)
+  }
+
+  addRating(data): Observable<any> {
+    return this.http.post(environment.apiEndpoint + 'addRating/',data)
+  }
+
+  getorderDetails(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'orderdetailsbyid/'+id)
+  }
+
 
   
   

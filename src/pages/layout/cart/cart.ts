@@ -112,8 +112,6 @@ setCartData() {
   this.getTotalPackingPrice();
 }
 
-
-
 getTotalItemPrice() {
   this.total_item_price = 0;
   this.total_market_price =0;

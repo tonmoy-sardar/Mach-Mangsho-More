@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams,ModalController  } from 'ionic-angu
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { DocumentViewer,DocumentViewerOptions  } from '@ionic-native/document-viewer/ngx';
-
+import { GalleryModal } from 'ionic-gallery-modal';
 import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
@@ -38,7 +38,7 @@ export class ProductdetailsPage {
     public modalCtrl: ModalController,
     private spinnerDialog: SpinnerDialog,
     public productService: ProductService,
-    public cartService: CartService,
+    public cartService: CartService
   ) {
     this.imageBaseUrl = environment.imageBaseUrl;
     //Header Show Hide Code 
@@ -214,25 +214,20 @@ export class ProductdetailsPage {
     //this.navCtrl.push('RecipelistPage');
     this.navCtrl.push('RecipelistPage',{id:id});
   }
-  gotoTrivia() {
-    this.navCtrl.push('TriviaPage');
+  gotoTrivia(id) {
+    this.navCtrl.push('TriviaPage',{id:id});
   }
 
   // gotoCart() {
   //   this.navCtrl.push('CartPage');
   // }
-
-
-  
-  // openModal(value) {
-  //   alert(value);
-  //   const options: DocumentViewerOptions = {
-  //     title: 'My PDF'
-  //   }
-  //     let myModal = this.modalCtrl.create(FoodvaluePage);
-  //     myModal.present();
-  //     this.document.viewDocument(value, 'application/pdf', options);
-  // }
+  private openModal() {
+    let modal = this.modalCtrl.create(GalleryModal, {
+      photos: 'http://132.148.130.125/mach_mangso_more/uploads/product_images/image_small/large1549277438carrots_thumb.jpg',
+      initialSlide: 2, // The second image
+    });
+    modal.present();
+  }
  
 
 }

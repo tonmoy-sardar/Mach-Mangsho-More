@@ -7,55 +7,26 @@
 <ion-content fullscreen>
   
     <div class="product-banner">
-      <h5 class="pro-title">Potato Jyoti</h5>
+      <h5 class="pro-title">{{proDetails.name}}</h5>
       <div class="product-pic">
-        <img src="assets/imgs/potato1.jpg" alt="" />
+        <img [src]="proDetails.image_small != '' && imageBaseUrl+ proDetails.image_small || 'assets/imgs/no-image.png'">
+
       </div>
     </div>
-    <div class="recipe-list-body">
-        <div class="recipe-detail-content">
-          <div >
-            <ul >
-              <li > <span >250</span> <span>grams</span>
-                <span >brinjal</span> <span >or
-                  eggplant </span></li>
-              <li > <span >2</span> <span >tbsp</span>
-                <span>oil</span></li>
-              <li > <span >¼</span> <span >tsp</span>
-                <span >mustard</span></li>
-              <li > <span >¼</span> <span >tsp</span>
-                <span >cumin</span> <span >or
-                  jeera</span></li>
-              <li > <span >1</span> <span >sprig</span>
-                <span >curry leaves</span> <span >(skip
-                  if you don't have)</span></li>
-              <li > <span >¾</span> <span >cup</span>
-                <span>onions</span> <span >chopped
-                  finely (2 medium)</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">1</span> <span >green
-                  chili</span> <span >(chopped or slit)</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">1</span> <span >large</span>
-                <span >tomato</span> <span >chopped
-                  (about ½ cup)</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">1</span> <span >tsp</span>
-                <span ><a href="https://www.indianhealthyrecipes.com/ginger-garlic-paste-recipe/"
-                    target="_blank">ginger garlic paste</a></span> <span >or fine
-                  chopped garlic</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">¼ to ½</span> <span >tsp</span>
-                <span >red chili powder </span> <span >(adjust
-                  to suit your taste)</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">1/8</span> <span >tsp</span>
-                <span > turmeric</span> <span >or
-                  haldi</span></li>
-              <li> <span >Salt as needed</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">½ to ¾ </span> <span >tsp</span>
-                <span ><a href="https://www.indianhealthyrecipes.com/punjabi-garam-masala-powder-recipe/"
-                    target="_blank">garam masala</a></span> <span >(optional)</span></li>
-              <li> <span class="wprm-recipe-ingredient-amount">2</span> <span >tbsp</span>
-                <span >coriander leaves</span> <span >chopped
-                  (optional)</span></li>
-            </ul>
+    <div class="trivia-list-body">
+        <h4>Trivia</h4>
+        <ion-card *ngFor="let trivia of triviaDetails; let i = index">
+            <ion-card-content>
+              <ion-card-title>
+                {{trivia.product_trivia_title}}
+                </ion-card-title>
+              <p>
+                  {{trivia.product_trivia_description}}
+              </p>
+            </ion-card-content>
+          </ion-card>
+          <div *ngIf="triviaDetails.length==0">
+              <img src="assets/imgs/no-records.png">
           </div>
-        </div>
     </div>
   </ion-content>

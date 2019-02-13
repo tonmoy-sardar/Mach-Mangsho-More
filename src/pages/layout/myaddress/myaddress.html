@@ -6,32 +6,33 @@
 -->
 <ion-content fullscreen>
     <div class="product-banner">
-      <ion-grid>
-        <ion-row>
-          <ion-col col-3>
-            <div class="profile-pic-small">
-              <img alt="" src="assets/imgs/profile-pic.png">
-            </div>
-          </ion-col>
-          <ion-col col-4>
-            <ion-list no-lines>Deb</ion-list>
-            <ion-list no-lines>Date 22-12-2018 </ion-list>
-          </ion-col>
-          <ion-col col-5>
-            <ion-list no-lines>Value 1280</ion-list>
-            <ion-list no-lines>Savings 200</ion-list>
-            <ion-list no-lines>Iteam 4</ion-list>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-12>
-            <div class="product-pic-small">
-              <img alt="" src="assets/imgs/brinjal-green.jpg">
-            </div>
-          </ion-col>
-        </ion-row>
-  
-      </ion-grid>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-3>
+                    <div class="profile-pic-small">
+                        <!-- <img alt="" src="assets/imgs/profile-pic.png"> -->
+                        <img [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
+                    </div>
+                </ion-col>
+                <ion-col col-4>
+                    <ion-list no-lines>{{profileDetails.name}}</ion-list>
+                    <ion-list no-lines>Date <small>  <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime> </small> </ion-list>
+                </ion-col>
+                <ion-col col-5>
+                    <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
+                    <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
+                    <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
+                </ion-col>
+            </ion-row>
+            <!-- <ion-row>
+                <ion-col col-12>
+                    <div class="product-pic-small">
+                        <img alt="" src="assets/imgs/brinjal-green.jpg">
+                    </div>
+                </ion-col>
+            </ion-row> -->
+
+        </ion-grid>
     </div>
     <div class="cart-body">
       <div class="page-tab">
@@ -69,7 +70,7 @@
        
         <ion-card class="new-address">
             <ion-item>
-              <a>New Address</a>
+              <a (click)="addNewAddress()">New Address</a>
             </ion-item>
             
           </ion-card>

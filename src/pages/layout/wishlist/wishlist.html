@@ -1,8 +1,8 @@
 <!--
-  Generated template for the WishlistPage page.
+Generated template for the WishlistPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
 -->
 
 <ion-content fullscreen>
@@ -11,70 +11,48 @@
         <div class="product-banner-text">
             <h1>Wishlist</h1>
             <div class="product-banner-search">
-                <!-- <ion-grid>
-                    <ion-row>
-                        <ion-col col-4></ion-col>
-                        <ion-col col-6>
-                            <ion-item class="mb-1">
-                                <ion-input type="text"></ion-input>
-                            </ion-item>
-                        </ion-col>
-                        <ion-col col-2></ion-col>
-                    </ion-row>
-                </ion-grid> -->
                 <form id="search-form" class="form-inline" role="form" method="post" action="" target="_blank">
                     <div class="input-group">
                         <input type="text" class="form-control search-form">
-                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
+                        <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
+                                data-target="#search-form" name="q"><i class="fa fa-microphone" aria-hidden="true"></i>
 
-                        </button>
-                      </span>
+                            </button>
+                        </span>
                     </div>
                 </form>
             </div>
         </div>
-
-
-
     </div>
     <div class="product-list-body">
-        <ion-card  *ngFor="let product of whisListProduct; let i = index">
+        <ion-card *ngFor="let product of whisListProduct; let i = index">
             <ion-card-content>
                 <ion-grid>
-
                     <ion-row>
                         <ion-col col-6>
                             <ion-list no-lines>{{product.name}}</ion-list>
                             <ion-item class="pro-status"><button class="pro-available">Available</button></ion-item>
-
                         </ion-col>
                         <ion-col col-6>
-                            <div class="product-image"  (click)="gotoDetails(product.id)">
-                                <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
-
-                                <button class="price-trend-up"><ion-icon name="arrow-round-up"></ion-icon></button>
-
-                                <button class="market-price" ion-button round><span>{{product.market_price}} / kg </span>
+                            <div class="product-image" (click)="gotoDetails(product.id)">
+                                <img
+                                    [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
+                                <button class="price-trend-up">
+                                    <ion-icon name="arrow-round-up"></ion-icon>
+                                </button>
+                                <button class="market-price" ion-button round><span>{{product.market_price}} / kg
+                                    </span>
                                     <small>Market price</small>
                                 </button>
                                 <button class="our-price" ion-button round><span>{{product.price}} / kg </span>
                                     <small>Our price</small>
                                 </button>
                             </div>
-
                         </ion-col>
-
                     </ion-row>
-
                     <i class="fa fa-trash delete" aria-hidden="true" (click)=deleteWishList(product.id)></i>
-
                 </ion-grid>
-
             </ion-card-content>
-
         </ion-card>
-
-       
-      
     </div>
 </ion-content>

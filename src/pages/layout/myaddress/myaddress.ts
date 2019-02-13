@@ -18,8 +18,17 @@ import { ProfileService } from '../../../core/services/profile.service';
   templateUrl: 'myaddress.html',
 })
 export class MyaddressPage {
+  customer_cart_data:any=[];
+  all_cart_data:any;
   userId:number;
   allAddressList:any =[];
+  profileDetails:any ={};
+  total_item_price: any;
+  total_packing_price: any;
+  total_price: any;
+  imageBaseUrl:any;
+  total_market_price:any;
+  total_market_saving:any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,6 +45,66 @@ export class MyaddressPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyaddressPage');
     this.myAddressList(this.userId);
+    this.getProfileDetails(this.userId);
+    this.populateData();
+
+  }
+
+  populateData() {
+    if (sessionStorage.getItem("cart")) {
+      this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
+      console.log(this.all_cart_data);
+     this.customer_cart_data = this.all_cart_data;
+     //this.customer_cart_data.length =1;
+     
+     
+      this.getTotalItemPrice();
+      this.getTotalPackingPrice();
+    }
+    else {
+      this.customer_cart_data = [];
+      //alert(this.customer_cart_data.length);
+    }
+  }
+  getTotalItemPrice() {
+    this.total_item_price = 0;
+    this.total_market_price =0;
+    this.total_market_saving =0
+    console.log(this.customer_cart_data);
+    this.customer_cart_data.forEach(x => {
+      if (x.discounted_price > 0) {
+        this.total_item_price += (x.discounted_price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+        console.log(this.total_item_price);
+       
+      }
+      else {
+        console.log("zz",x);
+        this.total_item_price += (x.price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+       
+      }
+    })
+  }
+  
+  getTotalPackingPrice() {
+    this.total_packing_price = 0;
+    this.customer_cart_data.forEach(x => {
+      this.total_packing_price += x.packing_charges;
+    })
+  }
+
+  getProfileDetails(id) {
+    this.profileService.getProfile(id).subscribe(
+      res => {
+       this.profileDetails = res['result'];
+       console.log("Profile Details ==>", this.profileDetails);
+      },
+      error => {
+      }
+    )
   }
 
   myAddressList(id) {

@@ -51,8 +51,8 @@ export class RecipedetailsPage {
       }
     )
   }
-  gotoRatePage() {
-    this.navCtrl.push('RatingPage');
+  gotoRatePage(id) {
+    this.navCtrl.push('RatingPage',{id:id});
   }
 
 }
