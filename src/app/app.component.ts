@@ -39,7 +39,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       splashScreen.hide();
-      this.rootPage = 'LoginPage';
+      this.rootPage = 'DashboarPage';
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {

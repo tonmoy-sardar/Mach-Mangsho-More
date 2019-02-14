@@ -444,3 +444,35 @@ button.btn-menu {
 .product-list-body .product-detais .list {
     padding-left: 15px;
 }
+
+
+.form-sec
+{
+    background-color: #e9f9fb;
+}
+.form-sec ion-card-header {
+    border-bottom: 1px solid #d4d4d4;
+    background-color: #1a87fe;
+}
+
+.form-sec ion-label {
+    color: #6c6c6c;
+    font-size: 12px;
+    margin: 2px 2px 2px 0px !important;
+}
+
+
+.form-sec button {
+    padding: 4px 22px;
+    font-size: 11px;
+    background-color: #1a87fe !important;
+}
+
+.error-msg
+{
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: #ff0000;
+    font-size: 11px;
+}

@@ -46,13 +46,17 @@ export class ProfileService {
       return
     }
   }
+
   addressList(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'cusaddlistbycusid/' + id + '/')
   }
 
-
   updateUserImageNew(id, option): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
-    
   }
+  submitAddress(data): Observable<any> {
+    return this.http.post(environment.apiEndpoint + 'addcustomeraddress/',data)
+  }
+
+
 }

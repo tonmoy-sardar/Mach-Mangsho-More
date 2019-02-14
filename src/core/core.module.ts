@@ -13,13 +13,11 @@ import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
- import { DocumentViewer,DocumentViewerOptions  } from '@ionic-native/document-viewer/ngx';
- import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-
- import * as ionicGalleryModal from 'ionic-gallery-modal';
+import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 //services
 import { LoginService } from './services/login.service';
 import { SignupService } from './services/signup.service';
@@ -54,7 +52,6 @@ import { CartService } from './services/cart.service';
     Transfer,
     Camera,
     FilePath,
-    DocumentViewer,
     SpinnerDialog,
     LoginService,
     SignupService,
@@ -62,10 +59,11 @@ import { CartService } from './services/cart.service';
     ForgotpasswordService,
     ProductService,
     CartService,
+    SpeechRecognition,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: ionicGalleryModal.GalleryModalHammerConfig,
-    }
+    },
   ]
 })
 export class CoreModule {

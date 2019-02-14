@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-import { DocumentViewer,DocumentViewerOptions  } from '@ionic-native/document-viewer/ngx';
 import { GalleryModal } from 'ionic-gallery-modal';
 import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
@@ -26,15 +25,17 @@ export class ProductdetailsPage {
   imageBaseUrl: any;
   customer_cart_data: any;
   userId: any;
-  totalOurPrice:any;
-  totalMarketPrice:any;
-  totalSavings:any;
+  totalOurPrice: any;
+  totalMarketPrice: any;
+  totalSavings: any;
+  photo: any;
+  foodValueList:any;
+  private photos: any[] = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
-    private document: DocumentViewer,
     public modalCtrl: ModalController,
     private spinnerDialog: SpinnerDialog,
     public productService: ProductService,
@@ -64,6 +65,8 @@ export class ProductdetailsPage {
       this.customer_cart_data = [];
     }
     this.productDetails(this.navParams.get('id'));
+
+    this.getFoodValueList(this.navParams.get('id'));
   }
 
   productDetails(id) {
@@ -85,7 +88,7 @@ export class ProductdetailsPage {
           this.proDetails.isCart = false;
           this.proDetails.quantity = 0;
         }
-        
+
         console.log(this.proDetails);
         this.spinnerDialog.hide();
       },
@@ -101,14 +104,14 @@ export class ProductdetailsPage {
   //   this.proDetails.totalPrice = value._value * price;
   // }
 
-  changeRangeValue(value,proDetailss) {
-    console.log("Pro Details ==>",proDetailss);
-    console.log("Now Range ==>",value._value);
+  changeRangeValue(value, proDetailss) {
+    console.log("Pro Details ==>", proDetailss);
+    console.log("Now Range ==>", value._value);
     this.proDetails.quantity = value._value;
     this.proDetails.totalOurPrice = value._value * proDetailss.price;
     this.proDetails.totalMarketPrice = value._value * proDetailss.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
-    console.log( this.proDetails.totalSavings);
+    console.log(this.proDetails.totalSavings);
   }
 
   addtoCart(item) {
@@ -122,7 +125,7 @@ export class ProductdetailsPage {
         price: item.price,
         //discounted_price: item.discounted_price,
         image_small: item.image_small,
-        quantity: item.quantity+1,
+        quantity: item.quantity + 1,
         totalOurPrice: item.totalOurPrice,
         totalMarketPrice: item.totalMarketPrice,
         totalSavings: item.totalSavings
@@ -152,7 +155,7 @@ export class ProductdetailsPage {
         price: item.price,
         //discounted_price: item.discounted_price,
         image_small: item.image_small,
-        quantity: item.quantity+1,
+        quantity: item.quantity + 1,
         totalOurPrice: item.totalOurPrice,
         totalMarketPrice: item.totalMarketPrice,
         totalSavings: item.totalSavings
@@ -162,7 +165,7 @@ export class ProductdetailsPage {
         this.proDetails.isCart = true;
         this.proDetails.quantity = item.quantity;
       }
-  
+
       if (index == -1) {
         this.customer_cart_data.push(data);
         this.setCartData();
@@ -173,7 +176,7 @@ export class ProductdetailsPage {
         this.navCtrl.push('CartPage');
       }
 
-      
+
 
       console.log(this.customer_cart_data);
     }
@@ -185,49 +188,52 @@ export class ProductdetailsPage {
 
   RemoveCart(item) {
     var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
-      if (index != -1) {
-        this.customer_cart_data.splice(index, 1);
-        this.setCartData();
-      }
-      // for (let i = 0; i < this.proDetails.length; i++) {
-      //   if (this.proDetails[i]['id'] == item.id) {
-      //     this.proDetails[i].isCart = false;
-      //     this.proDetails[i].quantity = 0;
+    if (index != -1) {
+      this.customer_cart_data.splice(index, 1);
+      this.setCartData();
+    }
+    if (this.proDetails['id'] == item.id) {
+      this.proDetails.isCart = false;
+      this.proDetails.quantity = 1;
 
-      //   }
-      // }
-     // this.productDetails(this.navParams.get('id'));
-        if (this.proDetails['id'] == item.id) {
-          this.proDetails.isCart = false;
-          this.proDetails.quantity = 1;
+    }
+    this.cartService.cartNumberStatus(true);
+    console.log(this.proDetails);
+  }
 
-        }
-     this.cartService.cartNumberStatus(true);
-      console.log(this.proDetails);
-   }
-
-   
   gotoFoodValue(id) {
-    this.navCtrl.push('FoodvaluePage',{id:id});
+    this.navCtrl.push('FoodvaluePage', { id: id });
   }
   gotoRecipe(id) {
     //this.navCtrl.push('RecipelistPage');
-    this.navCtrl.push('RecipelistPage',{id:id});
+    this.navCtrl.push('RecipelistPage', { id: id });
   }
   gotoTrivia(id) {
-    this.navCtrl.push('TriviaPage',{id:id});
+    this.navCtrl.push('TriviaPage', { id: id });
   }
 
-  // gotoCart() {
-  //   this.navCtrl.push('CartPage');
-  // }
+
+  getFoodValueList(id) {
+    this.spinnerDialog.show();
+    this.productService.getFoodList(id).subscribe(res => {
+      this.foodValueList = res['result'];
+      this.photos.push({
+        url: this.imageBaseUrl+this.foodValueList.food_value_large,
+      });
+      this.spinnerDialog.hide();
+
+    },
+      error => { this.spinnerDialog.hide(); })
+  }
+
   private openModal() {
+    this.photo = 'http://132.148.130.125/mach_mangso_more/uploads/product_images/image_small/large1549277438carrots_thumb.jpg';
     let modal = this.modalCtrl.create(GalleryModal, {
-      photos: 'http://132.148.130.125/mach_mangso_more/uploads/product_images/image_small/large1549277438carrots_thumb.jpg',
-      initialSlide: 2, // The second image
+      photos: this.photos,
+      initialSlide: 1, // The second image
     });
     modal.present();
   }
- 
+
 
 }

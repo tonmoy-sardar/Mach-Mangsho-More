@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-import { DocumentViewer,DocumentViewerOptions  } from '@ionic-native/document-viewer/ngx';
 import {environment} from '../../../core/global';
 import {ProductService} from '../../../core/services/product.service';
 /**
@@ -23,7 +22,6 @@ export class FoodvaluePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
-    private document: DocumentViewer,
     public productService:ProductService
   ) {
     //Header Show Hide Code 

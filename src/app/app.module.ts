@@ -12,6 +12,7 @@ import { CoreModule } from '../../src/core/core.module';
 
 
 
+
 @NgModule({
   declarations: [
     MyApp,

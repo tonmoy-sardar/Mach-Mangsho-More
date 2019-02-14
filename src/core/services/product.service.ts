@@ -55,6 +55,12 @@ export class ProductService {
     return this.http.get(environment.apiEndpoint + 'orderdetailsbyid/'+id)
   }
 
+  getFoodList(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productfoodvalue/'+id)
+  }
+  productSearch(id,keywords): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/' + id + '/'+keywords)
+  }
 
   
   
