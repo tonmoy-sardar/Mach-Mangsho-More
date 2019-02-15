@@ -20,6 +20,7 @@ export class RecipelistPage {
   proRecipeList:any=[];
   proDetails:any={};
   imageBaseUrl:any;
+  userId:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,6 +31,7 @@ export class RecipelistPage {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;  
+    this.userId = +localStorage.getItem('userId');
   }
 
   ionViewDidLoad() {
@@ -57,9 +59,9 @@ export class RecipelistPage {
 
   productDetails(id) {
     this.spinnerDialog.show();
-    this.productService.getProductDetails(id).subscribe(
+    this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
-        this.proDetails = res['result'];
+        this.proDetails = res['result']['productlist'];
         console.log(this.proDetails);
         this.spinnerDialog.hide();
       },

@@ -50,6 +50,7 @@ export class WishlistPage {
       res => {
        this.whisListProduct = res['result'];
        console.log(this.whisListProduct);
+       this.spinnerDialog.hide();
       },
       error => {
        // this.whisListProduct =[];
@@ -63,12 +64,14 @@ export class WishlistPage {
       "whist_status": "0",
       "user_id":this.userId
   }
+  this.spinnerDialog.show();
   this.productService.addWishlist(data).subscribe(
     res => {
       console.log(res);
       this.getWishList(this.navParams.get('id'));
       this.presentToast("Removed from Wishlist");
-      this.navCtrl.push('WishlistPage');
+      //this.navCtrl.push('WishlistPage');
+      this.spinnerDialog.hide();
     },
     error => {
       //this.presentToast("");
@@ -76,8 +79,8 @@ export class WishlistPage {
   )
   }
 
-  gotoDetails() {
-    this.navCtrl.push('ProductdetailsPage');
+  gotoDetails(id) {
+    this.navCtrl.push('ProductdetailsPage', { id: id });
   }
 
   presentToast(msg) {

@@ -12,11 +12,11 @@ export class ProductService {
   getCategoryList(): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productcategorylist/')
   }
-  getProductList(id): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id)
+  getProductList(id,user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/'+user_id)
   }
-  getProductDetails(id): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productdetails/'+id)
+  getProductDetails(id,user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productdetails/'+id+'/'+user_id)
   }
   getFoodValue(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productfoodvalue/'+id)

@@ -6,7 +6,8 @@ import { ToastController } from 'ionic-angular';
 import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
-import { e } from '@angular/core/src/render3';
+
+
 /**
  * Generated class for the ProductlistPage page.
  *
@@ -49,7 +50,7 @@ export class ProductlistPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductlistPage');
     this.catName = this.navParams.get('name');
-    this.productList(this.navParams.get('id'));
+    this.productList(this.navParams.get('id'),this.userId);
     if (this.platform.is('cordova')) {
        // Check permission
     this.speechRecognition.hasPermission()
@@ -63,20 +64,14 @@ export class ProductlistPage {
     )
     }
     else {
-
     }
-   
-
   }
 
- 
-
-
-  productList(id) {
+  productList(id,user_id) {
     this.spinnerDialog.show();
-    this.productService.getProductList(id).subscribe(
+    this.productService.getProductList(id,user_id).subscribe(
       res => {
-        this.allProductList = res['result']['products'];
+        this.allProductList = res['result'];
         console.log("Product List123 ==>", this.allProductList);
         this.spinnerDialog.hide();
       },
@@ -135,7 +130,7 @@ export class ProductlistPage {
     this.productService.addWishlist(data).subscribe(
       res => {
         console.log(res);
-        this.productList(this.navParams.get('id'));
+        this.productList(this.navParams.get('id'),this.userId);
         this.presentToast("Added in Wishlist");
         this.navCtrl.push('WishlistPage');
       },
@@ -153,5 +148,6 @@ export class ProductlistPage {
     });
     toast.present();
   }
+
 
 }

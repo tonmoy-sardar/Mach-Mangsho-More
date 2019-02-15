@@ -35,45 +35,36 @@
 
 
 <ion-content padding class="no-scroll dashboard-page">
-    <div class="logo">
-        <img src="assets/imgs/logo.png" alt="Ionic logo">
+  <div class="logo">
+    <img src="assets/imgs/logo.png" alt="Ionic logo">
+  </div>
+  <div class="dashboard-body">
+    <img src="assets/imgs/women1.png">
+    <!-- <button *ngIf="showCat==1" class="cat-more" (click)="moreCategory()"><span>More</span></button>
+     <ul class="product-vertical-menu">
+      <li (click)="goToProList(category.id,category.name)" *ngFor="let category of categoryList; let i = index">
+
+        <img [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
+
+      </li>
+    </ul> 
+    
+    <button *ngIf="showCat==2" class="cat-less" (click)="lessCategory()"><span>Back</span></button> -->
+    <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
+    <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button>
+  </div>
+  <button class="footer-bottom-right"><span>Order</span></button>
+  <div id='ss_menu'>
+      <div *ngFor="let category of categoryList| slice:startCatNum:endCatNum; let i = index">
+        <img (click)="goToProList(category.id,category.name)"
+          [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
+      </div>
+      <!-- <div class='menu'>
+        <div class='share' id='ss_toggle' data-rot='180'>
+          <div class='circle'></div>
+          <div class='bar'></div>
+        </div>
+      </div> -->
     </div>
-
-    <div class="dashboard-body">
-        <img src="assets/imgs/women1.png">
-        <button *ngIf="showCat==1" class="cat-more" (click)="moreCategory()"><span >More</span></button>
-
-        <ul class="product-vertical-menu">
-            <li  (click)="goToProList(category.id,category.name)" *ngFor="let category of categoryList; let i = index">
-                <!-- <img src="assets/imgs/group1.png"> -->
-                <img [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
-              
-            </li>
-            <!-- <li *ngIf="showCat==1" (click)="goToProList()">
-                <img src="assets/imgs/group1.png">
-            </li>
-            <li *ngIf="showCat==1" (click)="goToProList()">
-                <img src="assets/imgs/group2.png" (click)="goToProList()">
-            </li>
-            <li *ngIf="showCat==1">
-                <img src="assets/imgs/group3.png" (click)="goToProList()">
-            </li>
-            <li *ngIf="showCat==2">
-                <img src="assets/imgs/group4.png" (click)="goToProList()">
-            </li>
-            <li *ngIf="showCat==2">
-                <img src="assets/imgs/group5.png" (click)="goToProList()">
-            </li>
-            <li *ngIf="showCat==2">
-                <img src="assets/imgs/group6.png" (click)="goToProList()">
-            </li> -->
-        </ul>
-        <button *ngIf="showCat==2" class="cat-less" (click)="lessCategory()"><span >Back</span></button>
-
-    </div>
-
-
-
-    <button class="footer-bottom-right"><span>Order</span></button>
 
 </ion-content>

@@ -28,13 +28,13 @@
                 <ion-row>
                     <ion-col col-4>
                         <ion-list>Quantity <span> {{rangeValue}}</span></ion-list>
-                        <ion-list>Rate :<span> {{proDetails.price}}</span></ion-list>
+                        <ion-list>Rate :<span> {{proDetails.unit_price}}</span></ion-list>
 
                     </ion-col>
                     <ion-col col-4>
                         <ion-list>
                             <ion-item class="pro-range-slider">
-                                <!-- <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails.price)" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range> -->
+                               
                                 <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails)" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
                             </ion-item>
                         </ion-list>

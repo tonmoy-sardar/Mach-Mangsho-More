@@ -30,8 +30,7 @@
         <ion-toolbar color="orange">
             <div class="left-bar-top-area">
                 <div class="left-top-pic">
-
-                    <img [src]="userImage != '' && imageBaseUrl+ userImage || 'assets/imgs/no-image.png'">
+                    <img [src]="userImage != '' && imageBaseUrl+userImage || 'assets/imgs/no-image.png'">
                 </div>
                 <div class="avatar-circle">
                     <span class="initials">{{userName}}</span>
@@ -41,35 +40,44 @@
             </div>
         </ion-toolbar>
 
+        <ion-item (click)="logOut()" *ngIf="loggedIn==false">
+                Login
+                <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
+        </ion-item>
+
         <ion-item (click)="gotoPage('DashboardPage')">
             Dashboard
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item (click)="gotoPage('OrderhistoryPage')">
+        <ion-item *ngIf="loggedIn==true" (click)="gotoPage('OrderhistoryPage')">
             Order History
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="loggedIn==true">
             Personal Details
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
             <button class="btn-menu" (click)="gotoPage('ProfileeditPage')">Edit</button>
             <button class="btn-menu" (click)="gotoPage('ProfileviewPage')">View</button>
         </ion-item>
-        <ion-item (click)="gotoPage('WishlistPage')">
+        <ion-item *ngIf="loggedIn==true" (click)="gotoPage('WishlistPage')">
             Wish List
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="loggedIn==true">
             Spending Pattern
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             Recipes
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
-        </ion-item>
-        <ion-item (click)="logOut()">
+        </ion-item> -->
+        <ion-item (click)="logOut()" *ngIf="loggedIn==true">
             Logout
+            <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
+        </ion-item>
+        <ion-item (click)="gotoPage('TestPage')">
+            Test
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
 

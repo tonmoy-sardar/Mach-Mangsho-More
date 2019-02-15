@@ -19,13 +19,11 @@
 <ion-content fullscreen>
   <div class="profile-banner">
     <div class="profile-pic" (click)="presentActionSheet()">
-      <!-- <img src="assets/imgs/profile-pic.png" alt="" /> -->
-      <img [src]="userImage != '' && imageBaseUrl+ userImage || 'assets/imgs/no-image.png'">
+        <i class="fa fa-camera" aria-hidden="true"></i>
+
+      <img [src]="userImage != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
     </div>
-    <div class="centerize">
-      <a ion-button round >Change</a>
-    </div>
-    
+
   </div>
   <div class="profile-edit-body">
     <ion-card>

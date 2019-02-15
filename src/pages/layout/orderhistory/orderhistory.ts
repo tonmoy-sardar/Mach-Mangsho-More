@@ -48,6 +48,7 @@ export class OrderhistoryPage {
       res => {
        this.orderList = res['result'];
        console.log(this.orderList);
+       this.spinnerDialog.hide();
       },
       error => {
         this.orderList =[];

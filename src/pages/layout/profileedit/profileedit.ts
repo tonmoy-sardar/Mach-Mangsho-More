@@ -13,7 +13,7 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
-
+import { Crop } from '@ionic-native/crop/ngx';
 //Services
 import { ProfileService } from '../../../core/services/profile.service';
 
@@ -67,7 +67,8 @@ export class ProfileeditPage {
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    private crop: Crop
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
@@ -104,9 +105,12 @@ export class ProfileeditPage {
     this.profileService.updateUserProfile(this.userId, profileDetails).subscribe(
       res => {
         this.profileDetails = res['result'];
+
         console.log("Profile Details ==>", this.profileDetails);
         this.getProfileDetails(this.userId);
         this.isShowId = 0;
+         localStorage.setItem('userName', this.profileDetails.name);
+    this.profileService.updateProfileStatus(true);
       },
       error => {
       }
@@ -206,16 +210,10 @@ public pathForImage(img) {
 }
 
 public uploadImage() {
-  // Destination URL
- // var url = "http://yoururl/upload.php";
- //var url ="http://132.148.130.125/mach_mangso_more/api/userprofileimageupdate/"+;
- 
   // File for Upload
   var targetPath = this.pathForImage(this.lastImage);
- 
   // File name only
   var filename = this.lastImage;
- 
   var options = {
     fileKey: "profile_image",
     fileName: filename,
@@ -225,16 +223,17 @@ public uploadImage() {
   };
  
   const fileTransfer: TransferObject = this.transfer.create();
- 
   this.loading = this.loadingCtrl.create({
     content: 'Uploading...',
   });
   this.loading.present();
- 
   // Use the FileTransfer to upload the image
   fileTransfer.upload(targetPath, this.apiUrl+'userprofileimageupdate/'+this.userId, options).then(data => {
     this.loading.dismissAll()
     this.presentToast('Image succesful uploaded.');
+    var userUpdateImg = JSON.parse(data.response);
+    localStorage.setItem('userImage', userUpdateImg.result.profile_image);
+    this.profileService.updateProfileStatus(true);
     this.getProfileDetails(this.userId);
   }, err => {
     this.loading.dismissAll()

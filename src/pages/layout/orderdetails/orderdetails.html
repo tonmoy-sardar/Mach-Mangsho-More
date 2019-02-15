@@ -53,7 +53,12 @@
                 </ion-row>
                 <ion-row *ngFor="let product of productList; let i = index">
                     <ion-col col-3>
-                        <ion-list no-lines></ion-list>
+                        <ion-list no-lines>
+                                
+                                <img
+                                [src]="product.product_image_small != '' && imageBaseUrl+ product.product_image_small || 'assets/imgs/no-image.png'">
+                       
+                        </ion-list>
                     </ion-col>
                     <ion-col col-3>
                         <ion-list no-lines>{{product.product_name}}</ion-list>

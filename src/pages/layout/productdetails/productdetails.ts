@@ -7,13 +7,6 @@ import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 
-/**
- * Generated class for the ProductdetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-productdetails',
@@ -71,10 +64,11 @@ export class ProductdetailsPage {
 
   productDetails(id) {
     this.spinnerDialog.show();
-    this.productService.getProductDetails(id).subscribe(
+    this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
-        this.proDetails = res['result'];
-        this.proDetails.totalOurPrice = this.rangeValue * this.proDetails.price;
+        this.proDetails = res['result']['productlist'];
+        console.log(this.proDetails);
+        this.proDetails.totalOurPrice = this.rangeValue * this.proDetails.unit_price;
         this.proDetails.totalMarketPrice = this.rangeValue * this.proDetails.market_price;
         this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
         console.log("Product Details ==>", this.proDetails);
@@ -96,19 +90,12 @@ export class ProductdetailsPage {
       }
     )
   }
-  // changeRangeValue(value,price) {
-  //   console.log("Now Range ==>",value);
-  //   console.log("Pro Details ==>",price);
-  //   console.log("Now Range ==>",value._value);
-  //   this.proDetails.quantity = value._value;
-  //   this.proDetails.totalPrice = value._value * price;
-  // }
 
   changeRangeValue(value, proDetailss) {
     console.log("Pro Details ==>", proDetailss);
     console.log("Now Range ==>", value._value);
     this.proDetails.quantity = value._value;
-    this.proDetails.totalOurPrice = value._value * proDetailss.price;
+    this.proDetails.totalOurPrice = value._value * proDetailss.unit_price;
     this.proDetails.totalMarketPrice = value._value * proDetailss.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
     console.log(this.proDetails.totalSavings);
@@ -175,9 +162,6 @@ export class ProductdetailsPage {
       else {
         this.navCtrl.push('CartPage');
       }
-
-
-
       console.log(this.customer_cart_data);
     }
   }
@@ -205,7 +189,6 @@ export class ProductdetailsPage {
     this.navCtrl.push('FoodvaluePage', { id: id });
   }
   gotoRecipe(id) {
-    //this.navCtrl.push('RecipelistPage');
     this.navCtrl.push('RecipelistPage', { id: id });
   }
   gotoTrivia(id) {
@@ -220,14 +203,13 @@ export class ProductdetailsPage {
       this.photos.push({
         url: this.imageBaseUrl+this.foodValueList.food_value_large,
       });
+      console.log(this.photos);
       this.spinnerDialog.hide();
-
     },
       error => { this.spinnerDialog.hide(); })
   }
 
   private openModal() {
-    this.photo = 'http://132.148.130.125/mach_mangso_more/uploads/product_images/image_small/large1549277438carrots_thumb.jpg';
     let modal = this.modalCtrl.create(GalleryModal, {
       photos: this.photos,
       initialSlide: 1, // The second image

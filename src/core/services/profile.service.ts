@@ -58,5 +58,4 @@ export class ProfileService {
     return this.http.post(environment.apiEndpoint + 'addcustomeraddress/',data)
   }
 
-
 }

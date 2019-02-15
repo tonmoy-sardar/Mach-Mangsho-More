@@ -13,25 +13,26 @@
 </ion-header>
 
 
-<ion-content padding pager="false" slidesPerView="1.2" spaceBetween="10" centeredSlides=true loop=true>
+<ion-content >
+  <button (click)="shareWhatsapp()">Whatsapp Share</button>
+  <br><br><br><br>
+  <button (click)="shareFacebook()">Facbook Share</button>
   
-  <ion-item>
-    <ion-icon item-left name="phone-portrait"></ion-icon>
-    <ion-input type="text" placeholder="Mobile no"></ion-input>
-    <ion-icon item-right name="contacts" (click)="pickContactNo()"></ion-icon>
-  </ion-item>
+  <br><br><br><br>
+  <button (click)="shareEmail()">Email Share</button>
+  <br><br><br><br>
+  <button ion-button color="danger" (click)="shareInfo()" > Share</button>
   
-  <ion-slides pager >
-    <ion-slide>
-      <h2>Slide 1</h2>
-    </ion-slide>
-
-    <ion-slide>
-      <h2>Slide 2</h2>
-    </ion-slide>
-
-    <ion-slide>
-      <h2>Slide 3</h2>
-    </ion-slide>
-</ion-slides>
+  <div id='ss_menu'>
+    <div> <i class="fa fa-facebook-official"></i> </div>
+    <div> <i class="fa fa-twitter"></i> </div>
+    <div> <i class="fa fa-linkedin"></i> </div>
+    <div> <i class="fa fa-google-plus"></i> </div>
+    <div class='menu'>
+      <div class='share' id='ss_toggle' data-rot='180'>
+        <div class='circle'></div>
+        <div class='bar'></div>
+      </div>
+    </div>
+  </div>
 </ion-content>

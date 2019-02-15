@@ -21,18 +21,18 @@ export class TriviaPage {
   triviaDetails:any=[];
   imageBaseUrl:any;
   proDetails:any={};
+  userId:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
     private spinnerDialog: SpinnerDialog,
     public productService: ProductService
-    
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl; 
-    
+    this.userId = +localStorage.getItem('userId');
   }
 
   ionViewDidLoad() {
@@ -57,7 +57,7 @@ export class TriviaPage {
 
   productDetails(id) {
     this.spinnerDialog.show();
-    this.productService.getProductDetails(id).subscribe(
+    this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
         this.proDetails = res['result'];
         console.log(this.proDetails);

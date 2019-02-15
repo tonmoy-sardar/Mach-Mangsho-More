@@ -6,6 +6,7 @@ import { Events } from 'ionic-angular';
 
 import {environment} from '../core/global';
 import {LoginService} from '../core/services/login.service';
+import {ProfileService} from '../core/services/profile.service';
 import {CartService} from '../core/services/cart.service';
 
 //import { HomePage } from '../pages/home/home';
@@ -31,7 +32,8 @@ export class MyApp {
     public loadingCtrl: LoadingController,
     public events: Events,
     public loginService:LoginService,
-    public cartService:CartService
+    public cartService:CartService,
+    public profileService:ProfileService
     ) {
     this.presentLoadingCustom();
     platform.ready().then(() => {
@@ -39,7 +41,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       splashScreen.hide();
-      this.rootPage = 'DashboarPage';
+      this.rootPage = 'DashboardPage';
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {
@@ -50,6 +52,7 @@ export class MyApp {
 
     this.imageBaseUrl = environment.imageBaseUrl;
     loginService.getLoggedInStatus.subscribe(status => this.changeStatus(status));
+    profileService.getProfileUpdateStatus.subscribe(status => this.updateStatus(status));
 
     if (sessionStorage.getItem("cart")) {
       this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
@@ -58,7 +61,20 @@ export class MyApp {
     else {
       this.totalCart = 0;
     }
+    if (localStorage.getItem('isLoggedin')) {
+      this.loggedIn = true;
+      this.userName = localStorage.getItem('userName');
+      this.userImage = localStorage.getItem('userImage');
+    }
+    else {
+      this.loggedIn = false;
+      this.userName = 'Guest';
+      this.userImage = '';
+
+    }
   }
+
+  
   presentLoadingCustom() {
     let loading = this.loadingCtrl.create({
       spinner: 'hide',
@@ -77,23 +93,24 @@ export class MyApp {
     }
   }
 
+  private updateStatus(status: boolean) {
+    if (status) {
+      this.userName = localStorage.getItem('userName');
+      this.userImage = localStorage.getItem('userImage');
+    }
+  }
+
   loadUserInfo() {
     if (localStorage.getItem('isLoggedin')) {
       this.loggedIn = true;
       this.userName = localStorage.getItem('userName');
       this.userImage = localStorage.getItem('userImage');
-      //this.userImage = this.imageBaseUrl+localStorage.getItem('userImage');
-      console.log(this.userImage);
        
     }
     else {
-      // this.authService.authState.subscribe((user) => {
-      //   this.user = user;
-      //   this.loggedIn = (user != null);
-      //   if (this.loggedIn) {
-      //     localStorage.setItem('isLoggedin', 'true');
-      //   }
-      // });
+      this.loggedIn = false;
+      this.userName = 'Guest';
+      this.userImage = '';
     }
   }
 
@@ -119,7 +136,10 @@ export class MyApp {
   }
   
   logOut() {
+    localStorage.clear();
+    this.loadUserInfo();
     this.nav.setRoot('LoginPage');
+
   }
 
 

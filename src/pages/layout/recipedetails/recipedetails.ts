@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import {environment} from '../../../core/global';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { ToastController } from 'ionic-angular';
 import { ProductService } from '../../../core/services/product.service';
 /**
  * Generated class for the RecipedetailsPage page.
@@ -26,6 +28,8 @@ export class RecipedetailsPage {
     public navParams: NavParams,
     public events: Events,
     private spinnerDialog: SpinnerDialog,
+    private toastCtrl: ToastController,
+    private socialSharing: SocialSharing,
     public productService: ProductService
   ) {
     //Header Show Hide Code 
@@ -53,6 +57,24 @@ export class RecipedetailsPage {
   }
   gotoRatePage(id) {
     this.navCtrl.push('RatingPage',{id:id});
+  }
+
+  shareInfo(recipeDetails) {
+    this.socialSharing.share(recipeDetails.blog_content, recipeDetails.blog_title, '').
+      then(() => {
+        this.presentToast("successfully Share");
+      }).catch(() => {
+        this.presentToast("Error in Share");
+      });
+  }
+
+  presentToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 
 }
