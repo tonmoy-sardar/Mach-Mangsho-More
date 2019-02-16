@@ -59,12 +59,6 @@ export class SignupPage {
       this.signupService.userSignup(this.signupForm.value).subscribe(
         res => {
           console.log(res);
-          // localStorage.setItem('isLoggedin', 'true');
-          // localStorage.setItem('userId', res['result']['id']);
-          // localStorage.setItem('userName', res['result']['name']);
-          // localStorage.setItem('userEmail', res['result']['email']);
-          // localStorage.setItem('userContact', res['result']['contact']);
-          
          // this.signupService.loginStatus(true);
           this.presentToast("Succesfully User Register");
           this.navCtrl.setRoot('LoginPage');

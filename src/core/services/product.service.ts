@@ -7,8 +7,6 @@ import { environment } from '../global';
 export class ProductService {
 
   constructor(private http: HttpClient) { }
-
-
   getCategoryList(): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productcategorylist/')
   }
@@ -61,9 +59,5 @@ export class ProductService {
   productSearch(id,keywords): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/' + id + '/'+keywords)
   }
-
-  
-  
-
 
 }

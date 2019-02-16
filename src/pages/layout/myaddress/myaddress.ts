@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Events,ToastController } from 'ionic-angular';
+import { Events, ToastController } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -31,7 +31,7 @@ export class MyaddressPage {
   total_market_price: any;
   total_market_saving: any;
   addressForm: FormGroup;
-  showAddressForm:boolean;
+  showAddressForm: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -177,7 +177,7 @@ export class MyaddressPage {
     if (this.addressForm.valid) {
       this.spinnerDialog.show();
       this.addressForm.value.customer_id = this.userId;
-      this.addressForm.value.state_id='';
+      this.addressForm.value.state_id = '';
       this.profileService.submitAddress(this.addressForm.value).subscribe(
         res => {
           this.presentToast("Address added succesfully.");

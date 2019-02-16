@@ -92,13 +92,6 @@ export class ProductlistPage {
           this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
             res => {
               this.zone.run(() => this.allProductList = res['result']['products']);
-              // console.log(res['result']['products']);
-              // this.allProductList = res['result']['products'];
-              // console.log("Product List ==>", this.allProductList);
-              // setTimeout(() => {
-              //   this.allProductList = res['result']['products'];
-              //   console.log("Product List ==>", this.allProductList);
-              // }, 3000)
             },
             error => {
             }
@@ -116,7 +109,6 @@ export class ProductlistPage {
       }
     )
   }
-
 
   gotoDetails(id) {
     this.navCtrl.push('ProductdetailsPage', { id: id });

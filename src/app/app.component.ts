@@ -1,40 +1,40 @@
-import { Component,ViewChild } from '@angular/core';
-import { Nav,Platform,MenuController,LoadingController  } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Events } from 'ionic-angular';
 
-import {environment} from '../core/global';
-import {LoginService} from '../core/services/login.service';
-import {ProfileService} from '../core/services/profile.service';
-import {CartService} from '../core/services/cart.service';
+import { environment } from '../core/global';
+import { LoginService } from '../core/services/login.service';
+import { ProfileService } from '../core/services/profile.service';
+import { CartService } from '../core/services/cart.service';
 
 //import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  loggedIn:boolean;
-  userName:string;
-  imageBaseUrl:any;
-  userImage:any;
-  totalCart:any;
+  loggedIn: boolean;
+  userName: string;
+  imageBaseUrl: any;
+  userImage: any;
+  totalCart: any;
   @ViewChild(Nav) nav: Nav;
   //rootPage:any = HomePage;
-  rootPage:any;
-  topHeaderIsHidden:any;
-  subHeaderIsHidden:any;
+  rootPage: any;
+  topHeaderIsHidden: any;
+  subHeaderIsHidden: any;
 
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
+    platform: Platform,
+    statusBar: StatusBar,
     splashScreen: SplashScreen,
     public loadingCtrl: LoadingController,
     public events: Events,
-    public loginService:LoginService,
-    public cartService:CartService,
-    public profileService:ProfileService
-    ) {
+    public loginService: LoginService,
+    public cartService: CartService,
+    public profileService: ProfileService
+  ) {
     this.presentLoadingCustom();
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -45,7 +45,7 @@ export class MyApp {
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {
-      console.log("Header Data ==>",data);
+      console.log("Header Data ==>", data);
       this.topHeaderIsHidden = data.isHeaderHidden;
       this.subHeaderIsHidden = data.isSubHeaderHidden;
     })
@@ -56,7 +56,7 @@ export class MyApp {
 
     if (sessionStorage.getItem("cart")) {
       this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
-      
+
     }
     else {
       this.totalCart = 0;
@@ -74,7 +74,6 @@ export class MyApp {
     }
   }
 
-  
   presentLoadingCustom() {
     let loading = this.loadingCtrl.create({
       spinner: 'hide',
@@ -84,9 +83,8 @@ export class MyApp {
       </div>`,
       duration: 5000
     });
-
   }
-  
+
   private changeStatus(status: boolean) {
     if (status) {
       this.loadUserInfo();
@@ -105,7 +103,6 @@ export class MyApp {
       this.loggedIn = true;
       this.userName = localStorage.getItem('userName');
       this.userImage = localStorage.getItem('userImage');
-       
     }
     else {
       this.loggedIn = false;
@@ -115,16 +112,16 @@ export class MyApp {
   }
 
   cartNumberStatus(status: boolean) {
-    if(status) {
-      if(sessionStorage.getItem("cart")) {
+    if (status) {
+      if (sessionStorage.getItem("cart")) {
         this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
       }
       else {
-        this.totalCart =0;
+        this.totalCart = 0;
       }
-      
+
     }
-    
+
   }
 
   gotoPage(page) {
@@ -134,7 +131,7 @@ export class MyApp {
   goback() {
     this.nav.pop();
   }
-  
+
   logOut() {
     localStorage.clear();
     this.loadUserInfo();
@@ -142,7 +139,5 @@ export class MyApp {
 
   }
 
-
-  
 }
 

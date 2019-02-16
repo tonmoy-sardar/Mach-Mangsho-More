@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-import {environment} from '../../../core/global';
+import { environment } from '../../../core/global';
 import { CartService } from '../../../core/services/cart.service';
 import { ProfileService } from '../../../core/services/profile.service';
 
@@ -20,26 +20,26 @@ import { ProfileService } from '../../../core/services/profile.service';
   templateUrl: 'cart.html',
 })
 export class CartPage {
-  userId:any;
-  customer_cart_data:any=[];
-  all_cart_data:any;
+  userId: any;
+  customer_cart_data: any = [];
+  all_cart_data: any;
   total_item_price: any;
   total_packing_price: any;
   total_price: any;
-  imageBaseUrl:any;
-  total_market_price:any;
-  total_market_saving:any;
-  profileDetails:any={};
+  imageBaseUrl: any;
+  total_market_price: any;
+  total_market_saving: any;
+  profileDetails: any = {};
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
     public cartService: CartService,
-    public profileService:ProfileService,
-    public alertCtrl:AlertController
+    public profileService: ProfileService,
+    public alertCtrl: AlertController
   ) {
-    events.publish('hideHeader', { isHeaderHidden: false,isSubHeaderHidden: false}); // For Show- hide Header
-    this.imageBaseUrl = environment.imageBaseUrl;  
+    events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false }); // For Show- hide Header
+    this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
   }
 
@@ -61,10 +61,8 @@ export class CartPage {
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
       console.log(this.all_cart_data);
-     this.customer_cart_data = this.all_cart_data;
-     //this.customer_cart_data.length =1;
-     
-     
+      this.customer_cart_data = this.all_cart_data;
+      //this.customer_cart_data.length =1;
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
@@ -76,118 +74,94 @@ export class CartPage {
 
   increment(i) {
     var qty = this.customer_cart_data[i].quantity;
-     this.customer_cart_data[i].quantity = qty + 1;
+    this.customer_cart_data[i].quantity = qty + 1;
     //var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.package_id == this.customer_cart_data[i].package_id);
     var index = this.all_cart_data.findIndex(x => x.product_id == this.customer_cart_data[i].product_id);
     if (index != -1) {
       this.all_cart_data[index].quantity = qty + 1;
       this.setCartData()
     }
-
-   // this.cartService.cartNumberStatus(true);
   }
 
-//   decrement(i) {
-//     var qty = this.customer_cart_data[i].quantity;
-//     if (qty > 1) {
-//       this.customer_cart_data[i].quantity = qty - 1;
-//       //var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id &&  x.package_id == this.customer_cart_data[i].package_id);
-//       var index = this.all_cart_data.findIndex(x => x.product_id == this.customer_cart_data[i].product_id);
-//       if (index != -1) {
-//         this.all_cart_data[index].quantity = qty - 1;
-//         this.setCartData()
-//       }
-//     }
-//     else {
-//       this.remove(this.customer_cart_data[i].product_id)
-//     }
+  setCartData() {
+    console.log(this.all_cart_data);
+    sessionStorage.setItem("cart", JSON.stringify(this.all_cart_data));
+    this.getTotalItemPrice();
+    this.getTotalPackingPrice();
+  }
 
-// }
-
-
-setCartData() {
-  console.log(this.all_cart_data);
-  sessionStorage.setItem("cart", JSON.stringify(this.all_cart_data));
-  this.getTotalItemPrice();
-  this.getTotalPackingPrice();
-}
-
-getTotalItemPrice() {
-  this.total_item_price = 0;
-  this.total_market_price =0;
-  this.total_market_saving =0
-  console.log(this.customer_cart_data);
-  this.customer_cart_data.forEach(x => {
-    if (x.discounted_price > 0) {
-      this.total_item_price += (x.discounted_price * x.quantity);
-      this.total_market_price += x.totalMarketPrice;
-      this.total_market_saving += x.totalSavings;
-      console.log(this.total_item_price);
-     
-    }
-    else {
-      console.log("zz",x);
-      this.total_item_price += (x.price * x.quantity);
-      this.total_market_price += x.totalMarketPrice;
-      this.total_market_saving += x.totalSavings;
-     
-    }
-  })
-}
-
-getTotalPackingPrice() {
-  this.total_packing_price = 0;
-  this.customer_cart_data.forEach(x => {
-    this.total_packing_price += x.packing_charges;
-  })
-}
-
-removeCart(id) {
-  let alert = this.alertCtrl.create({
-    title: 'Confirm Remove',
-    message: 'Do you want to remove?',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Remove',
-        handler: () => {
-          console.log('Buy clicked');
-          // var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.package_id == id);
-          var index = this.all_cart_data.findIndex(x => x.product_id == id);
-          if (index != -1) {
-            //this.all_cart_data.splice(index, 1);
-            this.customer_cart_data.splice(index, 1);
-            this.setCartData()
-          }
-          this.cartService.cartNumberStatus(true);
-   // this.populateData()
-        }
+  getTotalItemPrice() {
+    this.total_item_price = 0;
+    this.total_market_price = 0;
+    this.total_market_saving = 0
+    console.log(this.customer_cart_data);
+    this.customer_cart_data.forEach(x => {
+      if (x.discounted_price > 0) {
+        this.total_item_price += (x.discounted_price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+        console.log(this.total_item_price);
       }
-    ]
-  });
-  alert.present();
+      else {
+        console.log("zz", x);
+        this.total_item_price += (x.price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+      }
+    })
   }
-  
 
-presentConfirm() {
-  
-}
+  getTotalPackingPrice() {
+    this.total_packing_price = 0;
+    this.customer_cart_data.forEach(x => {
+      this.total_packing_price += x.packing_charges;
+    })
+  }
 
-getProfileDetails(id) {
-  this.profileService.getProfile(id).subscribe(
-    res => {
-     this.profileDetails = res['result'];
-     console.log("Profile Details ==>", this.profileDetails);
-    },
-    error => {
-    }
-  )
-}
+  removeCart(id) {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Remove',
+      message: 'Do you want to remove?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            console.log('Buy clicked');
+            // var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.package_id == id);
+            var index = this.all_cart_data.findIndex(x => x.product_id == id);
+            if (index != -1) {
+              //this.all_cart_data.splice(index, 1);
+              this.customer_cart_data.splice(index, 1);
+              this.setCartData()
+            }
+            this.cartService.cartNumberStatus(true);
+            // this.populateData()
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  presentConfirm() {
+
+  }
+
+  getProfileDetails(id) {
+    this.profileService.getProfile(id).subscribe(
+      res => {
+        this.profileDetails = res['result'];
+        console.log("Profile Details ==>", this.profileDetails);
+      },
+      error => {
+      }
+    )
+  }
 
 }

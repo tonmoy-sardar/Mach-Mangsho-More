@@ -54,10 +54,10 @@
                 <ion-row *ngFor="let product of productList; let i = index">
                     <ion-col col-3>
                         <ion-list no-lines>
-                                
-                                <img
+
+                            <img
                                 [src]="product.product_image_small != '' && imageBaseUrl+ product.product_image_small || 'assets/imgs/no-image.png'">
-                       
+
                         </ion-list>
                     </ion-col>
                     <ion-col col-3>
@@ -81,15 +81,15 @@
                         <ion-list no-lines>Manch Mangsho More</ion-list>
                         <ion-list no-lines>
                             Payment Mode
-                                <p *ngIf="orderDetails.is_paid==0">Pending</p>
-                                <p *ngIf="orderDetails.is_paid==1">Paid</p>
-                                <p *ngIf="orderDetails.is_paid==2">Cancel</p>
+                            <p *ngIf="orderDetails.is_paid==0">Pending</p>
+                            <p *ngIf="orderDetails.is_paid==1">Paid</p>
+                            <p *ngIf="orderDetails.is_paid==2">Cancel</p>
                         </ion-list>
-                     
+
                     </ion-col>
                     <ion-col col-6>
                         <ion-list no-lines>Delivery <span> 0 </span> </ion-list>
-                        <ion-list no-lines>Total <span>{{orderDetails.total_price}}  </span> </ion-list>
+                        <ion-list no-lines>Total <span>{{orderDetails.total_price}} </span> </ion-list>
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -99,8 +99,8 @@
 
 </ion-content>
 <ion-footer>
-        <ion-toolbar>
-                <button ion-button round>Continue</button>
-                <button ion-button round (click)="goBack()">Back</button>
-        </ion-toolbar>
-      </ion-footer>
+    <ion-toolbar>
+        <button ion-button round>Continue</button>
+        <button ion-button round (click)="goBack()">Back</button>
+    </ion-toolbar>
+</ion-footer>

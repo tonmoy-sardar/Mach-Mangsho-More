@@ -8,7 +8,6 @@ export class ProfileService {
   @Output() getProfileUpdateStatus: EventEmitter<any> = new EventEmitter();
   constructor(private http: HttpClient) { }
 
-
   getProfile(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'userprofile/' + id + '/')
   }
@@ -18,27 +17,10 @@ export class ProfileService {
   }
 
   updateUserImage(id, option): Observable<any> {
-    // console.log(body);
     console.log(option)
     console.log(environment.apiEndpoint + 'userprofileimageupdate/' + id);
     return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
   }
-
-  // updatemyProfile(id,profileImage,data): Observable<any> {
-  //  // return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, data)
-  //  const formData: FormData = new FormData();
-  //  if (data) {
-  //    for (let key in data) {
-  //        formData.append(key, data[key])
-  //    }
-  //    if(profileImage) { 
-  //      formData.append('profile_image', profileImage, profileImage.name);
-  //    }
-
-  //    console.log(formData);
-  //  }
-  //  return this.http.post(environment.apiEndpoint + 'userUpdate/'+id, formData)
-  // }
 
   updateProfileStatus(data): Observable<any> {
     if (data = true) {
@@ -55,7 +37,7 @@ export class ProfileService {
     return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
   }
   submitAddress(data): Observable<any> {
-    return this.http.post(environment.apiEndpoint + 'addcustomeraddress/',data)
+    return this.http.post(environment.apiEndpoint + 'addcustomeraddress/', data)
   }
 
 }

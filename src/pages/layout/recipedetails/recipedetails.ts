@@ -5,6 +5,7 @@ import {environment} from '../../../core/global';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ToastController } from 'ionic-angular';
+import {DomSanitizer} from '@angular/platform-browser';
 import { ProductService } from '../../../core/services/product.service';
 /**
  * Generated class for the RecipedetailsPage page.
@@ -23,6 +24,7 @@ export class RecipedetailsPage {
   imageBaseUrl:any;
   recipeBannerImage:any;
 
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,6 +32,7 @@ export class RecipedetailsPage {
     private spinnerDialog: SpinnerDialog,
     private toastCtrl: ToastController,
     private socialSharing: SocialSharing,
+    private domSanitizer: DomSanitizer,
     public productService: ProductService
   ) {
     //Header Show Hide Code 
@@ -60,6 +63,7 @@ export class RecipedetailsPage {
   }
 
   shareInfo(recipeDetails) {
+
     this.socialSharing.share(recipeDetails.blog_content, recipeDetails.blog_title, '').
       then(() => {
         this.presentToast("successfully Share");

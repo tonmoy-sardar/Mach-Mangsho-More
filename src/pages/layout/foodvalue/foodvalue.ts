@@ -41,10 +41,6 @@ export class FoodvaluePage {
     this.productService.getFoodValue(id).subscribe(
       res => {
        this.foodValue = res['result'];
-      //  const options: DocumentViewerOptions = {
-      //   title: 'My PDF'
-      // }
-      //  this.document.viewDocument('assets/myFile.pdf', 'application/pdf', options)
        console.log("Food Value ==>", this.foodValue);
        
       },

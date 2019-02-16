@@ -1,38 +1,3 @@
-<!--
-  Generated template for the DashboardPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!-- <ion-header>
-  <ion-navbar no-border-bottom style="background-color:none">
-    <button class="top-header-button">Help</button>
-    <ion-buttons end>
-      <button ion-button icon-only color="light">
-        <i class="fa fa-shopping-bag fa-2x "></i>
-      </button>
-      <button class="top-header-button" (click)="gotoProfile()">My Profile</button>
-    </ion-buttons>
-  </ion-navbar>
-
-  <ion-toolbar class="sub-header">
-    <ion-icon name="ios-arrow-back-outline" class="sub-header-back"></ion-icon>
-    <ion-buttons end>
-      <button ion-button menuToggle color="light" class="sub-header-menu">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>  -->
-
-<!-- <ion-header>
-  <ion-navbar no-border-bottom style="background-color:none">
-    <button ion-button menuToggle color="light">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  </ion-navbar>
-</ion-header> -->
-
 
 <ion-content padding class="no-scroll dashboard-page">
   <div class="logo">
@@ -40,17 +5,7 @@
   </div>
   <div class="dashboard-body">
     <img src="assets/imgs/women1.png">
-    <!-- <button *ngIf="showCat==1" class="cat-more" (click)="moreCategory()"><span>More</span></button>
-     <ul class="product-vertical-menu">
-      <li (click)="goToProList(category.id,category.name)" *ngFor="let category of categoryList; let i = index">
-
-        <img [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
-
-      </li>
-    </ul> 
-    
-    <button *ngIf="showCat==2" class="cat-less" (click)="lessCategory()"><span>Back</span></button> -->
-    <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
+   <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
     <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button>
   </div>
   <button class="footer-bottom-right"><span>Order</span></button>
@@ -59,12 +14,6 @@
         <img (click)="goToProList(category.id,category.name)"
           [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
       </div>
-      <!-- <div class='menu'>
-        <div class='share' id='ss_toggle' data-rot='180'>
-          <div class='circle'></div>
-          <div class='bar'></div>
-        </div>
-      </div> -->
     </div>
 
 </ion-content>

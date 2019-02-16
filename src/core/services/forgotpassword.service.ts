@@ -10,8 +10,7 @@ export class ForgotpasswordService {
     private http: HttpClient
   ) {
   }
-
-
+  
   userForgotPassword(data): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'userforgetpasswordotp/', data)
   }

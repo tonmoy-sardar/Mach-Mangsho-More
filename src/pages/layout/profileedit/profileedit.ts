@@ -45,7 +45,7 @@ export class ProfileeditPage {
   imageFileName: any;
   user_image: any
   loading: any;
-  apiUrl:any;
+  apiUrl: any;
 
 
 
@@ -60,10 +60,10 @@ export class ProfileeditPage {
     // private file: File,
     // private filePath: FilePath,
     // public actionSheetCtrl: ActionSheetController,
-    private camera: Camera, 
-    private transfer: Transfer, 
-    private file: File, 
-    private filePath: FilePath, 
+    private camera: Camera,
+    private transfer: Transfer,
+    private file: File,
+    private filePath: FilePath,
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
@@ -109,8 +109,8 @@ export class ProfileeditPage {
         console.log("Profile Details ==>", this.profileDetails);
         this.getProfileDetails(this.userId);
         this.isShowId = 0;
-         localStorage.setItem('userName', this.profileDetails.name);
-    this.profileService.updateProfileStatus(true);
+        localStorage.setItem('userName', this.profileDetails.name);
+        this.profileService.updateProfileStatus(true);
       },
       error => {
       }
@@ -151,7 +151,7 @@ export class ProfileeditPage {
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
-   
+
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
@@ -173,73 +173,73 @@ export class ProfileeditPage {
   }
 
   // Create a new name for the image
-private createFileName() {
-  var d = new Date(),
-  n = d.getTime(),
-  newFileName =  n + ".jpg";
-  return newFileName;
-}
- 
-// Copy the image to a local folder
-private copyFileToLocalDir(namePath, currentName, newFileName) {
-  this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-    this.lastImage = newFileName;
-
-    this.uploadImage();
-  }, error => {
-    this.presentToast('Error while storing file.');
-  });
-}
- 
-private presentToast(text) {
-  let toast = this.toastCtrl.create({
-    message: text,
-    duration: 3000,
-    position: 'top'
-  });
-  toast.present();
-}
- 
-// Always get the accurate path to your apps folder
-public pathForImage(img) {
-  if (img === null) {
-    return '';
-  } else {
-    return cordova.file.dataDirectory + img;
+  private createFileName() {
+    var d = new Date(),
+      n = d.getTime(),
+      newFileName = n + ".jpg";
+    return newFileName;
   }
-}
 
-public uploadImage() {
-  // File for Upload
-  var targetPath = this.pathForImage(this.lastImage);
-  // File name only
-  var filename = this.lastImage;
-  var options = {
-    fileKey: "profile_image",
-    fileName: filename,
-    chunkedMode: false,
-    mimeType: "multipart/form-data",
-    params : {'fileName': filename}
-  };
- 
-  const fileTransfer: TransferObject = this.transfer.create();
-  this.loading = this.loadingCtrl.create({
-    content: 'Uploading...',
-  });
-  this.loading.present();
-  // Use the FileTransfer to upload the image
-  fileTransfer.upload(targetPath, this.apiUrl+'userprofileimageupdate/'+this.userId, options).then(data => {
-    this.loading.dismissAll()
-    this.presentToast('Image succesful uploaded.');
-    var userUpdateImg = JSON.parse(data.response);
-    localStorage.setItem('userImage', userUpdateImg.result.profile_image);
-    this.profileService.updateProfileStatus(true);
-    this.getProfileDetails(this.userId);
-  }, err => {
-    this.loading.dismissAll()
-    this.presentToast('Error while uploading file.');
-  });
-}
+  // Copy the image to a local folder
+  private copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+      this.lastImage = newFileName;
+
+      this.uploadImage();
+    }, error => {
+      this.presentToast('Error while storing file.');
+    });
+  }
+
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  // Always get the accurate path to your apps folder
+  public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
+  }
+
+  public uploadImage() {
+    // File for Upload
+    var targetPath = this.pathForImage(this.lastImage);
+    // File name only
+    var filename = this.lastImage;
+    var options = {
+      fileKey: "profile_image",
+      fileName: filename,
+      chunkedMode: false,
+      mimeType: "multipart/form-data",
+      params: { 'fileName': filename }
+    };
+
+    const fileTransfer: TransferObject = this.transfer.create();
+    this.loading = this.loadingCtrl.create({
+      content: 'Uploading...',
+    });
+    this.loading.present();
+    // Use the FileTransfer to upload the image
+    fileTransfer.upload(targetPath, this.apiUrl + 'userprofileimageupdate/' + this.userId, options).then(data => {
+      this.loading.dismissAll()
+      this.presentToast('Image succesful uploaded.');
+      var userUpdateImg = JSON.parse(data.response);
+      localStorage.setItem('userImage', userUpdateImg.result.profile_image);
+      this.profileService.updateProfileStatus(true);
+      this.getProfileDetails(this.userId);
+    }, err => {
+      this.loading.dismissAll()
+      this.presentToast('Error while uploading file.');
+    });
+  }
 
 
 }

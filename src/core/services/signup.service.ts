@@ -21,17 +21,8 @@ export class SignupService {
     }
   }
 
-  // userLogin(data): Observable<any> {
-  //   return this.http.post(environment.apiEndpoint + 'userlogin/', data)
-  // }
-
   userSignup(data): Observable<any> {
     console.log(data);
     return this.http.post(environment.apiEndpoint + 'userregister/', data)
   }
-
-  // userForgotPassword(data): Observable<any> {
-  //   return this.http.post(environment.apiEndpoint + 'userresetpasswordlinksend/', data)
-  // }
-
 }
