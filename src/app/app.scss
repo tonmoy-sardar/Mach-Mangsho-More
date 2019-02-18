@@ -486,5 +486,38 @@ button.btn-menu {
     margin: 0;
     background: none;
     color: #ff0000;
-    font-size: 11px;
+    font-size: 12px;
+}
+ion-input, ion-textarea
+{
+    border-bottom: 1px solid #1a87fe;
+}
+
+.is-invalid
+{
+    border-bottom: 1px solid #ff0000;
+}
+
+
+.entry-form-body {
+    border: 1px solid #000;
+    border-radius: 15px;
+    background: #94D8E3;
+}
+.form-body {
+    background: #ffffff;
+    margin-top:15px;
+    width:85%;
+    margin:0 auto;
+}
+.text-center {
+    text-align: center;
+}
+.entry-form-title {
+    text-align: center;
+    padding:20px 0px 10px 0px
+}
+.entry-bottom {
+    width:90%;
+    margin:0 auto;
 }

@@ -65,7 +65,6 @@ export class LoginPage {
       this.spinnerDialog.show();
       this.loginService.userLogin(this.loginForm.value).subscribe(
         res => {
-          console.log("Signin Result ==>",res);
           localStorage.setItem('isLoggedin', 'true');
           localStorage.setItem('userId', res['result']['id']);
           localStorage.setItem('userName', res['result']['name']);
@@ -100,14 +99,14 @@ export class LoginPage {
     });
   }
 
-  isFieldValid(form: FormGroup, field: string) {
-    return !form.get(field).valid && (form.get(field).dirty || form.get(field).touched);
+  isFieldValid(field: string) {
+    return !this.loginForm.get(field).valid && (this.loginForm.get(field).dirty || this.loginForm.get(field).touched);
   }
 
-  displayFieldCss(form: FormGroup, field: string) {
+  displayFieldCss(field: string) {
     return {
-      'is-invalid': form.get(field).invalid && (form.get(field).dirty || form.get(field).touched),
-      'is-valid': form.get(field).valid && (form.get(field).dirty || form.get(field).touched)
+      'is-invalid': this.loginForm.get(field).invalid && (this.loginForm.get(field).dirty || this.loginForm.get(field).touched),
+      'is-valid': this.loginForm.get(field).valid && (this.loginForm.get(field).dirty || this.loginForm.get(field).touched)
     };
   }
 

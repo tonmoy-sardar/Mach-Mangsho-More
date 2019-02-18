@@ -24,7 +24,7 @@ export class ForgotPasswordPage {
   contactNumber: any;
   lastFourNumber: number;
   getResult: any = {};
-  useContactEmail: any;
+  useContactEmail;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,6 +39,7 @@ export class ForgotPasswordPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgotPasswordPage');
+    
 
   }
   gotoSignin() {
@@ -46,8 +47,9 @@ export class ForgotPasswordPage {
   }
   resetPassword(data) {
     this.useContactEmail = data.contact_or_email;
-    console.log(data);
-    if (data != "") {
+   
+    if (this.useContactEmail!= undefined) {
+      
       this.forgotpasswordService.userForgotPassword(data).subscribe(
         res => {
           console.log("Forgot Result", res);
@@ -62,6 +64,7 @@ export class ForgotPasswordPage {
         }
       )
     } else {
+      console.log("Forgot Result");
       this.presentToast("Please check your contact number");
     }
 
@@ -121,5 +124,6 @@ export class ForgotPasswordPage {
     });
     toast.present();
   }
+
 
 }

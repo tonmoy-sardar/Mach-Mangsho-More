@@ -8,7 +8,6 @@ import { SocialSharing } from '@ionic-native/social-sharing';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-// var cordova = window.cordova;
 @IonicPage()
 @Component({
   selector: 'page-test',
