@@ -8,34 +8,35 @@
 <ion-content fullscreen>
   <div class="profile-banner">
     <div class="profile-pic">
-      <img [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
+      <img
+        [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
     </div>
-    <div class="centerize">
+    <!-- <div class="centerize">
         <a ion-button round>Photo</a>
-      </div>
+      </div> -->
   </div>
   <div class="profile-view-body">
-  
 
-  <ion-card>
+
+    <ion-card>
       <h3>Name</h3>
-    <ion-item>
-     {{profileDetails.name}}
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        {{profileDetails.name}}
+      </ion-item>
+    </ion-card>
 
-  <ion-card >
+    <ion-card>
       <h3>Email</h3>
-    <ion-item>
-      {{profileDetails.email}}
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        {{profileDetails.email}}
+      </ion-item>
+    </ion-card>
 
-  <ion-card >
+    <ion-card>
       <h3>Contact Number</h3>
-    <ion-item>
+      <ion-item>
         {{profileDetails.contact}}
-    </ion-item>
-  </ion-card>
-</div>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

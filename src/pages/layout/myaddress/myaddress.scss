@@ -41,4 +41,12 @@ page-myaddress {
         font-size: 14px;
         //padding: 15px;
     }
+    .error-msg {
+        color: #ff0000 !important;
+        text-align: center;
+    }
+    .success-msg {
+        color: #008a00 !important;
+        text-align: center;
+    }
 }

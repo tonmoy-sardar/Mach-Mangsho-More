@@ -33,6 +33,10 @@ export class MyaddressPage {
   addressForm: FormGroup;
   showAddressForm: boolean;
   pinCheckForm: FormGroup;
+  pincode:number;
+  deliverySlot :any=[];
+  isAvailable:number;
+  isActive:any;
 
   constructor(
     public navCtrl: NavController,
@@ -52,6 +56,9 @@ export class MyaddressPage {
       address: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
+    });
+    this.pinCheckForm = this.formBuilder.group({
+      pincheck: ["", Validators.required],
     });
 
     // this.Form = this.formBuilder.group({
@@ -145,8 +152,25 @@ export class MyaddressPage {
       }
     )
   }
-  gotoPage() {
-    this.navCtrl.push('DeliveryslotPage');
+  checkAvailability(i,pinCode) {
+    this.profileService.getPinCode(pinCode).subscribe(
+      res => {
+        this.deliverySlot = res['result'];
+        this.isAvailable = res['result'].length;    
+        this.spinnerDialog.hide();
+        if(this.isAvailable >0) {
+          this.navCtrl.push('DeliveryslotPage');
+        }
+        else {
+          this.isActive = i;
+        }
+      },
+      error => {
+        this.deliverySlot = [];
+        this.isAvailable = 0;
+        this.spinnerDialog.hide();
+      }
+    )
   }
 
 
@@ -159,27 +183,6 @@ export class MyaddressPage {
     });
   }
 
-
-  isFieldValid(field: string) {
-    return !this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched);
-  }
-
-  displayFieldCss(field: string) {
-    console.log(this.addressForm)
-    console.log(field)
-    return {
-      'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
-      'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
-    };
-  }
-  presentToast(msg) {
-    const toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
 
   submitAddress() {
     if (this.addressForm.valid) {
@@ -204,5 +207,65 @@ export class MyaddressPage {
       this.markFormGroupTouched(this.addressForm)
     }
   }
+
+  checkPinCode() {
+    if (this.pinCheckForm.valid) {
+      this.spinnerDialog.show();
+      console.log(this.pinCheckForm.value);
+      this.pincode = this.pinCheckForm.value.pincheck;
+      this.profileService.getPinCode(this.pincode).subscribe(
+        res => {
+          console.log(res);
+         // this.deliverySlot = res['result'];
+          this.isAvailable = res['result'].length;    
+          this.spinnerDialog.hide();
+          
+          this.spinnerDialog.hide();
+        },
+        error => {
+          this.presentToast("Please enter valid login credentials");
+          console.log(error);
+          this.spinnerDialog.hide();
+        }
+      )
+    } else {
+      this.markFormGroupTouched(this.pinCheckForm)
+    }
+  }
+
+
+
+  isFieldValid(field: string) {
+    return !this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched);
+  }
+
+  displayFieldCss(field: string) {
+    console.log(this.addressForm)
+    console.log(field)
+    return {
+      'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
+      'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
+    };
+  }
+
+  isFieldValidPinCheck(field: string) {
+    return !this.pinCheckForm.get(field).valid && (this.pinCheckForm.get(field).dirty || this.pinCheckForm.get(field).touched);
+  }
+
+  displayFieldCssPinCheck(field: string) {
+    return {
+      'is-invalid': this.pinCheckForm.get(field).invalid && (this.pinCheckForm.get(field).dirty || this.pinCheckForm.get(field).touched),
+      'is-valid': this.pinCheckForm.get(field).valid && (this.pinCheckForm.get(field).dirty || this.pinCheckForm.get(field).touched)
+    };
+  }
+  presentToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
 
 }

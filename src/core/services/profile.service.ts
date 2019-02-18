@@ -40,4 +40,9 @@ export class ProfileService {
     return this.http.post(environment.apiEndpoint + 'addcustomeraddress/', data)
   }
 
+  getPinCode(pincode): Observable<any> {
+    console.log(pincode);
+    return this.http.get(environment.apiEndpoint + 'deliverslotbypincode/' + pincode + '/')
+  }
+
 }

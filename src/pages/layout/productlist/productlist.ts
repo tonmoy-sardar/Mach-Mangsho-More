@@ -72,6 +72,7 @@ export class ProductlistPage {
     this.productService.getProductList(id,user_id).subscribe(
       res => {
         this.allProductList = res['result'];
+        
         console.log("Product List123 ==>", this.allProductList);
         this.spinnerDialog.hide();
       },

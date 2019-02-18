@@ -31,7 +31,7 @@
                         <ion-list>Rate :<span> {{proDetails.unit_price}}</span></ion-list>
 
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-3>
                         <ion-list>
                             <ion-item class="pro-range-slider">
                                
@@ -40,9 +40,9 @@
                         </ion-list>
 
                     </ion-col>
-                    <ion-col col-4 class="pro-btn">
+                    <ion-col col-5 class="pro-btn">
 
-                        <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Cart</button>
+                        <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Add to Cart</button>
                         <button (click)="RemoveCart(proDetails)" *ngIf="proDetails.isCart">Remove</button>
                         <button (click)="buyNow(proDetails)">Buy</button>
 
