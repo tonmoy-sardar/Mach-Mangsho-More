@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ForgotpasswordService } from '../../core/services/forgotpassword.service';
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -30,6 +31,7 @@ export class ForgotPasswordPage {
     public navParams: NavParams,
     public events: Events,
     private toastCtrl: ToastController,
+    private spinnerDialog: SpinnerDialog,
     public forgotpasswordService: ForgotpasswordService
   ) {
     this.isShow = 0;
@@ -49,16 +51,18 @@ export class ForgotPasswordPage {
     this.useContactEmail = data.contact_or_email;
    
     if (this.useContactEmail!= undefined) {
-      
+      this.spinnerDialog.show();
       this.forgotpasswordService.userForgotPassword(data).subscribe(
         res => {
           console.log("Forgot Result", res);
           this.isShow = 1;
           this.newOtp = res['result']['otp'];
           this.getResult = res['result'];
+          this.spinnerDialog.hide();
         },
         error => {
           this.presentToast("Please check your contact number");
+          this.spinnerDialog.hide();
           console.log(error);
 
         }
@@ -73,25 +77,30 @@ export class ForgotPasswordPage {
   matchOtp(data) {
     console.log(data);
     if (data != "") {
+      this.spinnerDialog.show();
       console.log(this.newOtp);
       console.log(btoa(data.otp));
       if (this.newOtp == btoa(data.otp)) {
 
         this.otpVerified = 1;
         this.isShow = 2;
+        this.spinnerDialog.hide();
       }
       else {
         this.presentToast("OTP mismatch");
+        this.spinnerDialog.hide();
+
       }
     } else {
       this.presentToast("Please Enter OTP");
+      this.spinnerDialog.hide();
     }
   }
 
   updatePassword(data) {
     console.log(data);
     if (data.newpass == data.confpass) {
-
+      this.spinnerDialog.show();
       data.otp_verified = 1;
       data.password = data.newpass;
       data.contact_or_email = this.useContactEmail;
@@ -103,16 +112,19 @@ export class ForgotPasswordPage {
           console.log("Update Result", res);
           this.isShow = 0;
           this.navCtrl.setRoot('LoginPage');
+          this.spinnerDialog.hide();
 
         },
         error => {
           this.presentToast("Error in update password");
           console.log(error);
+          this.spinnerDialog.hide();
 
         }
       )
     } else {
       this.presentToast("New & Confirm Password should be same");
+      this.spinnerDialog.hide();
     }
   }
 

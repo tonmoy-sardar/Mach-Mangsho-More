@@ -50,7 +50,7 @@
     <div class="delivery-slot">
       <h3>Choose Preferred Delivery Slot</h3>
      
-      <ion-card *ngFor="let myAddress of allAddressList; let i = index" (click)="checkAvailability(i,myAddress.pincode)">
+      <ion-card *ngFor="let myAddress of allAddressList; let i = index" (click)="checkAvailability(i,myAddress.id,myAddress.pincode)">
         <ion-item><span>Saved Address </span> <span class="address-type">{{myAddress.type}}</span></ion-item>
         <ion-item>
           <p>{{myAddress.address}} , {{myAddress.pincode}}</p>
@@ -60,18 +60,13 @@
       
       <ion-card class="new-address">
         <ion-item>
-          <a>Check Pin Code</a>
+          <a>Check Availability</a>
         </ion-item>
         <form [formGroup]="pinCheckForm" novalidate novalidate>
           <ion-grid>
-              <ion-row>
-                  <ion-col col-12>
-                    <ion-label>Pin Code</ion-label>
-                    </ion-col>
-              </ion-row>
             <ion-row>
               <ion-col col-6>
-                <ion-input type="text" formControlName="pincheck" name="pincheck" [ngClass]="displayFieldCssPinCheck('pincheck')">
+                <ion-input type="text" formControlName="pincheck" placeholder="Pin Code" name="pincheck" [ngClass]="displayFieldCssPinCheck('pincheck')">
                 </ion-input>
                 <span class="error-msg" *ngIf="isFieldValidPinCheck('pincheck')">Please enter a pincode.</span>
               </ion-col>
