@@ -9,10 +9,37 @@
         <img src="assets/imgs/logo.png" alt="Ionic logo">
     </div>
 
-    <div class="signup-form-body">
-        <ion-title><h3 class="signup-form-title">Signup Page</h3></ion-title>
+    <div class="entry-form-body">
+        <ion-title><h3 class="entry-form-title">Signup Page</h3></ion-title>
       <form [formGroup]="signupForm" novalidate (submit)="signUp()">
-      <ion-list class="signup-body">
+
+          <ion-grid class="form-body">
+              <ion-row>
+                  <ion-col col-12>
+                      <ion-input type="text"  name="name" formControlName="name" [ngClass]="displayFieldCss('name')" placeholder="Name"></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('name')">Please enter a Name.</span>
+                  </ion-col>
+                  <ion-col col-12>
+                      <ion-input type="email"  name="email" formControlName="email" [ngClass]="displayFieldCss('email')" placeholder="Email"></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('email')">Please enter a valid Email.</span>
+                  </ion-col>
+                  <ion-col col-12>
+                      <ion-input type="tel" pattern="[0-9]*" maxLength="10"  name="contact" formControlName="contact" [ngClass]="displayFieldCss('contact')" placeholder="Contact" ></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('contact')">Please enter a Contact.</span>
+                  </ion-col>
+                  <ion-col col-12>
+                      <ion-input type="password" name="password" formControlName="password" [ngClass]="displayFieldCss('password')" placeholder="Password"></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('password')">Please enter a Password.</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row responsive-sm class="entry-bottom">
+                      <ion-col class="pl-0 pr-0">
+                          <button ion-button color="primary" block >Sign Up</button>
+                      </ion-col>
+                  </ion-row>
+          </ion-grid>
+
+      <!-- <ion-list class="signup-body">
           <ion-item class="mb-1">
               <ion-input type="text"  name="name" formControlName="name" [ngClass]="displayFieldCss(signupForm,'name')" placeholder="Name"></ion-input>
             </ion-item>
@@ -32,7 +59,7 @@
         <ion-col class="pl-0 pr-0">
           <button ion-button color="primary" block>Sign Up</button>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       </form>
      
       <p class="text-center not-member" (click)="gotoSignin()"> Existing User? <span class="creat">Login</span> </p>

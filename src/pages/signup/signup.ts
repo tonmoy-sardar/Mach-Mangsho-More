@@ -21,6 +21,7 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 export class SignupPage {
   isShowHeader:number;
   signupForm: FormGroup;
+  contact;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,8 +36,15 @@ export class SignupPage {
 
       this.signupForm = this.formBuilder.group({
         name: ["",Validators.required],
-        email: ["",Validators.required],
-        contact: ["",Validators.required],
+        email: ["",[
+          Validators.required,
+          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+        ]],
+        contact: ["", [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10)
+        ]],
         password: ["", Validators.required]
       });
   }
@@ -85,14 +93,14 @@ export class SignupPage {
     });
   }
 
-  isFieldValid(form: FormGroup, field: string) {
-    return !form.get(field).valid && (form.get(field).dirty || form.get(field).touched);
+  isFieldValid(field: string) {
+    return !this.signupForm.get(field).valid && (this.signupForm.get(field).dirty || this.signupForm.get(field).touched);
   }
 
-  displayFieldCss(form: FormGroup, field: string) {
+  displayFieldCss(field: string) {
     return {
-      'is-invalid': form.get(field).invalid && (form.get(field).dirty || form.get(field).touched),
-      'is-valid': form.get(field).valid && (form.get(field).dirty || form.get(field).touched)
+      'is-invalid': this.signupForm.get(field).invalid && (this.signupForm.get(field).dirty || this.signupForm.get(field).touched),
+      'is-valid': this.signupForm.get(field).valid && (this.signupForm.get(field).dirty || this.signupForm.get(field).touched)
     };
   }
 
