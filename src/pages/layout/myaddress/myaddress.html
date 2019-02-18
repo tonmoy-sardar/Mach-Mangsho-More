@@ -16,9 +16,9 @@
         </ion-col>
         <ion-col col-4>
           <ion-list no-lines>{{profileDetails.name}}</ion-list>
-          <ion-list no-lines>Date <small>
+          <!-- <ion-list no-lines>Date <small>
               <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
-            </small> </ion-list>
+            </small> </ion-list> -->
         </ion-col>
         <ion-col col-5>
           <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
@@ -55,6 +55,16 @@
           <p>{{myAddress.address}} , {{myAddress.pincode}}</p>
         </ion-item>
       </ion-card>
+
+      <ion-card class="new-address">
+        <ion-item>
+          <a (click)="addNewAddress()">Delivery Address</a>
+        </ion-item>
+        <form [formGroup]="addressForm" novalidate novalidate>
+          
+        </form>
+      </ion-card>
+
       <ion-card class="new-address">
         <ion-item>
           <a (click)="addNewAddress()">New Address</a>

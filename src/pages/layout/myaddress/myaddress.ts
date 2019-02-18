@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events, ToastController } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { environment } from '../../../core/global';
 //Services
 import { ProfileService } from '../../../core/services/profile.service';
 /**
@@ -32,6 +32,7 @@ export class MyaddressPage {
   total_market_saving: any;
   addressForm: FormGroup;
   showAddressForm: boolean;
+  pinCheckForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
@@ -45,13 +46,20 @@ export class MyaddressPage {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.userId = +localStorage.getItem('userId');
-
+    this.imageBaseUrl = environment.imageBaseUrl;
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
       address: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
     });
+
+    // this.Form = this.formBuilder.group({
+    //   type: ["", Validators.required],
+    //   address: ["", Validators.required],
+    //   landmark: ["", Validators.required],
+    //   pincode: ["", Validators.required],
+    // });
 
     this.showAddressForm = false;
   }
@@ -181,7 +189,6 @@ export class MyaddressPage {
       this.profileService.submitAddress(this.addressForm.value).subscribe(
         res => {
           this.presentToast("Address added succesfully.");
-
           this.spinnerDialog.hide();
           this.addressForm.reset();
           this.showAddressForm = false;

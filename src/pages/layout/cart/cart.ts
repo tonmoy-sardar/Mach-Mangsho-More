@@ -54,7 +54,13 @@ export class CartPage {
   }
 
   gotoPage() {
-    this.navCtrl.push('MyaddressPage');
+    if(this.userId !='') {
+      this.navCtrl.push('MyaddressPage');
+    }
+    else {
+      this.navCtrl.push('LoginPage');
+    }
+    
   }
 
   populateData() {
@@ -120,7 +126,6 @@ export class CartPage {
 
   removeCart(id) {
     let alert = this.alertCtrl.create({
-      title: 'Confirm Remove',
       message: 'Do you want to remove?',
       buttons: [
         {
