@@ -24,19 +24,25 @@ Ionic pages and navigation.
             </div>
         </div>
     </div>
-    <div class="product-list-body">
+    <div class="product-list-body" *ngIf="visibleKey">
         <ion-card *ngFor="let product of whisListProduct; let i = index">
             <ion-card-content>
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
-                            <ion-list no-lines>{{product.name}}</ion-list>
-                            <ion-item class="pro-status"><button class="pro-available">Available</button></ion-item>
+                            <div class="product-detais">
+                                <ion-list no-lines class="product-name">{{product.name}}</ion-list>
+                                <ion-item class="pro-status">
+                                    <!-- <button *ngIf="product.quantity_count > 5" class="pro-available">Available</button> -->
+                                    <button  class="pro-available">Available</button>
+                                    <button *ngIf="product.quantity_count > 0 && product.quantity_count < 6" class="pro-limited">Limited</button>
+                                    <button *ngIf="product.quantity_count < 1" class="pro-sold">Sold Out</button>
+                                </ion-item>
+                            </div>
                         </ion-col>
                         <ion-col col-6>
                             <div class="product-image" (click)="gotoDetails(product.id)">
-                                <img
-                                    [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
+                                <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
                                 <button class="price-trend-up">
                                     <ion-icon name="arrow-round-up"></ion-icon>
                                 </button>
@@ -54,5 +60,8 @@ Ionic pages and navigation.
                 </ion-grid>
             </ion-card-content>
         </ion-card>
+        <div *ngIf="whisListProduct.length==0">
+            <img src="assets/imgs/no-records.png">
+        </div>
     </div>
 </ion-content>

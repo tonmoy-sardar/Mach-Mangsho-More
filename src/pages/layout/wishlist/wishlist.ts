@@ -22,6 +22,7 @@ export class WishlistPage {
   userId:number;
   whisListProduct:any=[];
   imageBaseUrl:any;
+  visibleKey: boolean;
 
   constructor(
     public navCtrl: NavController, 
@@ -41,6 +42,7 @@ export class WishlistPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WishlistPage');
+    this.visibleKey = false;
     this.menuCtrl.close();
     this.getWishList(this.userId);
   }
@@ -50,10 +52,14 @@ export class WishlistPage {
     this.productService.myWishlist(id).subscribe(
       res => {
        this.whisListProduct = res['result'];
+       this.visibleKey = true;
+
        console.log(this.whisListProduct);
        this.spinnerDialog.hide();
       },
       error => {
+        this.visibleKey = true;
+
        // this.whisListProduct =[];
       }
     )
@@ -102,7 +108,7 @@ export class WishlistPage {
             this.productService.addWishlist(data).subscribe(
               res => {
                 console.log(res);
-                this.getWishList(this.navParams.get('id'));
+                this.getWishList(this.userId);
                 this.presentToast("Removed from Wishlist");
                 //this.navCtrl.push('WishlistPage');
                 this.spinnerDialog.hide();

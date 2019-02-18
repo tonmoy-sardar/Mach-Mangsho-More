@@ -26,6 +26,7 @@ export class ProductlistPage {
   catName: string;
   userId: number;
   searchText: string;
+  visibleKey: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -49,6 +50,7 @@ export class ProductlistPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductlistPage');
+    this.visibleKey = false;
     this.catName = this.navParams.get('name');
     this.productList(this.navParams.get('id'),this.userId);
     if (this.platform.is('cordova')) {
@@ -64,6 +66,7 @@ export class ProductlistPage {
     )
     }
     else {
+      
     }
   }
 
@@ -72,11 +75,17 @@ export class ProductlistPage {
     this.productService.getProductList(id,user_id).subscribe(
       res => {
         this.allProductList = res['result'];
+
         
         console.log("Product List123 ==>", this.allProductList);
+        this.visibleKey = true;
+
+        console.log(this.visibleKey);
         this.spinnerDialog.hide();
       },
       error => {
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
       }
     )
   }
@@ -87,14 +96,19 @@ export class ProductlistPage {
       .subscribe(
         (matches: Array<string>) => {
           console.log(matches);
+          this.visibleKey = false;
           this.searchText = matches[0];
           console.log(this.searchText);
           this.allProductList = [];
+          this.spinnerDialog.show();
           this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
             res => {
               this.zone.run(() => this.allProductList = res['result']['products']);
+              
+              this.spinnerDialog.hide();
             },
             error => {
+              this.spinnerDialog.hide();
             }
           )
         })
@@ -102,11 +116,16 @@ export class ProductlistPage {
 
   proSearch(keywords) {
     console.log("Test==>",keywords);
+    this.visibleKey = false;
+    this.spinnerDialog.show();
     this.productService.productSearch(this.navParams.get('id'), keywords).subscribe(
       res => {
         this.zone.run(() => this.allProductList = res['result']['products']);
+        this.spinnerDialog.hide();
+        this.visibleKey = true
       },
       error => {
+        this.spinnerDialog.hide();
       }
     )
   }
@@ -120,15 +139,20 @@ export class ProductlistPage {
       "whist_status": "1",
       "user_id": this.userId
     }
+    this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
         console.log(res);
         this.productList(this.navParams.get('id'),this.userId);
+        this.spinnerDialog.hide();
         this.presentToast("Added in Wishlist");
-        this.navCtrl.push('WishlistPage');
+        //this.navCtrl.push('WishlistPage');
+        
       },
       error => {
+        this.spinnerDialog.hide();
         this.presentToast("Already added in Wishlist");
+        
       }
     )
   }
