@@ -117,7 +117,6 @@ export class MyaddressPage {
         this.total_item_price += (x.price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
-
       }
     })
   }
@@ -152,14 +151,15 @@ export class MyaddressPage {
       }
     )
   }
-  checkAvailability(i,pinCode) {
+  checkAvailability(i,addressId,pinCode) {
     this.profileService.getPinCode(pinCode).subscribe(
       res => {
         this.deliverySlot = res['result'];
         this.isAvailable = res['result'].length;    
         this.spinnerDialog.hide();
         if(this.isAvailable >0) {
-          this.navCtrl.push('DeliveryslotPage');
+          this.customer_cart_data.address_id =addressId;
+          this.navCtrl.push('DeliveryslotPage',{pincode:pinCode});
         }
         else {
           this.isActive = i;
@@ -219,11 +219,10 @@ export class MyaddressPage {
          // this.deliverySlot = res['result'];
           this.isAvailable = res['result'].length;    
           this.spinnerDialog.hide();
-          
-          this.spinnerDialog.hide();
+
         },
         error => {
-          this.presentToast("Please enter valid login credentials");
+          this.presentToast("Error");
           console.log(error);
           this.spinnerDialog.hide();
         }
@@ -262,7 +261,8 @@ export class MyaddressPage {
     const toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'top'
+      position: 'top',
+      cssClass: "toast-success"
     });
     toast.present();
   }

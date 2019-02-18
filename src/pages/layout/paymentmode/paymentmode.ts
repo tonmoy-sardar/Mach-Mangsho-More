@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-
-/**
- * Generated class for the PaymentmodePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { environment } from '../../../core/global';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+//Services
+import { ProfileService } from '../../../core/services/profile.service';
 
 @IonicPage()
 @Component({
@@ -15,17 +12,92 @@ import { Events } from 'ionic-angular';
   templateUrl: 'paymentmode.html',
 })
 export class PaymentmodePage {
+  customer_cart_data: any = [];
+  all_cart_data: any;
+  userId: number;
+  imageBaseUrl: any;
+  allAddressList: any = [];
+  profileDetails: any = {};
+  total_item_price: any;
+  total_packing_price: any;
+  total_price: any;
+  total_market_price: any;
+  total_market_saving: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public events: Events
+    public events: Events,
+    private spinnerDialog: SpinnerDialog,
+    public profileService: ProfileService
     ) {
       events.publish('hideHeader', { isHeaderHidden: false,isSubHeaderHidden: false}); // For Show- hide Header
-  }
+      this.userId = +localStorage.getItem('userId');
+      this.imageBaseUrl = environment.imageBaseUrl;
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentmodePage');
+    this.getProfileDetails(this.userId);
+    this.populateData();
+  }
+  gotoPayMode(id) {
+    this.customer_cart_data.delivery_slot_id =id;
+    this.navCtrl.push('PaymentmodePage');
+  }
+
+  populateData() {
+    if (sessionStorage.getItem("cart")) {
+      this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
+      console.log(this.all_cart_data);
+      this.customer_cart_data = this.all_cart_data;
+      //this.customer_cart_data.length =1;
+      this.getTotalItemPrice();
+      this.getTotalPackingPrice();
+    }
+    else {
+      this.customer_cart_data = [];
+      //alert(this.customer_cart_data.length);
+    }
+  }
+  getTotalItemPrice() {
+    this.total_item_price = 0;
+    this.total_market_price = 0;
+    this.total_market_saving = 0
+    console.log(this.customer_cart_data);
+    this.customer_cart_data.forEach(x => {
+      if (x.discounted_price > 0) {
+        this.total_item_price += (x.discounted_price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+        console.log(this.total_item_price);
+
+      }
+      else {
+        this.total_item_price += (x.price * x.quantity);
+        this.total_market_price += x.totalMarketPrice;
+        this.total_market_saving += x.totalSavings;
+
+      }
+    })
+  }
+
+  getTotalPackingPrice() {
+    this.total_packing_price = 0;
+    this.customer_cart_data.forEach(x => {
+      this.total_packing_price += x.packing_charges;
+    })
+  }
+
+  getProfileDetails(id) {
+    this.profileService.getProfile(id).subscribe(
+      res => {
+        this.profileDetails = res['result'];
+        console.log("Profile Details ==>", this.profileDetails);
+      },
+      error => {
+      }
+    )
   }
 
 }
