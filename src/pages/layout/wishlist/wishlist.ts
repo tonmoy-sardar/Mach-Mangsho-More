@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,MenuController, NavParams,AlertController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 
 import {environment} from '../../../core/global';
@@ -30,6 +30,7 @@ export class WishlistPage {
     public menuCtrl:MenuController,
     private toastCtrl: ToastController,
     private spinnerDialog: SpinnerDialog,
+    public alertCtrl: AlertController,
     public productService:ProductService
     ) {
       //Header Show Hide Code 
@@ -58,26 +59,84 @@ export class WishlistPage {
     )
   }
 
+  // deleteWishList(id) {
+  //   let data =  {
+  //     "product_id": id,
+  //     "whist_status": "0",
+  //     "user_id":this.userId
+  // }
+  // this.spinnerDialog.show();
+  // this.productService.addWishlist(data).subscribe(
+  //   res => {
+  //     console.log(res);
+  //     this.getWishList(this.navParams.get('id'));
+  //     this.presentToast("Removed from Wishlist");
+  //     //this.navCtrl.push('WishlistPage');
+  //     this.spinnerDialog.hide();
+  //   },
+  //   error => {
+  //     //this.presentToast("");
+  //   }
+  // )
+  // }
+
   deleteWishList(id) {
     let data =  {
       "product_id": id,
       "whist_status": "0",
       "user_id":this.userId
   }
-  this.spinnerDialog.show();
-  this.productService.addWishlist(data).subscribe(
-    res => {
-      console.log(res);
-      this.getWishList(this.navParams.get('id'));
-      this.presentToast("Removed from Wishlist");
-      //this.navCtrl.push('WishlistPage');
-      this.spinnerDialog.hide();
-    },
-    error => {
-      //this.presentToast("");
-    }
-  )
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to remove?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.productService.addWishlist(data).subscribe(
+              res => {
+                console.log(res);
+                this.getWishList(this.navParams.get('id'));
+                this.presentToast("Removed from Wishlist");
+                //this.navCtrl.push('WishlistPage');
+                this.spinnerDialog.hide();
+              },
+              error => {
+                //this.presentToast("");
+              }
+            )
+          }
+        }
+      ]
+    });
+    alert.present();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   gotoDetails(id) {
     this.navCtrl.push('ProductdetailsPage', { id: id });

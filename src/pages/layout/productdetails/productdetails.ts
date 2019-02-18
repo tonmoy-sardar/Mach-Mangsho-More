@@ -37,7 +37,13 @@ export class ProductdetailsPage {
     this.imageBaseUrl = environment.imageBaseUrl;
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
-    this.userId = +localStorage.getItem('userId');
+    if(localStorage.getItem('userId')) {
+      this.userId = +localStorage.getItem('userId');
+    }
+    else {
+      this.userId ='';
+    }
+    
     this.rangeValue = 1;
 
     if (sessionStorage.getItem("cart")) {
@@ -103,7 +109,7 @@ export class ProductdetailsPage {
 
   addtoCart(item) {
     console.log(item);
-    if (localStorage.getItem('isLoggedin')) {
+    //if (localStorage.getItem('isLoggedin')) {
       var data = {
         customer_id: this.userId,
         product_id: item.id,
@@ -117,6 +123,8 @@ export class ProductdetailsPage {
         totalMarketPrice: item.totalMarketPrice,
         totalSavings: item.totalSavings
       }
+
+      console.log("Cart Data ==>",data);
       var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
       if (this.proDetails.id == item.id) {
         this.proDetails.isCart = true;
@@ -128,7 +136,7 @@ export class ProductdetailsPage {
         this.setCartData();
       }
       this.cartService.cartNumberStatus(true);
-    }
+   // }
   }
 
   buyNow(item) {
