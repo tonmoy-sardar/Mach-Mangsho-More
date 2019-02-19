@@ -688,3 +688,16 @@ ion-input, ion-textarea
     font-size: 18px;
     padding-left: 5px !important;
 }
+
+.rating{
+    color:#b2b2b2;
+}
+.rating.active{
+    color:#DDA72A
+}
+
+.rating ion-icon
+{
+    font-size: 16px;
+    
+}

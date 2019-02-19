@@ -15,15 +15,15 @@
 
 <ion-content fullscreen *ngIf="visibleKey">
   <div class="product-banner">
-    <h5 class="pro-title">{{productName}}</h5>
+    <!-- <h5 class="pro-title">{{productName}}</h5>
     <div class="product-pic">
         <img [src]="productImage != ''? imageBaseUrl+ productImage : 'assets/imgs/no-image.png'">
 
-    </div>
+    </div> -->
   </div>
   <div class="recipe-list-body">
     <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
-      <ion-card-content >
+      <ion-card-content (click)="gotoDetails(recipeList.id)">
         <ion-grid>
           <ion-row>
             <ion-col col-7>
@@ -31,13 +31,13 @@
               <ion-item class="recipe-category" *ngIf="recipeList.recipe_type =='veg'"><button class="veg">{{recipeList.recipe_type}}</button></ion-item>
               <ion-item class="recipe-category" *ngIf="recipeList.recipe_type !='veg'"><button class="nonveg">{{recipeList.recipe_type}}</button></ion-item>
               <ion-list *ngIf="recipeList.average_rating==null" style="padding-left: 10px;">
-                  
-                  <span>Rating :</span>
+                  <!-- <span  *ngFor="let rat of rating; let i = index" ngClass]="[i <= 3 - 1 ? 'active' : '']" class="fa rating"><ion-icon name="star-outline"></ion-icon></span> -->
+                  <span class="card-small-headding">Rating :</span>
                   <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= 0 - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
               </ion-list>
               <ion-list *ngIf="recipeList.average_rating!=null" style="padding-left: 10px;">
-                 
-                  <span>Rating : </span>
+                  <!-- <span  *ngFor="let rat of rating; let i = index" ngClass]="[i <= 3 - 1 ? 'active' : '']" class="fa rating"><ion-icon name="star-outline"></ion-icon></span> -->
+                  <span class="card-small-headding">Rating : </span>
                   <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= recipeList.average_rating.averagerating - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
               </ion-list>
               <ion-list  style="padding-left: 10px;" *ngIf="recipeList.user_name!=null">
@@ -46,7 +46,7 @@
               </ion-list>
             </ion-col>
             <ion-col col-5>
-              <div class="recipe-image" (click)="gotoDetails(recipeList.id)">
+              <div class="recipe-image">
 
                 <img [src]="recipeList.blog_small_image != ''? imageBaseUrl+ recipeList.blog_small_image : 'assets/imgs/no-image.png'">
 

@@ -24,7 +24,7 @@ export class RecipedetailsPage {
   imageBaseUrl:any;
   recipeBannerImage:any;
 
-
+  visibleKey: boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,15 +49,20 @@ export class RecipedetailsPage {
     this.spinnerDialog.show();
     this.productService.getrecipeDetails(id).subscribe(
       res => {
-        this.recipeDetails = res['result']['recipeDetails'][0];
+       
+        this.recipeDetails = res['result'];
         this.recipeBannerImage = this.imageBaseUrl+this.recipeDetails.blog_large_image;
-        console.log(this.recipeDetails);
+       
+        this.visibleKey = true;
         this.spinnerDialog.hide();
       },
       error => {
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
       }
     )
   }
+  
   gotoRatePage(id) {
     this.navCtrl.push('RatingPage',{id:id});
   }

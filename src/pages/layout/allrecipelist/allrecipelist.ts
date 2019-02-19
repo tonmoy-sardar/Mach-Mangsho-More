@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-import {environment} from '../../../core/global';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
-
 /**
- * Generated class for the TriviaPage page.
+ * Generated class for the RecipelistPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,49 +13,57 @@ import { ProductService } from '../../../core/services/product.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-trivia',
-  templateUrl: 'trivia.html',
+  selector: 'page-allrecipelist',
+  templateUrl: 'allrecipelist.html',
 })
-export class TriviaPage {
-  triviaDetails:any=[];
-  imageBaseUrl:any;
-  proDetails:any={};
-  userId:any;
+export class AllrecipelistPage {
+  rating;
+  avg_rating;
+  proRecipeList: any = [];
+  proDetails: any = {};
+  imageBaseUrl: any;
+  userId: any;
   visibleKey: boolean;
   productName;
   productImage;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public events: Events,
     private spinnerDialog: SpinnerDialog,
+    public menuCtrl:MenuController,
+    public events: Events,
     public productService: ProductService
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
-    this.imageBaseUrl = environment.imageBaseUrl; 
+    this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TriviaPage');
-    this.getTriviaDetails(this.navParams.get('id'));
-    this.productDetails(this.navParams.get('id'));
+    console.log('ionViewDidLoad RecipelistPage');
+    this.rating = [1, 2, 3, 4, 5];
+    this.menuCtrl.close();
+    this.allrecipeList();
   }
 
-  getTriviaDetails(id) {
+  gotoDetails(id) {
+    this.navCtrl.push('RecipedetailsPage', { id: id });
+  }
+
+  allrecipeList() {
     this.spinnerDialog.show();
-    this.productService.getriviaDetails(id).subscribe(
+    this.productService.getAllRecipeList().subscribe(
       res => {
-        this.productName = res['product_name'];
-        this.productImage = res['product_image'];
-        this.triviaDetails = res['result'];
-        console.log("zzzz",this.triviaDetails);
+        // this.productName = res['product_name'];
+        // this.productImage = res['product_image'];
+        this.proRecipeList = res['result'];
+        console.log("Recipe List ==>", this.proRecipeList);
         this.visibleKey = true;
         this.spinnerDialog.hide();
-        
       },
       error => {
+        this.spinnerDialog.hide();
         this.visibleKey = true;
       }
     )
@@ -64,7 +71,7 @@ export class TriviaPage {
 
   productDetails(id) {
     this.spinnerDialog.show();
-    this.productService.getProductDetails(id,this.userId).subscribe(
+    this.productService.getProductDetails(id, this.userId).subscribe(
       res => {
         this.proDetails = res['result']['productlist'];
         console.log(this.proDetails);
@@ -74,6 +81,5 @@ export class TriviaPage {
       }
     )
   }
-
 
 }
