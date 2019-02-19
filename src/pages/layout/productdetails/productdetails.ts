@@ -24,6 +24,7 @@ export class ProductdetailsPage {
   photo: any;
   foodValueList:any;
   private photos: any[] = [];
+  visibleKey: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -73,11 +74,11 @@ export class ProductdetailsPage {
     this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
         this.proDetails = res['result']['productlist'];
-        console.log(this.proDetails);
-        this.proDetails.totalOurPrice = this.rangeValue * this.proDetails.unit_price;
+        
+        this.proDetails.totalOurPrice = this.rangeValue * this.proDetails.price;
         this.proDetails.totalMarketPrice = this.rangeValue * this.proDetails.market_price;
         this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
-        console.log("Product Details ==>", this.proDetails);
+       
         var index = this.customer_cart_data.findIndex(y => y.product_id == this.proDetails.id && y.customer_id == this.userId);
 
         if (index != -1) {
@@ -90,9 +91,11 @@ export class ProductdetailsPage {
         }
 
         console.log(this.proDetails);
+        this.visibleKey = true;
         this.spinnerDialog.hide();
       },
       error => {
+        this.visibleKey = true;
       }
     )
   }
@@ -101,12 +104,11 @@ export class ProductdetailsPage {
     console.log("Pro Details ==>", proDetailss);
     console.log("Now Range ==>", value._value);
     this.proDetails.quantity = value._value;
-    this.proDetails.totalOurPrice = value._value * proDetailss.unit_price;
+    this.proDetails.totalOurPrice = value._value * proDetailss.price;
     this.proDetails.totalMarketPrice = value._value * proDetailss.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
     console.log(this.proDetails.totalSavings);
   }
-
   addtoCart(item) {
     console.log(item);
     //if (localStorage.getItem('isLoggedin')) {

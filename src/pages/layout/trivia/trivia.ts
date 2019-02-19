@@ -22,6 +22,9 @@ export class TriviaPage {
   imageBaseUrl:any;
   proDetails:any={};
   userId:any;
+  visibleKey: boolean;
+  productName;
+  productImage;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,12 +48,16 @@ export class TriviaPage {
     this.spinnerDialog.show();
     this.productService.getriviaDetails(id).subscribe(
       res => {
+        this.productName = res['product_name'];
+        this.productImage = res['product_image'];
         this.triviaDetails = res['result'];
         console.log("zzzz",this.triviaDetails);
+        this.visibleKey = true;
         this.spinnerDialog.hide();
+        
       },
       error => {
-        this.triviaDetails =[];
+        this.visibleKey = true;
       }
     )
   }

@@ -24,6 +24,10 @@ export class ProductService {
     return this.http.get(environment.apiEndpoint + 'recipedetailsbyproduct/'+id)
   }
 
+  getAllRecipeList(): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'recipelist/recipe/')
+  }
+
   addWishlist(data): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'whishlist/',data)
   }

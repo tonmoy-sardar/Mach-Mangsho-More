@@ -1,4 +1,4 @@
-page-recipelist {
+page-allrecipelist {
     .recipe-list-body ion-card-content {
         border:2px solid #caf5f8;
     }
@@ -129,5 +129,10 @@ page-recipelist {
     .recipe-list-body ion-col
     {
         padding-left: 0px;
+    }
+
+    .card-small-headding
+    {
+        color: #6b99d8;
     }
 }

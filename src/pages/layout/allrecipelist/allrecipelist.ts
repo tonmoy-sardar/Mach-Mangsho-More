@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { environment } from '../../../core/global';
@@ -13,10 +13,10 @@ import { ProductService } from '../../../core/services/product.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-recipelist',
-  templateUrl: 'recipelist.html',
+  selector: 'page-allrecipelist',
+  templateUrl: 'allrecipelist.html',
 })
-export class RecipelistPage {
+export class AllrecipelistPage {
   rating;
   avg_rating;
   proRecipeList: any = [];
@@ -30,6 +30,7 @@ export class RecipelistPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private spinnerDialog: SpinnerDialog,
+    public menuCtrl:MenuController,
     public events: Events,
     public productService: ProductService
   ) {
@@ -42,19 +43,20 @@ export class RecipelistPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecipelistPage');
     this.rating = [1, 2, 3, 4, 5];
-    this.recipeList(this.navParams.get('id'));
+    this.menuCtrl.close();
+    this.allrecipeList();
   }
 
   gotoDetails(id) {
     this.navCtrl.push('RecipedetailsPage', { id: id });
   }
 
-  recipeList(id) {
+  allrecipeList() {
     this.spinnerDialog.show();
-    this.productService.getRecipeList(id).subscribe(
+    this.productService.getAllRecipeList().subscribe(
       res => {
-        this.productName = res['product_name'];
-        this.productImage = res['product_image'];
+        // this.productName = res['product_name'];
+        // this.productImage = res['product_image'];
         this.proRecipeList = res['result'];
         console.log("Recipe List ==>", this.proRecipeList);
         this.visibleKey = true;
@@ -66,4 +68,18 @@ export class RecipelistPage {
       }
     )
   }
+
+  productDetails(id) {
+    this.spinnerDialog.show();
+    this.productService.getProductDetails(id, this.userId).subscribe(
+      res => {
+        this.proDetails = res['result']['productlist'];
+        console.log(this.proDetails);
+        this.spinnerDialog.hide();
+      },
+      error => {
+      }
+    )
+  }
+
 }

@@ -43,7 +43,11 @@
             Login
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
-        <ion-item (click)="gotoPage('DashboardPage')">
+        <ion-item (click)="gotoPage('HomePage')">
+            Home
+            <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
+        </ion-item>
+        <ion-item *ngIf="loggedIn==true" (click)="gotoPage('DashboardPage')">
             Dashboard
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
@@ -60,6 +64,10 @@
         </ion-item>
         <ion-item *ngIf="loggedIn==true" (click)="gotoPage('WishlistPage')">
             Wish List
+            <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
+        </ion-item>
+        <ion-item (click)="gotoPage('AllrecipelistPage')">
+            Recipe
             <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
         </ion-item>
         <ion-item *ngIf="loggedIn==true">
