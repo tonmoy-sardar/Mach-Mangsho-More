@@ -32,12 +32,12 @@
               <ion-item class="recipe-category" *ngIf="recipeList.recipe_type !='veg'"><button class="nonveg">{{recipeList.recipe_type}}</button></ion-item>
               <ion-list *ngIf="recipeList.average_rating==null" style="padding-left: 10px;">
                   
-                  <span>Rating :</span>
+                  <span class="card-small-headding">Rating :</span>
                   <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= 0 - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
               </ion-list>
               <ion-list *ngIf="recipeList.average_rating!=null" style="padding-left: 10px;">
                  
-                  <span>Rating : </span>
+                  <span class="card-small-headding">Rating : </span>
                   <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= recipeList.average_rating.averagerating - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
               </ion-list>
               <ion-list  style="padding-left: 10px;" *ngIf="recipeList.user_name!=null">
