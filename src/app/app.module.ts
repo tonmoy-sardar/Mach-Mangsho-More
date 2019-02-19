@@ -9,10 +9,6 @@ import { MyApp } from './app.component';
 import { CoreModule } from '../../src/core/core.module';
 
 
-
-
-
-
 @NgModule({
   declarations: [
     MyApp,

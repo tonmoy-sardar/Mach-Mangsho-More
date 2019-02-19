@@ -7,7 +7,7 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ProfileService } from '../../../core/services/profile.service';
 
 /**
- * Generated class for the DeliveryslotPage page.
+ * Generated class for the CartdetailsbannerPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -15,11 +15,10 @@ import { ProfileService } from '../../../core/services/profile.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-deliveryslot',
-  templateUrl: 'deliveryslot.html',
+  selector: 'page-cartdetailsbanner',
+  templateUrl: 'cartdetailsbanner.html',
 })
-export class DeliveryslotPage {
-  deliverySlot;
+export class CartdetailsbannerPage {
   customer_cart_data: any = [];
   all_cart_data: any;
   userId: number;
@@ -31,52 +30,31 @@ export class DeliveryslotPage {
   total_price: any;
   total_market_price: any;
   total_market_saving: any;
-  all_customer_data:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
     private spinnerDialog: SpinnerDialog,
     public profileService: ProfileService
-  ) {
-      //Header Show Hide Code 
-      events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
+    ) {
       this.userId = +localStorage.getItem('userId');
       this.imageBaseUrl = environment.imageBaseUrl;
+      this.getProfileDetails(this.userId);
+      this.populateData();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DeliveryslotPage');
-    this.getProfileDetails(this.userId);
-    this.populateData();
-    this.getDeliverySlot();
-    this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
-    console.log(this.all_customer_data);
-  }
+    console.log('ionViewDidLoad CartdetailsbannerPage');
 
-  getDeliverySlot() {
-    this.spinnerDialog.show();
-    this.profileService.getPinCode(this.navParams.get('pincode')).subscribe(
-      res => {
-        console.log(res);
-        this.deliverySlot = res['result'];
-        this.spinnerDialog.hide();
-      },
-      error => {
-        console.log(error);
-        this.spinnerDialog.hide();
-      }
-    )
   }
-
-  
 
   populateData() {
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
       console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
-     this.getTotalItemPrice();
+      //this.customer_cart_data.length =1;
+      this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
     else {
@@ -118,17 +96,12 @@ export class DeliveryslotPage {
     this.profileService.getProfile(id).subscribe(
       res => {
         this.profileDetails = res['result'];
+        console.log("Profile Details ==>", this.profileDetails);
       },
       error => {
       }
     )
   }
 
-  gotoPayMode(delivery) {
-    // this.customer_cart_data.delivery_slot_id =id;
-    this.all_customer_data.delivery_slot = delivery;
-     sessionStorage.setItem("customer_details", JSON.stringify(this.all_customer_data));
-     this.navCtrl.push('PaymentmodePage');
-   }
 
 }

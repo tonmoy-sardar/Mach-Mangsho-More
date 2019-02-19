@@ -1,0 +1,21 @@
+<div class="product-banner">
+    <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <div class="profile-pic-small">
+              <img
+                [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
+            </div>
+          </ion-col>
+          <ion-col col-4>
+            <ion-list no-lines>{{profileDetails.name}}</ion-list>
+          </ion-col>
+          <ion-col col-5>
+            <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
+            <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
+            <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
+            <ion-list no-lines>Bag Value <span> {{total_item_price}} </span> </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</div>

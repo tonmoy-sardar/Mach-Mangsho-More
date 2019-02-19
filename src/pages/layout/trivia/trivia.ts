@@ -66,7 +66,7 @@ export class TriviaPage {
     this.spinnerDialog.show();
     this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
-        this.proDetails = res['result'];
+        this.proDetails = res['result']['productlist'];
         console.log(this.proDetails);
         this.spinnerDialog.hide();
       },

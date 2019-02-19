@@ -14,5 +14,11 @@ export class CartService {
       return
     }
   }
+
+  addOrder(data): Observable<any> {
+    console.log(data);
+    return this.http.post(environment.apiEndpoint + 'addorder/', data)
+  }
+
   
 }

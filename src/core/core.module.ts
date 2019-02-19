@@ -20,6 +20,8 @@ import { ForgotpasswordService } from './services/forgotpassword.service';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
 
+//import { CartdetailsbannerPageModule } from '../pages/layout/cartdetailsbanner/cartdetailsbanner.module';
+
 
 @NgModule({
   imports: [
@@ -27,12 +29,15 @@ import { CartService } from './services/cart.service';
     FormsModule,
     ReactiveFormsModule,
     ionicGalleryModal.GalleryModalModule,
+   // CartdetailsbannerPageModule
   ],
   exports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   // CartdetailsbannerPageModule
   ],
-  declarations: [],
+  declarations: [
+  ],
   providers: [
     ApiProvider,
     File,
