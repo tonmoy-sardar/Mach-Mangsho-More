@@ -6,6 +6,7 @@
 -->
 
 <ion-content fullscreen>
+    <!-- <page-cartdetailsbanner></page-cartdetailsbanner> -->
   <div class="product-banner">
     <ion-grid>
       <ion-row>
@@ -22,6 +23,8 @@
           <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
           <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
           <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
+          <ion-list no-lines>Bag Value <span> {{total_item_price}} </span> </ion-list>
+          <ion-list no-lines>Delivery Charge <span> {{this.delivery_charge}} </span> </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -57,7 +60,7 @@
           Paytm
         </ion-item>
       </ion-card>
-      <ion-card>
+      <ion-card (click)="placeOrder(2)">
         <ion-item>
           Cash/COD
         </ion-item>

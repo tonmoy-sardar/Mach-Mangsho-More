@@ -21,9 +21,11 @@
             </small> </ion-list> -->
         </ion-col>
         <ion-col col-5>
+      
           <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
           <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
           <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
+          <ion-list no-lines>Bag Value <span> {{total_item_price}} </span> </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -55,7 +57,7 @@
         <ion-item>
           <p>{{myAddress.address}} , {{myAddress.pincode}}</p>
         </ion-item>
-        <p class="error-msg"  *ngIf="isAvailable==0 && isActive ==i">Currently out of stock in this area.</p>
+        <p class="error-msg"  *ngIf="isAvailable===0 && isActive ==i">Currently out of stock in this area.</p>
       </ion-card>
       
       <ion-card class="new-address">
@@ -77,8 +79,8 @@
             </ion-row>
             <ion-row>
                 <ion-col col-12>
-            <p class="error-msg"  *ngIf="isAvailable==0">Currently out of stock in this area.</p>
-            <p class="success-msg"  *ngIf="isAvailable>0">Currently available in this area.</p>
+            <p class="error-msg"  *ngIf="isAvailablePin===0">Currently out of stock in this area.</p>
+            <p class="success-msg"  *ngIf="isAvailablePin>0">Currently available in this area.</p>
               </ion-col>
               </ion-row>
           </ion-grid>

@@ -4,6 +4,7 @@ import { Events } from 'ionic-angular';
 import { environment } from '../../../core/global';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 //Services
+import { CartService } from '../../../core/services/cart.service';
 import { ProfileService } from '../../../core/services/profile.service';
 
 @IonicPage()
@@ -23,27 +24,33 @@ export class PaymentmodePage {
   total_price: any;
   total_market_price: any;
   total_market_saving: any;
-
+  all_customer_data: any;
+  order_data: any;
+  user_email: any;
+  order_details: any;
+  orderStatus: any;
+  delivery_charge;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
     private spinnerDialog: SpinnerDialog,
-    public profileService: ProfileService
-    ) {
-      events.publish('hideHeader', { isHeaderHidden: false,isSubHeaderHidden: false}); // For Show- hide Header
-      this.userId = +localStorage.getItem('userId');
-      this.imageBaseUrl = environment.imageBaseUrl;
-    }
+    public profileService: ProfileService,
+    public cartService: CartService
+  ) {
+    events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false }); // For Show- hide Header
+    this.userId = +localStorage.getItem('userId');
+    this.user_email = localStorage.getItem('userEmail');
+    this.imageBaseUrl = environment.imageBaseUrl;
+    this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
+    console.log(this.all_customer_data);
+    this.delivery_charge = parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentmodePage');
     this.getProfileDetails(this.userId);
     this.populateData();
-  }
-  gotoPayMode(id) {
-    this.customer_cart_data.delivery_slot_id =id;
-    this.navCtrl.push('PaymentmodePage');
   }
 
   populateData() {
@@ -93,11 +100,62 @@ export class PaymentmodePage {
     this.profileService.getProfile(id).subscribe(
       res => {
         this.profileDetails = res['result'];
-        console.log("Profile Details ==>", this.profileDetails);
       },
       error => {
       }
     )
+  }
+
+  // placeOrder(payment_type) {
+  //   console.log("Final Cart==>",this.customer_cart_data);
+
+  // }
+
+  placeOrder(payment_type) {
+    console.log("cccc",this.all_customer_data);
+    this.order_data = {};
+    this.order_data.payment_type = payment_type;
+    this.order_data.address_id = this.all_customer_data.address_id;
+    this.order_data.customer_id = this.userId;
+    this.order_data.customer_email = this.user_email;
+    this.order_data.order_total_price = this.total_item_price + parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
+    console.log(this.order_data);
+    this.order_details = [];
+    this.customer_cart_data.forEach(item => {
+      this.order_details.push(
+        {
+          'product_id': item.product_id,
+          'quantity': item.quantity,
+          'unit_price': item.price,
+          'IGST': '',
+          'CGST': '',
+          'GST': ''
+        }
+      );
+    });
+    this.order_data.order_details = this.order_details;
+    console.log(this.order_data);
+
+    this.cartService.addOrder(this.order_data).subscribe(
+      res => {
+        this.orderStatus = res.result;
+        console.log(this.orderStatus);
+        sessionStorage.clear();
+        this.cartService.cartNumberStatus(true);
+        this.navCtrl.push('OrdersuccessPage');
+        // if (payment_type == 1) {
+        //   this.getPaymentSettingsDetails();
+        // }
+        // else {
+        //   sessionStorage.clear();
+        //   this.cartService.cartNumberStatus(true);
+        //   this.router.navigateByUrl('/ordersuccess/' + this.orderStatus.id);
+        // }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

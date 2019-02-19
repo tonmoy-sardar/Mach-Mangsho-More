@@ -35,8 +35,11 @@ export class MyaddressPage {
   pinCheckForm: FormGroup;
   pincode:number;
   deliverySlot :any=[];
-  isAvailable:number;
+  isAvailable:any;
   isActive:any;
+  isAvailablePin:any;
+  total_market_price1:any;
+  customer_data:any;
 
   constructor(
     public navCtrl: NavController,
@@ -60,14 +63,6 @@ export class MyaddressPage {
     this.pinCheckForm = this.formBuilder.group({
       pincheck: ["", Validators.required],
     });
-
-    // this.Form = this.formBuilder.group({
-    //   type: ["", Validators.required],
-    //   address: ["", Validators.required],
-    //   landmark: ["", Validators.required],
-    //   pincode: ["", Validators.required],
-    // });
-
     this.showAddressForm = false;
   }
 
@@ -89,8 +84,6 @@ export class MyaddressPage {
       console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
       //this.customer_cart_data.length =1;
-
-
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
@@ -113,7 +106,6 @@ export class MyaddressPage {
 
       }
       else {
-        console.log("zz", x);
         this.total_item_price += (x.price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
@@ -132,7 +124,6 @@ export class MyaddressPage {
     this.profileService.getProfile(id).subscribe(
       res => {
         this.profileDetails = res['result'];
-        console.log("Profile Details ==>", this.profileDetails);
       },
       error => {
       }
@@ -154,11 +145,15 @@ export class MyaddressPage {
   checkAvailability(i,addressId,pinCode) {
     this.profileService.getPinCode(pinCode).subscribe(
       res => {
+        this.isAvailablePin='';
         this.deliverySlot = res['result'];
         this.isAvailable = res['result'].length;    
         this.spinnerDialog.hide();
         if(this.isAvailable >0) {
-          this.customer_cart_data.address_id =addressId;
+         
+          this.customer_data ={};
+          this.customer_data.address_id = addressId
+          sessionStorage.setItem("customer_details", JSON.stringify(this.customer_data));
           this.navCtrl.push('DeliveryslotPage',{pincode:pinCode});
         }
         else {
@@ -173,7 +168,6 @@ export class MyaddressPage {
     )
   }
 
-
   markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
       control.markAsTouched();
@@ -182,7 +176,6 @@ export class MyaddressPage {
       }
     });
   }
-
 
   submitAddress() {
     if (this.addressForm.valid) {
@@ -217,7 +210,8 @@ export class MyaddressPage {
         res => {
           console.log(res);
          // this.deliverySlot = res['result'];
-          this.isAvailable = res['result'].length;    
+         this.isAvailable='';
+          this.isAvailablePin = res['result'].length;    
           this.spinnerDialog.hide();
 
         },
