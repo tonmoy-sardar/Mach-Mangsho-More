@@ -21,6 +21,7 @@ export class OrderhistoryPage {
   userId:number;
   orderList:any=[];
   imageBaseUrl:any;
+  visibleKey: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -48,10 +49,12 @@ export class OrderhistoryPage {
       res => {
        this.orderList = res['result'];
        console.log(this.orderList);
+       this.visibleKey = true;
        this.spinnerDialog.hide();
       },
       error => {
-        this.orderList =[];
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
       }
     )
   }

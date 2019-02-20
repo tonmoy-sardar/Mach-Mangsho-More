@@ -26,6 +26,7 @@ export class OrderdetailsPage {
   profileDetails:any={};
   orderDetails:any={};
   productList:any=[];
+  visibleKey: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -46,32 +47,27 @@ export class OrderdetailsPage {
     console.log('ionViewDidLoad OrderdetailsPage');
     this.menuCtrl.close();
     this.getOrderDetails(this.navParams.get('id'));
-    this.getProfileDetails(this.userId);
   }
 
   getOrderDetails(id) {
     this.productService.getorderDetails(id).subscribe(
       res => {
        this.orderDetails = res['result'];
+
+       this.visibleKey = true;
+       this.spinnerDialog.hide();
+       console.log(this.orderDetails);
        this.productList = res['result']['order_details'];
-       console.log("Order Details ==>", this.orderDetails);
-       console.log("Product List ==>", this.productList);
+      //  console.log("Order Details ==>", this.orderDetails);
+      //  console.log("Product List ==>", this.productList);
       },
       error => {
+        this.spinnerDialog.hide();
       }
     )
   }
 
-  getProfileDetails(id) {
-    this.profileService.getProfile(id).subscribe(
-      res => {
-       this.profileDetails = res['result'];
-       console.log("Profile Details ==>", this.profileDetails);
-      },
-      error => {
-      }
-    )
-  }
+  
 
   goBack() {
     this.navCtrl.pop();

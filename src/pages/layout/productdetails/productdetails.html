@@ -18,9 +18,18 @@
 
             <img [src]="proDetails.image_small != ''? imageBaseUrl+ proDetails.image_small : 'assets/imgs/no-image.png'">
 
-            <!-- <button class="sold-out">Sold Out</button> -->
-            <button class="sold-out">Available</button>
+            
+            <button *ngIf="proDetails.product_stock > 5" class="pro-available">Available</button>
+            <button *ngIf="proDetails.product_stock > 0 && proDetails.product_stock < 6" class="pro-limited">Limited</button>
+            <button *ngIf="proDetails.product_stock < 1" class="pro-sold">Sold Out</button>
+            <!-- <button class="sold-out">Available</button> -->
+            <!-- <ion-item class="pro-status">
+                <button *ngIf="proDetails.product_stock > 5" class="pro-available">Available</button>
+                <button *ngIf="proDetails.product_stock > 0 && proDetails.product_stock < 6" class="pro-limited">Limited</button>
+                <button *ngIf="proDetails.product_stock < 1" class="pro-sold">Sold Out</button>
+            </ion-item> -->
         </div>
+
     </div>
     <div class="product-body">
         <div class="product-foodvalue">
@@ -28,21 +37,18 @@
                 <ion-row>
                     <ion-col col-5>
                         <ion-list>Quantity : <span> {{rangeValue}}</span></ion-list>
-                        <ion-list>Rate : {{proDetails.price}} / {{proDetails.quantity_count}} {{proDetails.unit}}</ion-list>
-                        
-                        
-                       
-
+                        <ion-list>Rate : <i class="fa fa-rupee"></i>{{proDetails.price}} / {{proDetails.quantity_count}} {{proDetails.unit}}</ion-list>
                     </ion-col>
                     <ion-col col-2>
                         <ion-list>
                             <ion-item class="pro-range-slider">
-                                <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails)" [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
+                                <ion-range min="1" max="20" (ionChange)="changeRangeValue($event, proDetails)"
+                                    [(ngModel)]="rangeValue" color="danger" pin="true"></ion-range>
                             </ion-item>
                         </ion-list>
 
                     </ion-col>
-                    <ion-col col-5 class="pro-btn">
+                    <ion-col col-5 class="pro-btn" *ngIf="proDetails.product_stock > 1">
 
                         <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Add to Cart</button>
                         <button (click)="RemoveCart(proDetails)" *ngIf="proDetails.isCart">Remove</button>
@@ -51,8 +57,9 @@
                     </ion-col>
                 </ion-row>
                 <ion-row class="price-saving">
-                    <ion-col col-6>Price <span>{{proDetails.totalOurPrice}}</span></ion-col>
-                    <ion-col col-6><small>Savings</small><span class="red-box">{{this.proDetails.totalSavings}}</span> </ion-col>
+                    <ion-col col-6>Price <span><i class="fa fa-rupee"></i>{{proDetails.totalOurPrice}}</span></ion-col>
+                    <ion-col col-6><small>Savings</small><span class="red-box"><i class="fa fa-rupee"></i>{{this.proDetails.totalSavings}}</span>
+                    </ion-col>
                 </ion-row>
             </ion-grid>
             <ion-grid>

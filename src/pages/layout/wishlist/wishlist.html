@@ -49,11 +49,11 @@ Ionic pages and navigation.
                                 </button>
                                 <button class="price-trend-same" *ngIf="product.price_status==3"><i class="fa fa-arrows-h"
                                         aria-hidden="true"></i></button>
-                                <button class="market-price" ion-button round><span>{{product.market_price}} /{{product.quantity_count}} {{product.unit}}
+                                <button class="market-price" ion-button round><span><i class="fa fa-rupee"></i>{{product.market_price}} /{{product.quantity_count}} {{product.unit}}
                                     </span>
                                     <small>Market price</small>
                                 </button>
-                                <button class="our-price" ion-button round><span>{{product.price}} / {{product.quantity_count}} {{product.unit}} </span>
+                                <button class="our-price" ion-button round><span><i class="fa fa-rupee"></i>{{product.price}} / {{product.quantity_count}} {{product.unit}} </span>
                                     <small>Our price</small>
                                 </button>
                             </div>
