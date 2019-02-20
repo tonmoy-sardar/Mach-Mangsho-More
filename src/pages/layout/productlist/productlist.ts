@@ -103,6 +103,7 @@ export class ProductlistPage {
           this.spinnerDialog.show();
           this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
             res => {
+              this.visibleKey = true
               this.zone.run(() => this.allProductList = res['result']['products']);
               
               this.spinnerDialog.hide();
@@ -114,21 +115,21 @@ export class ProductlistPage {
         })
   }
 
-  proSearch(keywords) {
-    console.log("Test==>",keywords);
-    this.visibleKey = false;
-    this.spinnerDialog.show();
-    this.productService.productSearch(this.navParams.get('id'), keywords).subscribe(
-      res => {
-        this.zone.run(() => this.allProductList = res['result']['products']);
-        this.spinnerDialog.hide();
-        this.visibleKey = true
-      },
-      error => {
-        this.spinnerDialog.hide();
-      }
-    )
-  }
+  // proSearch(keywords) {
+  //   console.log("Test==>",keywords);
+  //   this.visibleKey = false;
+  //   this.spinnerDialog.show();
+  //   this.productService.productSearch(this.navParams.get('id'), keywords).subscribe(
+  //     res => {
+  //       this.zone.run(() => this.allProductList = res['result']['products']);
+  //       this.spinnerDialog.hide();
+  //       this.visibleKey = true
+  //     },
+  //     error => {
+  //       this.spinnerDialog.hide();
+  //     }
+  //   )
+  // }
 
   gotoDetails(id) {
     this.navCtrl.push('ProductdetailsPage', { id: id });

@@ -4,16 +4,32 @@
     <img src="assets/imgs/logo.png" alt="Ionic logo">
   </div>
   <div class="dashboard-body">
+      <div class="product-banner-search">
+          <form id="search-form" class="form-inline">
+              <div class="input-group">
+                  <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
+                  <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
+                          data-target="#search-form" name="q"><i (click)="start()" class="fa fa-microphone"
+                              aria-hidden="true"></i>
+
+                      </button>
+                  </span>
+              </div>
+          </form>
+      </div>
     <img src="assets/imgs/women1.png">
-   <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
-    <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button>
+    <button class="cat-more"><span>More</span></button>
+    <button class="cat-more"><span>More</span></button>
+    <button class="cat-more"><span>More</span></button>
+   <!-- <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
+    <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button> -->
   </div>
-  <button class="footer-bottom-right"><span>Order</span></button>
+  <!-- <button class="footer-bottom-right"><span>Order</span></button>
   <div id='ss_menu'>
       <div *ngFor="let category of categoryList| slice:startCatNum:endCatNum; let i = index">
         <img (click)="goToProList(category.id,category.name)"
           [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
       </div>
-    </div>
+    </div> -->
 
 </ion-content>

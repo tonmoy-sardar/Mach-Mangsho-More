@@ -63,5 +63,8 @@ export class ProductService {
   productSearch(id,keywords): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/' + id + '/'+keywords)
   }
+  myWishlistSearch(id,keywords): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistsearchbywhishlist/' + id + '/'+keywords)
+  }
 
 }
