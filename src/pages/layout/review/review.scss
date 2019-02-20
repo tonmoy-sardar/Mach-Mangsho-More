@@ -1,33 +1,63 @@
 page-review {
-    .product-banner-rating {
-        height:200px;
-    }
-    .product-banner-rating {
-        text-align:center;
-        border:1px solid #ccc;
-        border-radius: 50px 50px 0px 0px;
-        background:#ccc;
-        opacity: 0.4;
-    }
+    // .product-banner-rating {
+    //     height:200px;
+    // }
+    // .product-banner-rating {
+    //     text-align:center;
+    //     border:1px solid #ccc;
+    //     border-radius: 50px 50px 0px 0px;
+    //     background:#ccc;
+    //     opacity: 0.4;
+    // }
  
 
-    .review-banner-body .review-write{
-        float:left;
-        margin-top:30%;
-        border-radius: 0em 4em 4em 0em;
-        background: #ff9ea8;
-        color:#6983c7;
-    }
-    .review-banner-body .review-submit{
-        float:right;
-        margin-top:30%;
-        border-radius: 4em 0em 0em 4em;
-        background: #c4ddd9;
-        color:#6983c7;
+    // .review-banner-body .review-write{
+    //     float:left;
+    //     margin-top:30%;
+    //     border-radius: 0em 4em 4em 0em;
+    //     background: #ff9ea8;
+    //     color:#6983c7;
+    // }
+    // .review-banner-body .review-submit{
+    //     float:right;
+    //     margin-top:30%;
+    //     border-radius: 4em 0em 0em 4em;
+    //     background: #c4ddd9;
+    //     color:#6983c7;
+    // }
+    // .review-textarea {
+    //     border: 1px solid #000;
+    //     height: 200px;
+    //     margin-top: -15%;
+    // }
+    .review-banner img {
+        position: relative;
+        opacity: 0.5;
     }
     .review-textarea {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+       
+    }
+    .review-textarea ion-textarea {
         border: 1px solid #000;
-        height: 200px;
-        margin-top: -15%;
+        height: 250px;
+        width:330px;
+        background: #ffffff;
+    }
+    .review-write{
+         border-radius: 0em 4em 4em 0em;
+         background: #ff9ea8;
+        color:#6983c7;
+        margin-left: -16px;
+    }
+    .review-submit{
+         float:right;
+         border-radius: 4em 0em 0em 4em;
+         background: #c4ddd9;
+         color:#6983c7;
+         margin-right: -16px;
     }
 }

@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
 //import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
-import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, ToastController, LoadingController, Loading } from 'ionic-angular';
-import { Events } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
+import { Events,ToastController } from 'ionic-angular';
 import { environment } from '../../../core/global';
-// For camera 
-// import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-// import { File } from '@ionic-native/file';
-// import { FilePath } from '@ionic-native/file-path';
-// import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import { File } from '@ionic-native/file';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
@@ -40,14 +35,13 @@ export class ProfileeditPage {
   userId: number;
   isShowId: any;
   lastImage: any;
-
   imageURI: any;
   imageFileName: any;
   user_image: any
   loading: any;
   apiUrl: any;
-
-
+  allAddressList: any = [];
+  addressForm: FormGroup;
 
   constructor(
     public platform: Platform,
@@ -55,11 +49,6 @@ export class ProfileeditPage {
     public navParams: NavParams,
     public events: Events,
     public menuCtrl: MenuController,
-    // private transfer: FileTransfer,
-    // private camera: Camera,
-    // private file: File,
-    // private filePath: FilePath,
-    // public actionSheetCtrl: ActionSheetController,
     private camera: Camera,
     private transfer: Transfer,
     private file: File,
@@ -67,6 +56,7 @@ export class ProfileeditPage {
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder,
     public profileService: ProfileService,
     private crop: Crop
   ) {
@@ -78,13 +68,20 @@ export class ProfileeditPage {
     this.userImage = localStorage.getItem('userImage');
     this.userId = +localStorage.getItem('userId');
     this.getProfileDetails(this.userId);
-
+    this.addressForm = this.formBuilder.group({
+      type: ["", Validators.required],
+      address: ["", Validators.required],
+      landmark: ["", Validators.required],
+      pincode: ["", Validators.required],
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileeditPage');
+    this.getmyAddress();
     this.menuCtrl.close();
   }
+  
 
   getProfileDetails(id) {
     this.profileService.getProfile(id).subscribe(
@@ -239,6 +236,26 @@ export class ProfileeditPage {
       this.loading.dismissAll()
       this.presentToast('Error while uploading file.');
     });
+  }
+
+  getmyAddress() {
+    this.profileService.addressList(this.userId).subscribe(
+      res => {
+        this.allAddressList = res['result'];
+      },
+      error => {
+      }
+    )
+  }
+  isFieldValid(field: string) {
+    return !this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched);
+  }
+
+  displayFieldCss(field: string) {
+    return {
+      'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
+      'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
+    };
   }
 
 

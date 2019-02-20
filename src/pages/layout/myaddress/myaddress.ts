@@ -234,8 +234,6 @@ export class MyaddressPage {
   }
 
   displayFieldCss(field: string) {
-    console.log(this.addressForm)
-    console.log(field)
     return {
       'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
       'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
