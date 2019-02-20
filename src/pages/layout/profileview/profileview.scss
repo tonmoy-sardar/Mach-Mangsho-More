@@ -1,11 +1,5 @@
 page-profileview {
-    .profile-view-body{
-        height:100%;
-    }
-  
-    .profile-view-body{
-        height:100%;
-    }
+   
    .profile-view-body h3 {
         text-align: center;
         font-size:1.8rem;
@@ -17,5 +11,8 @@ page-profileview {
         display: block;
         margin: 0 auto;
         text-align: center;
+    }
+    .alladdress {
+        margin-bottom: 100px;
     }
 }

@@ -1,35 +1,43 @@
-
 <ion-content padding class="no-scroll dashboard-page">
   <div class="logo">
     <img src="assets/imgs/logo.png" alt="Ionic logo">
   </div>
   <div class="dashboard-body">
-      <div class="product-banner-search">
-          <form id="search-form" class="form-inline">
-              <div class="input-group">
-                  <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
-                  <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
-                          data-target="#search-form" name="q"><i (click)="start()" class="fa fa-microphone"
-                              aria-hidden="true"></i>
+    <div class="product-banner-search">
+      <form id="search-form" class="form-inline">
+        <div class="input-group">
+          <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
+          <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
+              data-target="#search-form" name="q"><i (click)="start()" class="fa fa-microphone" aria-hidden="true"></i>
 
-                      </button>
-                  </span>
-              </div>
-          </form>
-      </div>
-    <img src="assets/imgs/women1.png">
-    <button class="cat-more"><span>More</span></button>
-    <button class="cat-more"><span>More</span></button>
-    <button class="cat-more"><span>More</span></button>
-   <!-- <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
-    <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button> -->
+            </button>
+          </span>
+        </div>
+      </form>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 class="left-col">
+            <div class="dashboard-women-img">
+              <img src="assets/imgs/women-dashboard.png">
+              <button class="call-button">Call</button>
+            </div>
+          </ion-col>
+          <ion-col col-6 class="right-col">
+            <div class="dashborad-button">
+              <button (click)="gotoPage('TodayspecialPage')" class="tspecial"><span>Today's Special</span></button>
+              <button (click)="gotoPage('')" class="rorder"><span>Repeat Order</span></button>
+              <button (click)="gotoPage('CombooffertPage')" class="coffer"><span>Combo Offers</span></button>
+              <button (click)="gotoPage('AlacartPage')" class="acarte"><span>Ala Carte</span></button>
+            </div>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+
   </div>
-  <!-- <button class="footer-bottom-right"><span>Order</span></button>
-  <div id='ss_menu'>
-      <div *ngFor="let category of categoryList| slice:startCatNum:endCatNum; let i = index">
-        <img (click)="goToProList(category.id,category.name)"
-          [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
-      </div>
-    </div> -->
 
 </ion-content>

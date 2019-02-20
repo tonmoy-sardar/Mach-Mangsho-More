@@ -2,6 +2,12 @@ page-dashboard {
     .dashboard-page {
         position: relative;
     }
+    .dashboard-women-img img {
+        position: absolute;
+    }
+    .dashboard-body {
+        margin-bottom: 10%;
+    }
 
     .dashboard-body img {
         padding-top: 10px;
@@ -14,6 +20,43 @@ page-dashboard {
     }
     .form-inline .input-group::before {
         left: 1px;
+    }
+    .left-col {
+        right:21px;
+    }
+    .right-col {
+        right:-31px;
+    }
+    .dashborad-button {
+
+    }
+    .dashborad-button button {
+        display: block;
+        background: #caf5f8;
+        border: 1px solid #b3b3b3;
+        color: #5a91d5;
+        font-size: 15px;
+        border-radius: 20px 10px 10px 20px;
+        padding: 20px;
+        width: 100%;
+        margin-bottom: 25%;
+    }
+    .dashborad-button button span {
+        color:#000000;
+    }
+    .call-button {
+        background: #caf5f8;
+        z-index: 999;
+        position: absolute;
+        padding: 13px;
+        color: #000;
+        font-size: 16px;
+        border-radius: 0 25px 25px 0;
+        left: 0;
+        top: 75%;
+        border: 1px solid #c3c3c3;
+        border-left: none;
+        opacity: 0.8;
     }
     
 }

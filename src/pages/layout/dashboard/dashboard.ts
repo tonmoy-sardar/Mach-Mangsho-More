@@ -106,5 +106,9 @@ export class DashboardPage {
       
     });
   }
+
+  gotoPage(page) {
+    this.navCtrl.push(page);
+  }
  
 }
