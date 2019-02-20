@@ -7,8 +7,8 @@
       <form id="search-form" class="form-inline">
         <div class="input-group">
           <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
-          <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn"
-              data-target="#search-form" name="q"><i (click)="start()" class="fa fa-microphone" aria-hidden="true"></i>
+          <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form"
+              name="q"><i (click)="start()" class="fa fa-microphone" aria-hidden="true"></i>
 
             </button>
           </span>
@@ -25,10 +25,16 @@
           </ion-col>
           <ion-col col-6 class="right-col">
             <div class="dashborad-button">
-              <button (click)="gotoPage('TodayspecialPage')" class="tspecial"><span>Today's Special</span></button>
-              <button (click)="gotoPage('')" class="rorder"><span>Repeat Order</span></button>
-              <button (click)="gotoPage('CombooffertPage')" class="coffer"><span>Combo Offers</span></button>
-              <button (click)="gotoPage('AlacartPage')" class="acarte"><span>Ala Carte</span></button>
+              <button (click)="gotoPage('TodayspecialPage')"><span>Today's Special</span></button>
+            </div>
+            <div class="dashborad-button">
+              <button *ngIf="loggedIn==true" (click)="gotoPage('OrderhistoryPage')" ><span>Repeat Order</span></button>
+            </div>
+            <div class="dashborad-button">
+              <button (click)="gotoPage('CombooffertPage')" ><span>Combo Offers</span></button>
+            </div>
+            <div class="dashborad-button">
+              <button (click)="gotoPage('AlacartPage')"><span>À la carte</span></button>
             </div>
 
           </ion-col>

@@ -22,6 +22,13 @@ export class ProductService {
   getCombooffertList(user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productslistbycombo/'+user_id)
   }
+  // getSearchList(searchText,user_id): Observable<any> {
+  //   return this.http.get(environment.apiEndpoint + 'productslistbycombo/'+user_id)
+  // }
+
+  getSearchList(searchText,user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productsearch/' + searchText + '/'+user_id)
+  }
   getProductDetails(id,user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productdetails/'+id+'/'+user_id)
   }
