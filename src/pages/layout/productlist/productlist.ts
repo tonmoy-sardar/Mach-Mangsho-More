@@ -28,6 +28,8 @@ export class ProductlistPage {
   searchText: string;
   visibleKey: boolean;
 
+  categoryBannerImage:any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -74,6 +76,7 @@ export class ProductlistPage {
     this.spinnerDialog.show();
     this.productService.getProductList(id,user_id).subscribe(
       res => {
+        this.categoryBannerImage=res['category_banner_image'];
         this.allProductList = res['result'];
 
         
