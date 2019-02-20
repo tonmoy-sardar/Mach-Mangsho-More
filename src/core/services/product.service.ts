@@ -13,6 +13,15 @@ export class ProductService {
   getProductList(id,user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/'+user_id)
   }
+  getTodayspecialList(user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'todayspecial/'+user_id)
+  }
+  getAlacartList(user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'alacart/'+user_id)
+  }
+  getCombooffertList(user_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistbycombo/'+user_id)
+  }
   getProductDetails(id,user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productdetails/'+id+'/'+user_id)
   }

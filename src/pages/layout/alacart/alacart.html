@@ -1,0 +1,77 @@
+<!--
+  Generated template for the ProductlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content fullscreen>
+    <div class="product-banner-image">
+        <img src="assets/imgs/banner2.jpg" alt="" />
+        <!-- banner_image
+        <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'"> -->
+
+        <div class="product-banner-text">
+            <h1>À la carte</h1>
+            
+        </div>
+
+    </div>
+    <div class="product-list-body" *ngIf="visibleKey">
+        <ion-card *ngFor="let product of allProductList">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <div class="product-detais">
+                                <ion-list no-lines class="product-name">{{product.name}}</ion-list>
+                                <ion-item class="pro-status">
+                                    <button *ngIf="product.product_stock > 5" class="pro-available">Available</button>
+                                    <button *ngIf="product.product_stock > 0 && product.product_stock < 6" class="pro-limited">Limited</button>
+                                    <button *ngIf="product.product_stock < 1" class="pro-sold">Sold Out</button>
+                                </ion-item>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6>
+                            <div class="product-image" (click)="gotoDetails(product.id)">
+                                <!-- <img src="assets/imgs/veg1.png"> -->
+                                <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
+
+                               
+
+                                <button class="price-trend-up" *ngIf="product.price_status==1">
+                                    <ion-icon name="arrow-round-up"></ion-icon>
+                                </button>
+                                <button class="price-trend-down" *ngIf="product.price_status==2">
+                                    <ion-icon name="arrow-round-down"></ion-icon>
+                                </button>
+                                <button class="price-trend-same" *ngIf="product.price_status==3"><i class="fa fa-arrows-h" aria-hidden="true"></i></button>
+
+                                <button class="market-price" ion-button round><span>{{product.market_price}} /
+                                    {{product.quantity_count}}  {{product.unit}}
+                                    </span>
+                                    <small>Market price</small>
+                                </button>
+                                <button class="our-price" ion-button round><span>{{product.price}} /
+                                    {{product.quantity_count}}   {{product.unit}} </span>
+                                    <small>Our price</small>
+                                </button>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-grid>
+
+                <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && this.userId>0" aria-hidden="true"
+                    (click)="addWishList(product.id)"></i>
+                <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && !this.userId" aria-hidden="true"></i>
+                <i class="fa fa-heart not-favrate favrate" *ngIf="product.whishlist != null" aria-hidden="true"></i>
+
+            </ion-card-content>
+        </ion-card>
+
+        <div *ngIf="allProductList.length==0">
+            <img src="assets/imgs/no-records.png">
+        </div>
+    </div>
+
+</ion-content>
