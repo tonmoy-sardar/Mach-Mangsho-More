@@ -19,7 +19,7 @@ import { ProductService } from '../../../core/services/product.service';
 })
 export class RatingPage {
   //rating: number = 4;
-  ratingNumber: number;
+  ratingNumber;
   userId: number;
   recipeId: number;
   recipeDetails:any={};
@@ -45,13 +45,11 @@ export class RatingPage {
     console.log('ionViewDidLoad RatingPage');
     this.userId = +localStorage.getItem('userId');
     this.recipeId = this.navParams.get('id');
+    this.ratingNumber='';
     this.getRecipeDetails(this.navParams.get('id'));
   }
 
-  gotoreviewPage() {
-    this.navCtrl.push('ReviewPage');
-  }
-
+ 
   onModelChange(event) {
     this.ratingNumber = event;
   }
@@ -96,6 +94,10 @@ export class RatingPage {
       this.presentToast("Please select rating");
     }
 
+  }
+
+  gotoreviewPage() {
+    this.navCtrl.push('ReviewPage',{id:this.recipeId,rating:this.ratingNumber});
   }
 
   gotoPage(id) {

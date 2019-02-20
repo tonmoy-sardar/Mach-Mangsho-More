@@ -119,7 +119,6 @@ export class PaymentmodePage {
     this.order_data.customer_id = this.userId;
     this.order_data.customer_email = this.user_email;
     this.order_data.order_total_price = this.total_item_price + parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
-    console.log(this.order_data);
     this.order_details = [];
     this.customer_cart_data.forEach(item => {
       this.order_details.push(
@@ -134,8 +133,6 @@ export class PaymentmodePage {
       );
     });
     this.order_data.order_details = this.order_details;
-    console.log(this.order_data);
-
     this.cartService.addOrder(this.order_data).subscribe(
       res => {
         this.orderStatus = res.result;

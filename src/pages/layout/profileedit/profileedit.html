@@ -25,9 +25,11 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-item *ngIf="isNameShowId==0">{{profileDetails.name}}</ion-item>
-        <ion-input type="text" name="name" [(ngModel)]="profileDetails.name" placeholder="Name" *ngIf="isNameShowId==1"></ion-input>
-
+        <ion-col col-12>
+          <ion-item *ngIf="isNameShowId==0">{{profileDetails.name}}</ion-item>
+          <ion-input type="text" name="name" [(ngModel)]="profileDetails.name" placeholder="Name"
+            *ngIf="isNameShowId==1"></ion-input>
+        </ion-col>
       </ion-row>
     </ion-card>
 
@@ -42,9 +44,11 @@
         </ion-col>
       </ion-row>
       <ion-row>
+        <ion-col col-12>
           <ion-item *ngIf="isEmailShowId==0">{{profileDetails.email}}</ion-item>
-        <ion-input type="text" name="email" [(ngModel)]="profileDetails.email" placeholder="Email" *ngIf="isEmailShowId==1"></ion-input>
-
+          <ion-input type="text" name="email" [(ngModel)]="profileDetails.email" placeholder="Email"
+            *ngIf="isEmailShowId==1"></ion-input>
+        </ion-col>
       </ion-row>
     </ion-card>
     <ion-card>
@@ -58,25 +62,31 @@
         </ion-col>
       </ion-row>
       <ion-row>
-          <ion-item  *ngIf="isContactShowId==0">{{profileDetails.contact}}</ion-item>
-        <ion-input type="text" name="contact" [(ngModel)]="profileDetails.contact" placeholder="Contact" *ngIf="isContactShowId==1"></ion-input>
+        <ion-col col-12>
+          <ion-item *ngIf="isContactShowId==0">{{profileDetails.contact}}</ion-item>
+          <ion-input type="text" name="contact" [(ngModel)]="profileDetails.contact" placeholder="Contact"
+            *ngIf="isContactShowId==1"></ion-input>
+        </ion-col>
       </ion-row>
     </ion-card>
 
     <ion-card *ngFor="let myAddress of allAddressList; let i = index">
-        <ion-row class="profile-edit-title">
-          <ion-col col-8>
-            <h3>{{myAddress.type}}</h3>
-          </ion-col>
-          <ion-col col-4>
+      <ion-row class="profile-edit-title">
+        <ion-col col-8>
+          <h3>{{myAddress.type}}</h3>
+        </ion-col>
+        <ion-col col-4>
             <h3>Edit</h3>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-item >{{myAddress.address}} , {{myAddress.pincode}}</ion-item>
-        </ion-row>
-        <ion-row>
-            <!-- <form [formGroup]="addressForm" novalidate novalidate>
+            <!-- <h3 (click)="updateProfile(profileDetails)" *ngIf="isaddressShowId==1">Save</h3> -->
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>{{myAddress.address}} , {{myAddress.pincode}}</ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+         <!-- <form [formGroup]="addressForm" novalidate novalidate> 
                 <ion-grid>
                   <ion-row>
                     <ion-col col-12>
@@ -113,9 +123,9 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-              </form> -->
-        </ion-row>
-      </ion-card>
+              </form>  -->
+      </ion-row>
+    </ion-card>
 
   </div>
 </ion-content>

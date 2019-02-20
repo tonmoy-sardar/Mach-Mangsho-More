@@ -37,6 +37,7 @@ export class ProfileeditPage {
   isNameShowId: any;
   isEmailShowId: any;
   isContactShowId: any;
+  isaddressShowId:any;
   lastImage: any;
   imageURI: any;
   imageFileName: any;
@@ -44,6 +45,7 @@ export class ProfileeditPage {
   loading: any;
   apiUrl: any;
   allAddressList: any = [];
+ 
   addressForm: FormGroup;
 
   constructor(
@@ -83,8 +85,9 @@ export class ProfileeditPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileeditPage');
     this.isNameShowId = 0;
-    this.isEmailShowId = 0
-    this.isContactShowId = 0
+    this.isEmailShowId = 0;
+    this.isContactShowId = 0;
+    this.isaddressShowId=0;
     this.getmyAddress();
     this.menuCtrl.close();
   }
@@ -117,6 +120,8 @@ export class ProfileeditPage {
     }
 
   }
+
+  
   updateProfile(profileDetails) {
     this.userId = +localStorage.getItem('userId');
 
