@@ -454,10 +454,15 @@ button.btn-menu {
 }
 
 .product-list-body .product-detais {
-    position: absolute;
-    left: 0;
-    top: 46px;
-    width: 50%;
+    // position: absolute;
+    // left: 0;
+    // top: 46px;
+    // width: 50%;
+}
+
+.product-list-body .col
+{
+    padding-left: 0px !important;
 }
 
 .product-list-body .product-detais .list {
