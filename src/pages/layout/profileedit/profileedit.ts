@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 //import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
-import { Events,ToastController } from 'ionic-angular';
+import { Events, ToastController } from 'ionic-angular';
 import { environment } from '../../../core/global';
 import { File } from '@ionic-native/file';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,6 +9,7 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop/ngx';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 //Services
 import { ProfileService } from '../../../core/services/profile.service';
 
@@ -33,7 +34,9 @@ export class ProfileeditPage {
   userImage: any;
   profileDetails: any = [];
   userId: number;
-  isShowId: any;
+  isNameShowId: any;
+  isEmailShowId: any;
+  isContactShowId: any;
   lastImage: any;
   imageURI: any;
   imageFileName: any;
@@ -53,6 +56,7 @@ export class ProfileeditPage {
     private transfer: Transfer,
     private file: File,
     private filePath: FilePath,
+    private spinnerDialog: SpinnerDialog,
     public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
@@ -78,10 +82,13 @@ export class ProfileeditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileeditPage');
+    this.isNameShowId = 0;
+    this.isEmailShowId = 0
+    this.isContactShowId = 0
     this.getmyAddress();
     this.menuCtrl.close();
   }
-  
+
 
   getProfileDetails(id) {
     this.profileService.getProfile(id).subscribe(
@@ -93,23 +100,43 @@ export class ProfileeditPage {
       }
     )
   }
-  ShowSaveButton(id) {
-    this.isShowId = id;
+  ShowSaveButton(field, value) {
+    if (field == 'name') {
+      this.isNameShowId = value;
+    }
+    else if (field == 'email') {
+      this.isEmailShowId = value;
+    }
+    else if (field == 'contact') {
+      this.isContactShowId = value;
+    }
+    else {
+      this.isNameShowId = 0;
+      this.isEmailShowId = 0;
+      this.isContactShowId = 0;
+    }
+
   }
   updateProfile(profileDetails) {
     this.userId = +localStorage.getItem('userId');
-    console.log(profileDetails);
+
+    this.spinnerDialog.show();
     this.profileService.updateUserProfile(this.userId, profileDetails).subscribe(
       res => {
         this.profileDetails = res['result'];
 
         console.log("Profile Details ==>", this.profileDetails);
         this.getProfileDetails(this.userId);
-        this.isShowId = 0;
+        this.isNameShowId = 0;
+        this.isEmailShowId = 0;
+        this.isContactShowId = 0;
         localStorage.setItem('userName', this.profileDetails.name);
         this.profileService.updateProfileStatus(true);
+        this.spinnerDialog.hide();
+        this.presentToast("Profile updated succesfully.");
       },
       error => {
+        this.spinnerDialog.hide();
       }
     )
 
