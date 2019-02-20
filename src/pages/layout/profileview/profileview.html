@@ -42,9 +42,9 @@
     <button ion-button full (click)="onButtonClick()">Show Address </button>
 
     <div *ngIf="buttonClicked">
-        <p class="error-msg" *ngIf="allAddressList.length==0">No address found!!!</p>
+      <p class="error-msg" *ngIf="allAddressList.length==0">No address found!!!</p>
       <ion-card *ngFor="let myAddress of allAddressList; let i = index">
-        <h3>{{myAddress.type}}</h3>
+        <h3 style="text-align: left;">{{myAddress.type}}</h3>
         <ion-item>
           {{myAddress.address}} , {{myAddress.pincode}}
         </ion-item>

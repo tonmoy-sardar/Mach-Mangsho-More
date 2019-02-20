@@ -66,16 +66,18 @@ export class ProfileviewPage {
     )
   }
   onButtonClick() {
-    this.buttonClicked = !this.buttonClicked;
+    
     this.spinnerDialog.show();
     this.profileService.addressList(this.userId).subscribe(
       res => {
         this.allAddressList = res['result'];
+        this.buttonClicked = !this.buttonClicked;
         this.spinnerDialog.hide();
+
         
       },
       error => {
-        this.allAddressList=[];
+        this.buttonClicked = !this.buttonClicked;
         this.spinnerDialog.hide();
       }
     )
