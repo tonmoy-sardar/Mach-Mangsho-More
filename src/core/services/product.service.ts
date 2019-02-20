@@ -65,6 +65,9 @@ export class ProductService {
   addRating(data): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'addRating/',data)
   }
+  addReview(data): Observable<any> {
+    return this.http.post(environment.apiEndpoint + 'addcomment/',data)
+  }
 
   getorderDetails(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'orderdetailsbyid/'+id)

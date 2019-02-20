@@ -34,13 +34,20 @@
   </ion-content> -->
   <ion-content fullscreen>
       <div class="review-banner">
-       <img src="../assets/imgs/begun_Curry.jpg">
+       <!-- <img [src]="recipeBannerImage"> -->
+       <img [src]="recipeBannerImage != ''? recipeBannerImage : 'assets/imgs/no-image.png'">
+    
        <div class="review-textarea">
+            <form [formGroup]="reviewForm"  novalidate >
           <div class="review-banner-body">
               <button ion-button class="review-write">Write a review</button>
-              <button ion-button class="review-submit">Submit</button>
+              <button ion-button class="review-submit" (click)="addReview()">Submit</button>
           </div>
-          <ion-textarea></ion-textarea>
+          <span class="error-msg" *ngIf="isFieldValid('review')">Please write your feedback.</span>
+          <ion-textarea formControlName="review" name="review" [ngClass]="displayFieldCss('review')"></ion-textarea>
+          
+        </form>
+
       </div>
        
       </div>
