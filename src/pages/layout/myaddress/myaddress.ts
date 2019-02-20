@@ -139,6 +139,7 @@ export class MyaddressPage {
         this.spinnerDialog.hide();
       },
       error => {
+        this.spinnerDialog.hide();
       }
     )
   }

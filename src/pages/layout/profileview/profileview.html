@@ -9,7 +9,7 @@
   <div class="profile-banner">
     <div class="profile-pic">
       <img
-        [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
+        [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
     </div>
     <!-- <div class="centerize">
         <a ion-button round>Photo</a>
@@ -38,5 +38,16 @@
         {{profileDetails.contact}}
       </ion-item>
     </ion-card>
+    
+    <button ion-button full (click)="onButtonClick()">Show Address </button>
+    <!-- <ion-input *ngIf="buttonClicked" type="text" value=""></ion-input> -->
+    <div *ngIf="buttonClicked" class="alladdress">
+      <ion-card *ngFor="let myAddress of allAddressList; let i = index">
+        <h3>{{myAddress.type}}</h3>
+        <ion-item>
+          {{myAddress.address}} , {{myAddress.pincode}}
+        </ion-item>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
