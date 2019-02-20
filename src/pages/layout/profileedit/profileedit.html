@@ -4,83 +4,118 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!-- <ion-header>
-
-  <ion-navbar>
-    <ion-title>profileedit</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content> -->
 <ion-content fullscreen>
   <div class="profile-banner">
     <div class="profile-pic" (click)="presentActionSheet()">
-        <i class="fa fa-camera" aria-hidden="true"></i>
-
-      <img [src]="userImage != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
+      <i class="fa fa-camera" aria-hidden="true"></i>
+      <img
+        [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
     </div>
 
   </div>
   <div class="profile-edit-body">
     <ion-card>
       <ion-row class="profile-edit-title">
-        <ion-col col-9>
+        <ion-col col-8>
           <h3>Name</h3>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-4>
           <h3 (click)="ShowSaveButton(1)">Edit</h3>
           <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==1">Save</h3>
         </ion-col>
       </ion-row>
       <ion-row>
-        <!-- <ion-col col-12> {{profileDetails.name}}</ion-col> -->
-        <ion-item class="mb-1">
-          <ion-input type="text" name="name" [(ngModel)]="profileDetails.name" placeholder="Name"></ion-input>
-        </ion-item>
-  
+        <ion-item >{{profileDetails.name}}</ion-item>
+        <ion-input type="text" name="name" [(ngModel)]="profileDetails.name" placeholder="Name"></ion-input>
+
       </ion-row>
     </ion-card>
 
     <ion-card>
       <ion-row class="profile-edit-title">
-        <ion-col col-9>
+        <ion-col col-8>
           <h3>Email</h3>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-4>
           <h3 (click)="ShowSaveButton(2)">Edit</h3>
           <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==2">Save</h3>
         </ion-col>
       </ion-row>
       <ion-row>
-        <!-- <ion-col col-12>{{profileDetails.contact}}</ion-col> -->
-        <ion-item class="mb-1">
-          <ion-input type="text" name="email" [(ngModel)]="profileDetails.email" placeholder="Email"></ion-input>
-        </ion-item>
+          <ion-item>{{profileDetails.email}}</ion-item>
+        <ion-input type="text" name="email" [(ngModel)]="profileDetails.email" placeholder="Email"></ion-input>
+
       </ion-row>
     </ion-card>
-
-
     <ion-card>
       <ion-row class="profile-edit-title">
-        <ion-col col-9>
+        <ion-col col-8>
           <h3>Contact Number</h3>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-4>
           <h3 (click)="ShowSaveButton(3)">Edit</h3>
           <h3 (click)="updateProfile(profileDetails)" *ngIf="isShowId==3">Save</h3>
         </ion-col>
       </ion-row>
       <ion-row>
-        <!-- <ion-col col-12>{{profileDetails.contact}}</ion-col> -->
-        <ion-item class="mb-1">
-          <ion-input type="text" name="contact" [(ngModel)]="profileDetails.contact" placeholder="Contact"></ion-input>
-        </ion-item>
+          <ion-item >{{profileDetails.contact}}</ion-item>
+        <ion-input type="text" name="contact" [(ngModel)]="profileDetails.contact" placeholder="Contact"></ion-input>
       </ion-row>
     </ion-card>
+
+    <ion-card *ngFor="let myAddress of allAddressList; let i = index">
+        <ion-row class="profile-edit-title">
+          <ion-col col-8>
+            <h3>{{myAddress.type}}</h3>
+          </ion-col>
+          <ion-col col-4>
+            <h3>Edit</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-item >{{myAddress.address}} , {{myAddress.pincode}}</ion-item>
+        </ion-row>
+        <ion-row>
+            <!-- <form [formGroup]="addressForm" novalidate novalidate>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-12>
+                      <ion-label>Type</ion-label>
+                      <ion-input type="text" formControlName="type" [(ngModel)]="myAddress.type" name="type" placeholder="Home/Office"
+                        [ngClass]="displayFieldCss('type')"></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span>
+                    </ion-col>
+      
+                    <ion-col col-12>
+                      <ion-label>Address</ion-label>
+                      <ion-input type="text" formControlName="address" name="address"  [(ngModel)]="myAddress.address" [ngClass]="displayFieldCss('address')">
+                      </ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Address.</span>
+                    </ion-col>
+                    <ion-col col-12>
+                      <ion-label>Land Mark</ion-label>
+                      <ion-input type="text" formControlName="landmark" name="landmark"
+                        [ngClass]="displayFieldCss('landmark')"></ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('landmark')">Please enter a Land Mark</span>
+                    </ion-col>
+      
+                    <ion-col col-12>
+                      <ion-label>Pin Code</ion-label>
+                      <ion-input type="text" formControlName="pincode" name="pincode"  [(ngModel)]="myAddress.pincode" [ngClass]="displayFieldCss('pincode')">
+                      </ion-input>
+                      <span class="error-msg" *ngIf="isFieldValid('pincode')">Please enter a pincode.</span>
+                    </ion-col>
+                  </ion-row>
+      
+                  <ion-row>
+                    <ion-col col-12 style="text-align: center;">
+                      <button ion-button color="dark" round (click)="submitAddress()">Submit</button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </form> -->
+        </ion-row>
+      </ion-card>
 
   </div>
 </ion-content>

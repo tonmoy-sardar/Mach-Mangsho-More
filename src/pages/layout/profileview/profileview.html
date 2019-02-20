@@ -40,13 +40,58 @@
     </ion-card>
     
     <button ion-button full (click)="onButtonClick()">Show Address </button>
-    <!-- <ion-input *ngIf="buttonClicked" type="text" value=""></ion-input> -->
-    <div *ngIf="buttonClicked" class="alladdress">
+
+    <div *ngIf="buttonClicked">
+        <p class="error-msg" *ngIf="allAddressList.length==0">No address found!!!</p>
       <ion-card *ngFor="let myAddress of allAddressList; let i = index">
         <h3>{{myAddress.type}}</h3>
         <ion-item>
           {{myAddress.address}} , {{myAddress.pincode}}
         </ion-item>
+      </ion-card>
+    </div>
+
+    <button ion-button full (click)="showAddAddress()">Add Address </button>
+    <div *ngIf="showAddAddressForm" class="alladdress">
+      <ion-card>
+          <form [formGroup]="addressForm" novalidate novalidate>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12>
+                    <ion-label>Type</ion-label>
+                    <ion-input type="text" formControlName="type" name="type" placeholder="Home/Office"
+                      [ngClass]="displayFieldCss('type')"></ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span>
+                  </ion-col>
+    
+                  <ion-col col-12>
+                    <ion-label>Address</ion-label>
+                    <ion-input type="text" formControlName="address" name="address" [ngClass]="displayFieldCss('address')">
+                    </ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Address.</span>
+                  </ion-col>
+                  <ion-col col-12>
+                    <ion-label>Land Mark</ion-label>
+                    <ion-input type="text" formControlName="landmark" name="landmark"
+                      [ngClass]="displayFieldCss('landmark')"></ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('landmark')">Please enter a Land Mark</span>
+                  </ion-col>
+    
+                  <ion-col col-12>
+                    <ion-label>Pin Code</ion-label>
+                    <ion-input type="text" formControlName="pincode" name="pincode" [ngClass]="displayFieldCss('pincode')">
+                    </ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('pincode')">Please enter a pincode.</span>
+                  </ion-col>
+                </ion-row>
+    
+                <ion-row>
+                  <ion-col col-12 style="text-align: center;">
+                    <button ion-button color="dark" round (click)="submitAddress()">Submit</button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
       </ion-card>
     </div>
   </div>
