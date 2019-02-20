@@ -20,6 +20,8 @@ import { ProductService } from '../../../core/services/product.service';
   templateUrl: 'recipedetails.html',
 })
 export class RecipedetailsPage {
+  rating;
+  avg_rating;
   recipeDetails:any={};
   imageBaseUrl:any;
   recipeBannerImage:any;
@@ -42,6 +44,7 @@ export class RecipedetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecipedetailsPage');
+    this.rating = [1, 2, 3, 4, 5];
    this.getRecipeDetails(this.navParams.get('id'));
   }
 

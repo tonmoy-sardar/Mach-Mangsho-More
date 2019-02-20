@@ -7,21 +7,60 @@
 
 <ion-content fullscreen *ngIf="visibleKey">
   <div class="product-banner" [ngStyle]="{'background': 'url(' + recipeBannerImage + ')'}">
-   
+
     <div class="product-pic">
-      <img [src]="recipeDetails.blog_small_image != ''? imageBaseUrl+ recipeDetails.blog_small_image : 'assets/imgs/no-image.png'" alt="" />
+      <img [src]="recipeDetails.blog_small_image != ''? imageBaseUrl+ recipeDetails.blog_small_image : 'assets/imgs/no-image.png'"
+        alt="" />
     </div>
   </div>
   <div class="recipe-list-body">
     <h3 class="recipe-title">{{recipeDetails.blog_title}}</h3>
-      <div class="recipe-detail-content">
-        <div [innerHtml]="recipeDetails.blog_content">
-        </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-list *ngIf="recipeDetails.average_rating==null" style="padding-left: 10px;">
+
+            <span class="card-small-headding">Rating :</span>
+            <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= 0 - 1 ? 'active' : '']"
+              style="margin-right: 2px;">
+              <ion-icon name="star"></ion-icon>
+            </span>
+          </ion-list>
+          <ion-list *ngIf="recipeDetails.average_rating!=null" style="padding-left: 10px;">
+
+            <span class="card-small-headding">Rating : </span>
+            <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= recipeDetails.average_rating.averagerating - 1 ? 'active' : '']"
+              style="margin-right: 2px;">
+              <ion-icon name="star"></ion-icon>
+            </span>
+          </ion-list>
+        </ion-col>
+        <ion-col col-6>
+          <ion-list style="padding-left: 10px;" *ngIf="recipeDetails.user_name!=null">
+            <span class="card-small-headding">Author : </span>
+            <span>{{recipeDetails.user_name.name}}</span>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="recipe-detail-content">
+      <div [innerHtml]="recipeDetails.blog_content">
       </div>
-      <div class="recipe-below-content">
-          <button class="recipe-rate" ion-button round (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
-          <button class="recipe-share" ion-button round (click)="shareInfo(recipeDetails)"><span>Share </span></button>
-      </div>
+    </div>
+    <div class="recipe-below-content">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 style="text-align: left">
+              <button class="recipe-rate" ion-button round (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
+          </ion-col>
+          <ion-col col-6 style="text-align: right">
+              <button class="recipe-share" ion-button round (click)="shareInfo(recipeDetails)"><span>Share </span></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      
+    </div>
 
   </div>
 </ion-content>

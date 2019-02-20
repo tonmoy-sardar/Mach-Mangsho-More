@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
+import {environment} from '../../../core/global';
 import { ToastController } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ProductService } from '../../../core/services/product.service';
@@ -21,6 +22,11 @@ export class RatingPage {
   ratingNumber: number;
   userId: number;
   recipeId: number;
+  recipeDetails:any={};
+  imageBaseUrl:any;
+  recipeBannerImage:any;
+  visibleKey: boolean;
+  rate;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,12 +38,14 @@ export class RatingPage {
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
+    this.imageBaseUrl = environment.imageBaseUrl;  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RatingPage');
     this.userId = +localStorage.getItem('userId');
     this.recipeId = this.navParams.get('id');
+    this.getRecipeDetails(this.navParams.get('id'));
   }
 
   gotoreviewPage() {
@@ -46,6 +54,24 @@ export class RatingPage {
 
   onModelChange(event) {
     this.ratingNumber = event;
+  }
+
+  getRecipeDetails(id) {
+    this.spinnerDialog.show();
+    this.productService.getrecipeDetails(id).subscribe(
+      res => {
+       
+        this.recipeDetails = res['result'];
+        this.recipeBannerImage = this.imageBaseUrl+this.recipeDetails.blog_large_image;
+       
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+      },
+      error => {
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
+      }
+    )
   }
 
   addRecipeRating() {
@@ -59,7 +85,7 @@ export class RatingPage {
         res => {
           console.log(res);
           this.presentToast("Rating Added Succesfully");
-          this.navCtrl.pop();
+          this.gotoPage(this.navParams.get('id'));
         },
         error => {
           this.presentToast("Rating not added");
@@ -70,6 +96,10 @@ export class RatingPage {
       this.presentToast("Please select rating");
     }
 
+  }
+
+  gotoPage(id) {
+    this.navCtrl.push('RecipedetailsPage',{id:id});
   }
   presentToast(msg) {
     const toast = this.toastCtrl.create({
