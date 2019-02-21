@@ -75,7 +75,7 @@ export class SpendingpatternPage {
         var categorySpending: any = [];
         this.spendingPattern.forEach(x => {
           categoryNames.push(x.product_category_name);
-          categorySpending.push(x.order_details.total_price_val!=null?x.order_details.total_price_val:0)
+          categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
         })
 
 
