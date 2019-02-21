@@ -22,7 +22,7 @@ export class ProductdetailsPage {
   totalMarketPrice: any;
   totalSavings: any;
   photo: any;
-  foodValueList:any;
+  foodValueList: any;
   private photos: any[] = [];
   visibleKey: boolean;
 
@@ -38,13 +38,13 @@ export class ProductdetailsPage {
     this.imageBaseUrl = environment.imageBaseUrl;
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
-    if(localStorage.getItem('userId')) {
+    if (localStorage.getItem('userId')) {
       this.userId = +localStorage.getItem('userId');
     }
     else {
-      this.userId ='';
+      this.userId = '';
     }
-    
+
     this.rangeValue = 1;
 
     if (sessionStorage.getItem("cart")) {
@@ -71,14 +71,14 @@ export class ProductdetailsPage {
 
   productDetails(id) {
     this.spinnerDialog.show();
-    this.productService.getProductDetails(id,this.userId).subscribe(
+    this.productService.getProductDetails(id, this.userId).subscribe(
       res => {
         this.proDetails = res['result']['productlist'];
-        
+
         this.proDetails.totalOurPrice = this.rangeValue * this.proDetails.price;
         this.proDetails.totalMarketPrice = this.rangeValue * this.proDetails.market_price;
         this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
-       
+
         var index = this.customer_cart_data.findIndex(y => y.product_id == this.proDetails.id && y.customer_id == this.userId);
 
         if (index != -1) {
@@ -112,37 +112,38 @@ export class ProductdetailsPage {
   addtoCart(item) {
     console.log(item);
     //if (localStorage.getItem('isLoggedin')) {
-      var data = {
-        customer_id: this.userId,
-        product_id: item.id,
-        product_name: item.name,
-        description: item.description,
-        price: item.price,
-        //discounted_price: item.discounted_price,
-        image_small: item.image_small,
-        quantity: item.quantity + 1,
-        totalOurPrice: item.totalOurPrice,
-        totalMarketPrice: item.totalMarketPrice,
-        totalSavings: item.totalSavings
-      }
+    var data = {
+      customer_id: this.userId,
+      product_id: item.id,
+      product_name: item.name,
+      description: item.description,
+      price: item.price,
+      //discounted_price: item.discounted_price,
+      image_small: item.image_small,
+      quantity: item.quantity + 1,
+      totalOurPrice: item.totalOurPrice,
+      totalMarketPrice: item.totalMarketPrice,
+      totalSavings: item.totalSavings
+    }
 
-      console.log("Cart Data ==>",data);
-      var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
-      if (this.proDetails.id == item.id) {
-        this.proDetails.isCart = true;
-        this.proDetails.quantity = item.quantity;
-      }
+    console.log("Cart Data ==>", data);
+    var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
 
-      if (index == -1) {
-        this.customer_cart_data.push(data);
-        this.setCartData();
-      }
-      this.cartService.cartNumberStatus(true);
-   // }
+    this.proDetails.isCart = true;
+    this.proDetails.quantity = item.quantity + 1;
+
+
+    if (index == -1) {
+      this.customer_cart_data.push(data);
+      this.setCartData();
+    }
+    this.cartService.cartNumberStatus(true);
+    // }
   }
 
   buyNow(item) {
     console.log(item);
+    
     if (localStorage.getItem('isLoggedin')) {
       var data = {
         customer_id: this.userId,
@@ -150,7 +151,7 @@ export class ProductdetailsPage {
         product_name: item.name,
         description: item.description,
         price: item.price,
-        //discounted_price: item.discounted_price,
+        
         image_small: item.image_small,
         quantity: item.quantity + 1,
         totalOurPrice: item.totalOurPrice,
@@ -161,6 +162,7 @@ export class ProductdetailsPage {
       if (this.proDetails.id == item.id) {
         this.proDetails.isCart = true;
         this.proDetails.quantity = item.quantity;
+
       }
 
       if (index == -1) {
@@ -195,6 +197,68 @@ export class ProductdetailsPage {
     console.log(this.proDetails);
   }
 
+  decrement(product_details) {
+    var index;
+    if (product_details.quantity > 1) {
+       index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+      if (index != -1) {
+        this.customer_cart_data[index].quantity = product_details.quantity - 1;
+        this.setCartData();
+      }
+      this.proDetails['quantity'] = product_details.quantity - 1
+      
+      if( this.proDetails['quantity']==0)
+      {
+        
+        index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+        if (index != -1) {
+          this.customer_cart_data.splice(index, 1);
+          this.setCartData();
+        }
+  
+        this.proDetails.isCart = false;
+       
+      }
+
+
+    }
+    else {
+      
+       index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+       
+      if (index != -1) {
+        
+        this.customer_cart_data.splice(index, 1);
+        this.setCartData();
+      }
+
+      this.proDetails.isCart = false;
+      this.proDetails.quantity = product_details.quantity - 1
+
+    }
+    console.log(this.customer_cart_data);
+    this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
+    this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
+    this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
+    this.cartService.cartNumberStatus(true);
+
+  }
+  increment(product_details) {
+    var index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+    if (index != -1) {
+      this.customer_cart_data[index].quantity = product_details.quantity + 1;
+      this.setCartData();
+    }
+    this.proDetails.quantity = product_details.quantity + 1
+
+
+    this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
+    this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
+    this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
+    this.cartService.cartNumberStatus(true);
+
+  }
+
   gotoFoodValue(id) {
     this.navCtrl.push('FoodvaluePage', { id: id });
   }
@@ -211,7 +275,7 @@ export class ProductdetailsPage {
     this.productService.getFoodList(id).subscribe(res => {
       this.foodValueList = res['result'];
       this.photos.push({
-        url: this.imageBaseUrl+this.foodValueList.food_value_large,
+        url: this.imageBaseUrl + this.foodValueList.food_value_large,
       });
       console.log(this.photos);
       this.spinnerDialog.hide();

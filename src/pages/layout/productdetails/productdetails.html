@@ -18,7 +18,7 @@
 
             <img [src]="proDetails.image_small != ''? imageBaseUrl+ proDetails.image_small : 'assets/imgs/no-image.png'">
 
-            
+
             <button *ngIf="proDetails.product_stock > 5" class="pro-available">Available</button>
             <button *ngIf="proDetails.product_stock > 0 && proDetails.product_stock < 6" class="pro-limited">Limited</button>
             <button *ngIf="proDetails.product_stock < 1" class="pro-sold">Sold Out</button>
@@ -36,8 +36,9 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-5>
-                        <ion-list>Quantity : <span> {{rangeValue}}</span></ion-list>
-                        <ion-list>Rate : <i class="fa fa-rupee"></i>{{proDetails.price}} / {{proDetails.quantity_count}} {{proDetails.unit}}</ion-list>
+                        <!-- <ion-list>Quantity : <span> {{rangeValue}}</span></ion-list> -->
+                        <ion-list>Rate : <i class="fa fa-rupee"></i>{{proDetails.price}} /
+                            {{proDetails.quantity_count}} {{proDetails.unit}}</ion-list>
                     </ion-col>
                     <ion-col col-2>
                         <ion-list>
@@ -50,13 +51,29 @@
                     </ion-col>
                     <ion-col col-5 class="pro-btn" *ngIf="proDetails.product_stock > 1">
 
-                        <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Add to Cart</button>
-                        <button (click)="RemoveCart(proDetails)" *ngIf="proDetails.isCart">Remove</button>
-                        <button (click)="buyNow(proDetails)">Buy</button>
+                        <!-- <button (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Add to Cart</button>
+                        <button (click)="RemoveCart(proDetails)" *ngIf="proDetails.isCart">Remove</button> -->
+
+                        <div class="quantity"  *ngIf="proDetails.isCart">
+                            <button class="quantity-btn" type="button" name="button" (click)="decrement(proDetails)">
+                                <ion-icon name="remove"></ion-icon>
+                            </button>
+
+                            <input type="text" name="quantity" readonly="readonly" [value]="proDetails.quantity">
+                            <button class="quantity-btn" type="button" name="button" (click)="increment(proDetails)">
+                                <ion-icon name="add"></ion-icon>
+                            </button>
+                        </div>
+                        <div  *ngIf="!proDetails.isCart">
+                            <button class="buyNow" (click)="addtoCart(proDetails)" *ngIf="!proDetails.isCart">Add to Cart</button>
+                        </div>
+                        <div style="padding-top: 10px;">
+                            <button class="buyNow" (click)="buyNow(proDetails)">Buy</button>
+                        </div>
 
                     </ion-col>
                 </ion-row>
-                <ion-row class="price-saving">
+                <ion-row class="price-saving" *ngIf="proDetails.product_stock > 1">
                     <ion-col col-6>Price <span><i class="fa fa-rupee"></i>{{proDetails.totalOurPrice}}</span></ion-col>
                     <ion-col col-6><small>Savings</small><span class="red-box"><i class="fa fa-rupee"></i>{{this.proDetails.totalSavings}}</span>
                     </ion-col>
