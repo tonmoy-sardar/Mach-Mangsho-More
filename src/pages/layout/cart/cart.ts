@@ -41,7 +41,13 @@ export class CartPage {
   ) {
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false }); // For Show- hide Header
     this.imageBaseUrl = environment.imageBaseUrl;
-    this.userId = +localStorage.getItem('userId');
+    
+    if (localStorage.getItem('userId')) {
+      this.userId = +localStorage.getItem('userId');
+    }
+    else {
+      this.userId = '';
+    }
   }
 
   ionViewDidLoad() {
@@ -56,13 +62,13 @@ export class CartPage {
   }
 
   gotoPage() {
-    if(this.userId !='') {
+    if (this.userId != '') {
       this.navCtrl.push('MyaddressPage');
     }
     else {
       this.navCtrl.push('LoginPage');
     }
-    
+
   }
 
   populateData() {
@@ -71,7 +77,7 @@ export class CartPage {
       console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
       //this.customer_cart_data.length =1;
-      
+
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
@@ -81,16 +87,16 @@ export class CartPage {
     }
   }
 
-  increment(i) {
-    var qty = this.customer_cart_data[i].quantity;
-    this.customer_cart_data[i].quantity = qty + 1;
-    //var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.package_id == this.customer_cart_data[i].package_id);
-    var index = this.all_cart_data.findIndex(x => x.product_id == this.customer_cart_data[i].product_id);
-    if (index != -1) {
-      this.all_cart_data[index].quantity = qty + 1;
-      this.setCartData()
-    }
-  }
+  // increment(i) {
+  //   var qty = this.customer_cart_data[i].quantity;
+  //   this.customer_cart_data[i].quantity = qty + 1;
+  //   //var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.package_id == this.customer_cart_data[i].package_id);
+  //   var index = this.all_cart_data.findIndex(x => x.product_id == this.customer_cart_data[i].product_id);
+  //   if (index != -1) {
+  //     this.all_cart_data[index].quantity = qty + 1;
+  //     this.setCartData()
+  //   }
+  // }
 
   setCartData() {
     console.log(this.all_cart_data);
@@ -105,18 +111,22 @@ export class CartPage {
     this.total_market_saving = 0
     console.log(this.customer_cart_data);
     this.customer_cart_data.forEach(x => {
-      if (x.discounted_price > 0) {
-        this.total_item_price += (x.discounted_price * x.quantity);
-        this.total_market_price += x.totalMarketPrice;
-        this.total_market_saving += x.totalSavings;
-        console.log(this.total_item_price);
-      }
-      else {
-        console.log("zz", x);
-        this.total_item_price += (x.price * x.quantity);
-        this.total_market_price += x.totalMarketPrice;
-        this.total_market_saving += x.totalSavings;
-      }
+      // if (x.discounted_price > 0) {
+      //   this.total_item_price += (x.discounted_price * x.quantity);
+      //   this.total_market_price += x.totalMarketPrice;
+      //   this.total_market_saving += x.totalSavings;
+      //   console.log(this.total_item_price);
+      // }
+      // else {
+      //   console.log("zz", x);
+      //   this.total_item_price += (x.price * x.quantity);
+      //   this.total_market_price += x.totalMarketPrice;
+      //   this.total_market_saving += x.totalSavings;
+      // }
+
+      this.total_item_price += (x.price * x.quantity);
+      this.total_market_price += (x.market_price * x.quantity);
+      this.total_market_saving += (this.total_market_price - this.total_item_price);
     })
   }
 
@@ -156,6 +166,37 @@ export class CartPage {
       ]
     });
     alert.present();
+  }
+
+  increment(i) {
+    var qty = this.customer_cart_data[i].quantity;
+    this.customer_cart_data[i].quantity = qty + 1;
+    var index = this.all_cart_data.findIndex(x => x.customer_id == this.userId && x.product_id == this.customer_cart_data[i].product_id);
+    if (index != -1) {
+      this.all_cart_data[index].quantity = qty + 1;
+      this.all_cart_data[index].totalOurPrice = (this.all_cart_data[index].price * this.all_cart_data[index].quantity);
+      this.all_cart_data[index].totalMarketPrice = (this.all_cart_data[index].market_price * this.all_cart_data[index].quantity);
+      this.all_cart_data[index].totalSavings = (this.all_cart_data[index].totalMarketPrice - this.all_cart_data[index].totalOurPrice);
+      this.setCartData()
+    }
+  }
+
+  decrement(i) {
+    var qty = this.customer_cart_data[i].quantity;
+    if (qty > 1) {
+      this.customer_cart_data[i].quantity = qty - 1;
+      var index = this.all_cart_data.findIndex(x => x.customer_id == this.userId && x.product_id == this.customer_cart_data[i].product_id);
+      if (index != -1) {
+        this.all_cart_data[index].quantity = qty - 1;
+        this.all_cart_data[index].totalOurPrice = (this.all_cart_data[index].price * this.all_cart_data[index].quantity);
+        this.all_cart_data[index].totalMarketPrice = (this.all_cart_data[index].market_price * this.all_cart_data[index].quantity);
+        this.all_cart_data[index].totalSavings = (this.all_cart_data[index].totalMarketPrice - this.all_cart_data[index].totalOurPrice);
+        this.setCartData()
+      }
+    }
+    else {
+      this.removeCart(this.customer_cart_data[i].product_id)
+    }
   }
   presentConfirm() {
 

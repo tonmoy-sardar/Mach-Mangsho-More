@@ -87,6 +87,13 @@ page-cart {
         left: 0%;
         width: 50%;
         opacity: 0.9;
+        padding: 5px 9px;
+    }
+    .cart-pro-price span {
+        display: block;
+    }
+    .cart-pro-edit span {
+        display: block;
     }
     .cart-pro-edit {
         position: absolute;
@@ -97,6 +104,7 @@ page-cart {
         left: 54%;
         width: 50%;
         opacity: 0.9;
+        padding: 5px 9px;
     }
     .cart-iteam-no {
         border-radius: 0em 4em 4em 0em;
@@ -150,5 +158,18 @@ page-cart {
     {
         font-size: 18px;
         padding-left: 5px !important;
+    }
+
+    .quantity {
+        
+       
+      }
+    .cart-body .quantity-btn
+    {
+    background: #caf5f8;
+    border: 1px solid #b3b3b3;
+    color: #5a91d5;
+    border-radius: 6px;
+    padding: 9px 12px;
     }
 }

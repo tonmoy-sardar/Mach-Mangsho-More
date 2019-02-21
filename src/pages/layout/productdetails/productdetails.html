@@ -59,7 +59,8 @@
                                 <ion-icon name="remove"></ion-icon>
                             </button>
 
-                            <input type="text" name="quantity" readonly="readonly" [value]="proDetails.quantity">
+                            
+                            <span>{{proDetails.quantity}}</span> 
                             <button class="quantity-btn" type="button" name="button" (click)="increment(proDetails)">
                                 <ion-icon name="add"></ion-icon>
                             </button>
