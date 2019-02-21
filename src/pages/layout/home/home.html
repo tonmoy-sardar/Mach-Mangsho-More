@@ -5,15 +5,32 @@
   </div>
   <div class="dashboard-body">
     <img src="assets/imgs/women1.png">
-   <button *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></button>
+
+   <a *ngIf="showCat==1" class="cat-more" id='ss_toggle' data-rot='180'><span>More</span></a>
     <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button>
   </div>
   <button class="footer-bottom-right"><span>Order</span></button>
-  <div id='ss_menu'>
+  <!-- <div id='ss_menu'>
       <div *ngFor="let category of categoryList| slice:startCatNum:endCatNum; let i = index">
         <img (click)="goToProList(category.id,category.name)"
           [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
       </div>
-    </div>
+    </div> -->
+    <div class="wrapper">
+      <div class="menu">
+      <a href="#" class="four">Four</a>
+      <div class="circle">
+      <ul>
+      <li> <img src="assets/imgs/group1.png"></li>
+      <li> <img src="assets/imgs/group2.png"></li>
+      <li> <img src="assets/imgs/group3.png"></li>
+      <li> <img src="assets/imgs/group4.png"></li>
+   
+      <!-- <li *ngFor="let category of categoryList let i = index"><img (click)="goToProList(category.id,category.name)"
+        [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'"></li> -->
+      </ul>
+      </div>
+      </div>
+      </div>
 
 </ion-content>

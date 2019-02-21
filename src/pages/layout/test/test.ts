@@ -1,7 +1,9 @@
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as $ from "jquery";
 import { SocialSharing } from '@ionic-native/social-sharing';
+import * as $ from "jquery";
+
 /**
  * Generated class for the TestPage page.
  *
@@ -23,6 +25,16 @@ export class TestPage {
   }
 
   ionViewDidLoad() {
+
+  // $(document).ready(function () {
+  //   $('.wheel').circleMenu({
+  //     lockDirection: true,
+  //     dragMouse: true,
+  //     dragTouch: true
+  //   });
+  // });
+
+   
     // console.log('ionViewDidLoad TestPage');
     // $(document).ready(function(ev) {
     //   var toggle = $('#ss_toggle');

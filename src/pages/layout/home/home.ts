@@ -73,6 +73,8 @@ export class HomePage {
     )
   }
 
+ 
+
 
   categoryRotate() {
     $(document).ready(function(ev) {
