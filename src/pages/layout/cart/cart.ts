@@ -126,8 +126,10 @@ export class CartPage {
 
       this.total_item_price += (x.price * x.quantity);
       this.total_market_price += (x.market_price * x.quantity);
-      this.total_market_saving += (this.total_market_price - this.total_item_price);
+      //this.total_market_saving += (this.total_market_price - this.total_item_price);
     })
+    this.getTotalSaving( this.total_item_price,this.total_market_price)
+    
   }
 
   getTotalPackingPrice() {
@@ -135,6 +137,13 @@ export class CartPage {
     this.customer_cart_data.forEach(x => {
       this.total_packing_price += x.packing_charges;
     })
+
+
+
+  }
+  getTotalSaving(total_item_price,total_market_price,)
+  {
+    this.total_market_saving += (total_market_price - total_item_price);
   }
 
   removeCart(id) {

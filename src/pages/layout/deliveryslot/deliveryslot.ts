@@ -22,7 +22,7 @@ export class DeliveryslotPage {
   deliverySlot;
   customer_cart_data: any = [];
   all_cart_data: any;
-  userId: number;
+  userId: any;
   imageBaseUrl: any;
   allAddressList: any = [];
   profileDetails: any = {};
@@ -32,6 +32,7 @@ export class DeliveryslotPage {
   total_market_price: any;
   total_market_saving: any;
   all_customer_data:any;
+  todayDate;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,6 +44,12 @@ export class DeliveryslotPage {
       events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
       this.userId = +localStorage.getItem('userId');
       this.imageBaseUrl = environment.imageBaseUrl;
+      if (localStorage.getItem('userId')) {
+        this.userId = +localStorage.getItem('userId');
+      }
+      else {
+        this.userId = '';
+      }
   }
 
   ionViewDidLoad() {
@@ -52,6 +59,7 @@ export class DeliveryslotPage {
     this.getDeliverySlot();
     this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
     console.log(this.all_customer_data);
+    this.todayDate = Date.now();
   }
 
   getDeliverySlot() {

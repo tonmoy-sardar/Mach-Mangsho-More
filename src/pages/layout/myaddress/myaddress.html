@@ -7,27 +7,27 @@
 <ion-content fullscreen>
   <div class="product-banner">
     <ion-grid>
-      <ion-row>
-        <ion-col col-3>
-          <div class="profile-pic-small">
-            <img
-              [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
-          </div>
-        </ion-col>
-        <ion-col col-4>
-          <ion-list no-lines>{{profileDetails.name}}</ion-list>
-          <!-- <ion-list no-lines>Date <small>
-              <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
-            </small> </ion-list> -->
-        </ion-col>
-        <ion-col col-5>
-      
-          <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
-          <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
-          <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
-          <ion-list no-lines>Bag Value <span> {{total_item_price}} </span> </ion-list>
-        </ion-col>
-      </ion-row>
+        <ion-row>
+            <ion-col col-3>
+                <div class="profile-pic-small">
+                    <img *ngIf="userId !=''" [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
+                </div>
+            </ion-col>
+            <ion-col col-4>
+                <ion-list no-lines *ngIf="userId ==''">Guest</ion-list>
+                <ion-list no-lines *ngIf="userId !=''">{{profileDetails.name}}</ion-list>
+                <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list>
+            </ion-col>
+            <ion-col col-5>
+                <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span>
+                </ion-list>
+                <!-- <ion-list no-lines>M Value <span> <i class="fa fa-rupee"></i>{{total_market_price}} </span>
+                </ion-list> -->
+                <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span>
+                </ion-list>
+                <ion-list no-lines>Item <span> {{customer_cart_data.length}} </span> </ion-list>
+            </ion-col>
+        </ion-row>
     </ion-grid>
   </div>
   <div class="cart-body">
@@ -50,9 +50,9 @@
       </ion-grid>
     </div>
     <div class="delivery-slot">
-      <h3>Choose Preferred Delivery Slot</h3>
+      <!-- <h3>Choose Preferred Delivery Slot</h3> -->
      
-      <ion-card *ngFor="let myAddress of allAddressList; let i = index" (click)="checkAvailability(i,myAddress.id,myAddress.pincode)">
+      <ion-card *ngFor="let myAddress of allAddressList; let i = index" (click)="checkAvailability(i,myAddress.id,myAddress.pincode,myAddress)">
         <ion-item><span>Saved Address </span> <span class="address-type">{{myAddress.type}}</span></ion-item>
         <ion-item>
           <p>{{myAddress.address}} , {{myAddress.pincode}}</p>

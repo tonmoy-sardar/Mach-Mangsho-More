@@ -21,7 +21,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 export class MyaddressPage {
   customer_cart_data: any = [];
   all_cart_data: any;
-  userId: number;
+ 
   allAddressList: any = [];
   profileDetails: any = {};
   total_item_price: any;
@@ -40,6 +40,8 @@ export class MyaddressPage {
   isAvailablePin:any;
   total_market_price1:any;
   customer_data:any;
+  todayDate;
+  userId: any;
 
   constructor(
     public navCtrl: NavController,
@@ -64,6 +66,12 @@ export class MyaddressPage {
       pincheck: ["", Validators.required],
     });
     this.showAddressForm = false;
+    if (localStorage.getItem('userId')) {
+      this.userId = +localStorage.getItem('userId');
+    }
+    else {
+      this.userId = '';
+    }
   }
 
   ionViewDidLoad() {
@@ -71,6 +79,7 @@ export class MyaddressPage {
     this.myAddressList(this.userId);
     this.getProfileDetails(this.userId);
     this.populateData();
+    this.todayDate = Date.now();
 
   }
 
@@ -143,7 +152,7 @@ export class MyaddressPage {
       }
     )
   }
-  checkAvailability(i,addressId,pinCode) {
+  checkAvailability(i,addressId,pinCode,myAddress) {
     this.profileService.getPinCode(pinCode).subscribe(
       res => {
         this.isAvailablePin='';
@@ -153,7 +162,13 @@ export class MyaddressPage {
         if(this.isAvailable >0) {
          
           this.customer_data ={};
-          this.customer_data.address_id = addressId
+          this.customer_data.address_id = addressId;
+          //console.log(myAddress);
+          this.customer_data.address = myAddress.address;
+          this.customer_data.pincode = myAddress.pincode;
+          this.customer_data.state_name = myAddress.state_name;
+          this.customer_data.type = myAddress.type;
+          //console.log(myAddress);
           sessionStorage.setItem("customer_details", JSON.stringify(this.customer_data));
           this.navCtrl.push('DeliveryslotPage',{pincode:pinCode});
         }
