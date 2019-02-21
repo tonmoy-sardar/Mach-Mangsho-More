@@ -13,7 +13,7 @@ import { ProfileService } from '../../../core/services/profile.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'deliveryslot/:pincode' })
 @Component({
   selector: 'page-deliveryslot',
   templateUrl: 'deliveryslot.html',

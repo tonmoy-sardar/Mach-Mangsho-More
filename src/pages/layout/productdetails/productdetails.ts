@@ -7,7 +7,7 @@ import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 
-@IonicPage()
+@IonicPage( { segment: 'productdetails/:id' })
 @Component({
   selector: 'page-productdetails',
   templateUrl: 'productdetails.html',

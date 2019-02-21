@@ -11,7 +11,7 @@ import { ProductService } from '../../../core/services/product.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'recipelist/:id' })
 @Component({
   selector: 'page-recipelist',
   templateUrl: 'recipelist.html',

@@ -10,7 +10,7 @@ import {ProductService} from '../../../core/services/product.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'foodvalue/:id' })
 @Component({
   selector: 'page-foodvalue',
   templateUrl: 'foodvalue.html',
