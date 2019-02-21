@@ -118,7 +118,9 @@ export class ProductdetailsPage {
       product_name: item.name,
       description: item.description,
       price: item.price,
-      //discounted_price: item.discounted_price,
+      market_price: item.market_price,
+      quantity_count: item.quantity_count,
+      unit: item.unit,
       image_small: item.image_small,
       quantity: item.quantity + 1,
       totalOurPrice: item.totalOurPrice,
@@ -143,7 +145,7 @@ export class ProductdetailsPage {
 
   buyNow(item) {
     console.log(item);
-    
+
     if (localStorage.getItem('isLoggedin')) {
       var data = {
         customer_id: this.userId,
@@ -151,7 +153,9 @@ export class ProductdetailsPage {
         product_name: item.name,
         description: item.description,
         price: item.price,
-        
+        market_price: item.market_price,
+        quantity_count: item.quantity_count,
+        unit: item.unit,
         image_small: item.image_small,
         quantity: item.quantity + 1,
         totalOurPrice: item.totalOurPrice,
@@ -200,34 +204,33 @@ export class ProductdetailsPage {
   decrement(product_details) {
     var index;
     if (product_details.quantity > 1) {
-       index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+      index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
       if (index != -1) {
         this.customer_cart_data[index].quantity = product_details.quantity - 1;
         this.setCartData();
       }
       this.proDetails['quantity'] = product_details.quantity - 1
-      
-      if( this.proDetails['quantity']==0)
-      {
-        
+
+      if (this.proDetails['quantity'] == 0) {
+
         index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
         if (index != -1) {
           this.customer_cart_data.splice(index, 1);
           this.setCartData();
         }
-  
+
         this.proDetails.isCart = false;
-       
+
       }
 
 
     }
     else {
-      
-       index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
-       
+
+      index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
+
       if (index != -1) {
-        
+
         this.customer_cart_data.splice(index, 1);
         this.setCartData();
       }

@@ -6,34 +6,38 @@
 -->
 
 <ion-content fullscreen>
-    <!-- <page-cartdetailsbanner></page-cartdetailsbanner> -->
+  <!-- <page-cartdetailsbanner></page-cartdetailsbanner> -->
   <div class="product-banner">
-      <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <div class="profile-pic-small">
-                <img
-                  [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
-              </div>
-            </ion-col>
-            <ion-col col-4>
-              <ion-list no-lines>{{profileDetails.name}}</ion-list>
-            </ion-col>
-            <ion-col col-5>
-              <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
-              <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
-              <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
-              <ion-list no-lines>Bag Value <span> {{total_item_price}} </span> </ion-list>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <div class="profile-pic-small">
+            <img *ngIf="userId !=''" [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <ion-list no-lines *ngIf="userId ==''">Guest</ion-list>
+          <ion-list no-lines *ngIf="userId !=''">{{profileDetails.name}}</ion-list>
+          <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list>
+        </ion-col>
+        <ion-col col-5>
+          <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span>
+          </ion-list>
+          <!-- <ion-list no-lines>M Value <span> <i class="fa fa-rupee"></i>{{total_market_price}} </span>
+                  </ion-list> -->
+          <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span>
+          </ion-list>
+          <ion-list no-lines>Item <span> {{customer_cart_data.length}} </span> </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <div class="cart-body">
     <div class="page-tab">
       <ion-grid>
         <ion-row>
           <ion-col col-3>
-            <button ></button>
+            <button></button>
           </ion-col>
           <ion-col col-3>
             <button></button>

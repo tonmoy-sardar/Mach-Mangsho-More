@@ -15,7 +15,6 @@ import { ProfileService } from '../../../core/services/profile.service';
 export class PaymentmodePage {
   customer_cart_data: any = [];
   all_cart_data: any;
-  userId: number;
   imageBaseUrl: any;
   allAddressList: any = [];
   profileDetails: any = {};
@@ -30,6 +29,8 @@ export class PaymentmodePage {
   order_details: any;
   orderStatus: any;
   delivery_charge;
+  todayDate;
+  userId: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,12 +46,19 @@ export class PaymentmodePage {
     this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
     console.log(this.all_customer_data);
     this.delivery_charge = parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
+    if (localStorage.getItem('userId')) {
+      this.userId = +localStorage.getItem('userId');
+    }
+    else {
+      this.userId = '';
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentmodePage');
     this.getProfileDetails(this.userId);
     this.populateData();
+    this.todayDate = Date.now();
   }
 
   populateData() {
@@ -116,6 +124,7 @@ export class PaymentmodePage {
     this.order_data = {};
     this.order_data.payment_type = payment_type;
     this.order_data.address_id = this.all_customer_data.address_id;
+    this.order_data.address = this.all_customer_data.address;
     this.order_data.customer_id = this.userId;
     this.order_data.customer_email = this.user_email;
     this.order_data.order_total_price = this.total_item_price + parseFloat(this.all_customer_data.delivery_slot.deliver_charge);

@@ -24,7 +24,15 @@ export class ProductService {
   }
  
   getSearchList(searchText,user_id): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistsearch/' + searchText + '/'+user_id)
+    if(user_id>0)
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearch/' + user_id + '/?search_key='+searchText)
+    }
+    else
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearch/?search_key='+searchText)
+    }
+   
   }
   getProductDetails(id,user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productdetails/'+id+'/'+user_id)
@@ -77,10 +85,33 @@ export class ProductService {
     return this.http.get(environment.apiEndpoint + 'productfoodvalue/'+id)
   }
   productSearch(id,keywords): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/' + id + '/'+keywords)
+    if(id>0)
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/' + id + '/?search_key='+keywords)
+    }
+    else
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearchbycatid/?search_key='+keywords)
+    }
+   
   }
   myWishlistSearch(id,keywords): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistsearchbywhishlist/' + id + '/'+keywords)
+    if(id>0)
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearchbywhishlist/' + id + '/?search_key='+keywords)
+    }
+    else
+    {
+      return this.http.get(environment.apiEndpoint + 'productslistsearchbywhishlist/?search_key='+keywords)
+    }
+
   }
 
+  getRepeatOrder(ids): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'repeatorder/?product_id='+ids)
+  }
+
+  getSpendingPattern(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productspendcatwisebyuserid/'+id+'/')
+  }
 }

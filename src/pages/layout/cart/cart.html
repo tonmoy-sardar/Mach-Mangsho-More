@@ -21,8 +21,12 @@
                         <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list>
                     </ion-col>
                     <ion-col col-5>
-                        <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span> </ion-list>
-                        <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span> </ion-list>
+                        <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span>
+                        </ion-list>
+                        <!-- <ion-list no-lines>M Value <span> <i class="fa fa-rupee"></i>{{total_market_price}} </span>
+                        </ion-list> -->
+                        <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span>
+                        </ion-list>
                         <ion-list no-lines>Item <span> {{customer_cart_data.length}} </span> </ion-list>
                     </ion-col>
                 </ion-row>
@@ -63,7 +67,7 @@
                     <i class="fa fa-trash remove-cart" aria-hidden="true" (click)="removeCart(allCart.product_id)"></i>
                     <ion-grid>
                         <ion-row>
-                            <ion-col col-6 class="span-red">
+                            <ion-col col-6 >
                                 <ion-list no-lines class="product-name">{{allCart.product_name}}</ion-list>
                                 <!-- <ion-list no-lines>{{allCart.product_name}}
                                 <span>₹ 25</span>
@@ -71,22 +75,38 @@
                             <ion-list no-lines>{{allCart.product_name}} 
                                 <span>₹ २५</span> 
                             </ion-list> -->
-                                <span>Quantity {{allCart.quantity}}</span>
+                                <!-- <span>Quantity {{allCart.quantity}}</span>
                                 <br>
-                                <span>Saving Rs.{{allCart.totalSavings}}</span>
-                                <ion-item class="pro-status"><button class="cart-iteam-no">Item 1</button></ion-item>
+                                <span>Saving Rs.{{allCart.totalSavings}}</span> -->
+                                <ion-list style="padding-left: 5px;">Rate : <i class="fa fa-rupee"></i>{{allCart.price}}
+                                    /
+                                    {{allCart.quantity_count}} {{allCart.unit}}</ion-list>
+                                <div class="quantity" style="padding-left: 5px; padding-top: 20px;" >
+                                    <button class="quantity-btn" type="button" name="button" (click)="decrement(i)">
+                                        <ion-icon name="remove"></ion-icon>
+                                    </button>
+
+                                    <span style="width: 20px; text-align: center; display:inline-block;">{{allCart.quantity}}</span> 
+                                    <button class="quantity-btn" type="button" name="button" (click)="increment(i)">
+                                        <ion-icon name="add"></ion-icon>
+                                    </button>
+                                </div>
+                                <!-- <ion-item class="pro-status"><button class="cart-iteam-no">Item 1</button></ion-item> -->
+
                             </ion-col>
                             <ion-col col-6>
                                 <div class="product-image">
                                     <!-- <img src="assets/imgs/brinjal-green.jpg"> -->
                                     <img [src]="allCart.image_small != '' && imageBaseUrl+ allCart.image_small || 'assets/imgs/no-image.png'">
 
-                                    <button class="price-trend-down">
+                                    <!-- <button class="price-trend-down">
                                         <ion-icon name="arrow-round-down"></ion-icon>
-                                    </button>
+                                    </button> -->
 
-                                    <!-- <button class="cart-pro-price" ion-button round><span><i class="fa fa-rupee"></i> {{allCart.price}} </span></button> -->
-                                    <button class="cart-pro-edit" ion-button round><span><i class="fa fa-rupee"></i> {{allCart.price}} </span></button>
+                                    <button class="cart-pro-price" ion-button round><span><i class="fa fa-rupee"></i>
+                                            {{allCart.totalOurPrice}} </span><small>Price</small></button>
+                                    <button class="cart-pro-edit" ion-button round><span><i class="fa fa-rupee"></i>
+                                            {{allCart.totalSavings}} </span><small>Savings</small></button>
                                     <!-- <button class="cart-pro-edit" ion-button round><span>Edit</span></button> -->
                                 </div>
                             </ion-col>

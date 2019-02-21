@@ -6,10 +6,10 @@
 -->
 <ion-content fullscreen *ngIf="visibleKey">
   <div class="order-list-body">
-    <ion-card (click)="gotoOrderDetails(order.id)" *ngFor="let order of orderList; let i = index">
+    <ion-card  *ngFor="let order of orderList; let i = index">
       <ion-card-content>
         <ion-grid>
-          <ion-row>
+          <ion-row (click)="gotoOrderDetails(order.id)">
             <ion-col col-6>
               <ion-list no-lines class="recipe-name">No : {{order.order_no}}</ion-list>
             </ion-col>
@@ -17,8 +17,8 @@
               <ion-list no-lines class="recipe-name" style="text-align: right;">Date : {{order.date_created |
                 date:'MMM d, y'}}</ion-list>
             </ion-col>
-          </ion-row>
-          <ion-row style="background-color:#c3e8eb">
+          </ion-row >
+          <ion-row style="background-color:#c3e8eb" (click)="gotoOrderDetails(order.id)">
             <ion-col col-4 style="text-align: center; border-right: 1px solid #ffffff; ">
               <ion-list no-lines class="recipe-name">Payment Status</ion-list>
             </ion-col>
@@ -29,7 +29,7 @@
               <ion-list no-lines class="recipe-name">Grand Total</ion-list>
             </ion-col>
           </ion-row>
-          <ion-row>
+          <ion-row (click)="gotoOrderDetails(order.id)">
             <ion-col col-4 style="text-align: center;">
               <ion-list no-lines class="recipe-name">
                 <p *ngIf="order.is_paid==0">Pending</p>
@@ -49,6 +49,12 @@
               </ion-list>
             </ion-col>
           </ion-row>
+          <ion-row (click)="repeatOrder(order)">
+              <ion-col col-12>
+                <hr>
+                <p class="order-placed">Repeat Order</p>
+              </ion-col>
+            </ion-row>
           <!-- <ion-row>
             <ion-col col-5>
               <ion-list no-lines class="recipe-name">

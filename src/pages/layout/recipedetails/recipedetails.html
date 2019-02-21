@@ -6,7 +6,15 @@
 -->
 
 <ion-content fullscreen *ngIf="visibleKey">
-  <div class="product-banner" [ngStyle]="{'background': 'url(' + recipeBannerImage + ')'}">
+
+  <div style="height: 180px;" *ngIf="recipeDetails.recipe_gallery_image.length>0">
+    <ion-slides pager  autoplay="3000" loop>
+      <ion-slide *ngFor="let recipeDetails of recipeDetails.recipe_gallery_image; let i = index">
+        <img [src]="imageBaseUrl+'blog_images/'+recipeDetails.src" class="slide-image" />
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div *ngIf="recipeDetails.recipe_gallery_image==null" class="product-banner" [ngStyle]="{'background': 'url(' + recipeBannerImage + ')'}">
 
     <div class="product-pic">
       <img [src]="recipeDetails.blog_small_image != ''? imageBaseUrl+ recipeDetails.blog_small_image : 'assets/imgs/no-image.png'"
@@ -51,15 +59,15 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 style="text-align: left">
-              <button class="recipe-rate" ion-button round (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
+            <button class="recipe-rate" ion-button round (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
           </ion-col>
           <ion-col col-6 style="text-align: right">
-              <button class="recipe-share" ion-button round (click)="shareInfo(recipeDetails)"><span>Share </span></button>
+            <button class="recipe-share" ion-button round (click)="shareInfo(recipeDetails)"><span>Share </span></button>
           </ion-col>
         </ion-row>
       </ion-grid>
-      
-      
+
+
     </div>
 
   </div>
