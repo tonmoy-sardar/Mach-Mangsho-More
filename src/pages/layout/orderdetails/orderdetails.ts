@@ -14,7 +14,7 @@ import { ProfileService } from '../../../core/services/profile.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'orderdetails/:id' })
 @Component({
   selector: 'page-orderdetails',
   templateUrl: 'orderdetails.html',

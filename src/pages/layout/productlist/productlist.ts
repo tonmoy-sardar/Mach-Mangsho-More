@@ -15,7 +15,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'productlist/:id/:name' })
 @Component({
   selector: 'page-productlist',
   templateUrl: 'productlist.html',

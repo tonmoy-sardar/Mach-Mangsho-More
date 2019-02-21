@@ -12,7 +12,7 @@ import { ProductService } from '../../../core/services/product.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'rating/:id' })
 @Component({
   selector: 'page-rating',
   templateUrl: 'rating.html',

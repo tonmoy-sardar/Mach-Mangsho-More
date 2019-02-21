@@ -12,7 +12,7 @@ import { ProductService } from '../../../core/services/product.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage( { segment: 'trivia/:id' })
 @Component({
   selector: 'page-trivia',
   templateUrl: 'trivia.html',
