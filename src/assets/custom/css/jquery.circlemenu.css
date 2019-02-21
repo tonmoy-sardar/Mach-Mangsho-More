@@ -1,0 +1,71 @@
+/*!
+ * jQuery Circle Menu 
+ * https://github.com/Richard1320/jQuery-Circle-Menu
+ * 
+ * This CSS file last updated
+ * 2018-10-30
+ */
+
+.circle-menu {
+  position: relative;
+  z-index: 1;
+  padding: 100px;
+}
+
+.circle-menu.is-draggable-horizontal {
+  cursor: e-resize;
+}
+
+.circle-menu.is-draggable-vertical {
+  cursor: n-resize;
+}
+
+.circle-menu__circle {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.circle-menu__circle__item {
+  width: 0;
+  height: 100%;
+  position: absolute;
+  margin: 0 50%;
+  cursor: auto;
+}
+
+.circle-menu__circle__item__inner {
+  position: absolute;
+  left: 50%;
+  bottom: 99%;
+  margin-left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #333;
+}
+
+.circle-menu__circle__svg {
+  height: 100%;
+  overflow: visible;
+}
+
+.circle-menu__circle__svg__circle {
+  fill: transparent;
+  stroke: #333;
+  stroke-width: 1;
+}
+
+.circle-menu__circle__svg__line {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 1;
+  stroke-dasharray: 315;
+  stroke-dashoffset: 315;
+  -webkit-transition: stroke-dashoffset 1s;
+  transition: stroke-dashoffset 1s;
+}

@@ -1,0 +1,58 @@
+.wheel span {
+  display: block;
+  background-color: #ccc;
+  position: absolute;
+  padding: 10px;
+  width: 50px;
+  box-sizing: border-box;
+}
+
+.circle-menu__circle__item.position--top span {
+  left: -18px;
+  bottom: 20px;
+  text-align: center;
+}
+
+.circle-menu__circle__item.position--top-right span {
+  left: 20px;
+  bottom: 20px;
+  text-align: left;
+}
+
+.circle-menu__circle__item.position--right span {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+.circle-menu__circle__item.position--bottom-right span {
+  left: 20px;
+  top: 20px;
+  text-align: left;
+}
+
+.circle-menu__circle__item.position--bottom span {
+  left: -18px;
+  top: 20px;
+  text-align: center;
+}
+
+.circle-menu__circle__item.position--bottom-left span {
+  right: 20px;
+  top: 20px;
+  text-align: right;
+}
+
+.circle-menu__circle__item.position--left span {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+.circle-menu__circle__item.position--top-left span {
+  right: 20px;
+  bottom: 20px;
+  text-align: right;
+}
