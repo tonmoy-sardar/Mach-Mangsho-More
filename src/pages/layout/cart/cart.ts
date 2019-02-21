@@ -30,6 +30,7 @@ export class CartPage {
   total_market_price: any;
   total_market_saving: any;
   profileDetails: any = {};
+  todayDate;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -47,6 +48,7 @@ export class CartPage {
     console.log('ionViewDidLoad CartPage');
     this.populateData();
     this.getProfileDetails(this.userId);
+    this.todayDate = Date.now();
   }
 
   goback() {
@@ -69,6 +71,7 @@ export class CartPage {
       console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
       //this.customer_cart_data.length =1;
+      
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }

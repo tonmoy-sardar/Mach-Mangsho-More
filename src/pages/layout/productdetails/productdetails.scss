@@ -61,8 +61,8 @@ page-productdetails {
     }
     .pro-btn {
         //position: absolute;
-        right: -48px;
-        //top: 23%;
+        text-align: right;
+        right: -10px;
     }
     // .pro-btn button {
     //     display: block;
@@ -74,16 +74,16 @@ page-productdetails {
     //     padding: 19px;
     //     width: 87px;
     // }
-    .pro-btn button {
-        display: block;
-        background: #caf5f8;
-        border: 1px solid #b3b3b3;
-        color: #5a91d5;
-        font-size: 15px;
-        border-radius: 10px 0 0 10px;
-        padding: 10px;
-        width: 75%;
-    }
+    // .pro-btn button {
+    //     display: block;
+    //     background: #caf5f8;
+    //     border: 1px solid #b3b3b3;
+    //     color: #5a91d5;
+    //     font-size: 15px;
+    //     border-radius: 10px 0 0 10px;
+    //     padding: 10px;
+    //     width: 75%;
+    // }
     .range-md .range-bar {
         left: 0px;
         top: 21px;
@@ -131,5 +131,38 @@ page-productdetails {
         display: inline-block;
         vertical-align: middle;
         padding-top: 3px;
+    }
+
+    .quantity {
+        //padding-top: 20px;
+       
+      }
+    .quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 32px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+    }
+
+    .pro-btn .buyNow {
+       
+        background: #caf5f8;
+        border: 1px solid #b3b3b3;
+        color: #5a91d5;
+        font-size: 15px;
+        border-radius: 10px 0 0 10px;
+        padding: 10px;
+        width: 110px;
+    }
+    .pro-btn .quantity-btn
+    {
+    background: #caf5f8;
+    border: 1px solid #b3b3b3;
+    color: #5a91d5;
+    border-radius: 6px;
+    padding: 9px 12px;
     }
 }

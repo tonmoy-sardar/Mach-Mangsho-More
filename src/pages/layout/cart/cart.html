@@ -7,27 +7,26 @@
 
 <ion-content fullscreen>
     <div class="body-section" *ngIf="customer_cart_data.length>0">
-    <div class="product-banner">
-        <ion-grid>
-            <ion-row>
-                <ion-col col-3>
-                    <div class="profile-pic-small">
-                        <img *ngIf ="userId ==''" alt="" src="assets/imgs/no-image.png">
-                        <img *ngIf="userId !=''" [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
-                    </div>
-                </ion-col>
-                <ion-col col-4>
-                    <ion-list no-lines *ngIf ="userId ==''">Guest</ion-list>
-                    <ion-list no-lines *ngIf="userId !=''">{{profileDetails.name}}</ion-list>
-                    <!-- <ion-list no-lines>Date <small>  <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime> </small> </ion-list> -->
-                </ion-col>
-                <ion-col col-5>
-                    <ion-list no-lines>Market Value <span> {{total_market_price}} </span> </ion-list>
-                    <ion-list no-lines>Savings <span> {{total_market_saving}} </span> </ion-list>
-                    <ion-list no-lines>Iteam <span> {{customer_cart_data.length}} </span> </ion-list>
-                </ion-col>
-            </ion-row>
-            <!-- <ion-row>
+        <div class="product-banner">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-3>
+                        <div class="profile-pic-small">
+                            <img *ngIf="userId !=''" [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
+                        </div>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-list no-lines *ngIf="userId ==''">Guest</ion-list>
+                        <ion-list no-lines *ngIf="userId !=''">{{profileDetails.name}}</ion-list>
+                        <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list>
+                    </ion-col>
+                    <ion-col col-5>
+                        <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span> </ion-list>
+                        <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span> </ion-list>
+                        <ion-list no-lines>Item <span> {{customer_cart_data.length}} </span> </ion-list>
+                    </ion-col>
+                </ion-row>
+                <!-- <ion-row>
                 <ion-col col-12>
                     <div class="product-pic-small">
                         <img alt="" src="assets/imgs/brinjal-green.jpg">
@@ -35,101 +34,88 @@
                 </ion-col>
             </ion-row> -->
 
-        </ion-grid>
-    </div>
-    <div class="cart-body">
-        <div class="page-tab">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-3>
-                        <button class="active"></button>
-                    </ion-col>
-                    <ion-col col-3>
-                        <button></button>
-                    </ion-col>
-                    <ion-col col-3>
-                        <button></button>
-                    </ion-col>
-                    <ion-col col-3>
-                        <button></button>
-                    </ion-col>
-                </ion-row>
             </ion-grid>
         </div>
-
-        <h3>Choose Preferred Delivery Slot</h3>
-
-        <ion-card *ngFor="let allCart of customer_cart_data; let i = index">
-            <ion-card-content>
-                    <i class="fa fa-trash remove-cart" aria-hidden="true" (click)="removeCart(allCart.product_id)"></i>
+        <div class="cart-body">
+            <div class="page-tab">
                 <ion-grid>
-                    <ion-row >
-                            
-                        <ion-col col-6 class="span-red">
-                            
-                            <ion-list no-lines>{{allCart.product_name}}</ion-list>
-                           
-                            <!-- <ion-list no-lines>{{allCart.product_name}}
+                    <ion-row>
+                        <ion-col col-3>
+                            <button class="active"></button>
+                        </ion-col>
+                        <ion-col col-3>
+                            <button></button>
+                        </ion-col>
+                        <ion-col col-3>
+                            <button></button>
+                        </ion-col>
+                        <ion-col col-3>
+                            <button></button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+            <!-- <h3>Choose Preferred Delivery Slot</h3> -->
+
+            <ion-card *ngFor="let allCart of customer_cart_data; let i = index">
+                <ion-card-content>
+                    <i class="fa fa-trash remove-cart" aria-hidden="true" (click)="removeCart(allCart.product_id)"></i>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-6 class="span-red">
+                                <ion-list no-lines class="product-name">{{allCart.product_name}}</ion-list>
+                                <!-- <ion-list no-lines>{{allCart.product_name}}
                                 <span>₹ 25</span>
                             </ion-list>
                             <ion-list no-lines>{{allCart.product_name}} 
                                 <span>₹ २५</span> 
                             </ion-list> -->
-                            <span>Quantity {{allCart.quantity}}</span>
-                            <br>
-                            <span>Saving Rs.{{allCart.totalSavings}}</span>
-                            <ion-item class="pro-status"><button class="cart-iteam-no">Item 1</button></ion-item>
-                        </ion-col>
-                        <ion-col col-6>
-                            <div class="product-image">
-                                <!-- <img src="assets/imgs/brinjal-green.jpg"> -->
-                                <img [src]="allCart.image_small != '' && imageBaseUrl+ allCart.image_small || 'assets/imgs/no-image.png'">
+                                <span>Quantity {{allCart.quantity}}</span>
+                                <br>
+                                <span>Saving Rs.{{allCart.totalSavings}}</span>
+                                <ion-item class="pro-status"><button class="cart-iteam-no">Item 1</button></ion-item>
+                            </ion-col>
+                            <ion-col col-6>
+                                <div class="product-image">
+                                    <!-- <img src="assets/imgs/brinjal-green.jpg"> -->
+                                    <img [src]="allCart.image_small != '' && imageBaseUrl+ allCart.image_small || 'assets/imgs/no-image.png'">
 
-                                <button class="price-trend-down"> <ion-icon name="arrow-round-down"></ion-icon></button>
+                                    <button class="price-trend-down">
+                                        <ion-icon name="arrow-round-down"></ion-icon>
+                                    </button>
 
-                                <button class="cart-pro-price" ion-button round><span>Rs. {{allCart.price}} </span></button>
-                                <button class="cart-pro-edit" ion-button round><span>Edit</span></button>
-                            </div>
-
+                                    <!-- <button class="cart-pro-price" ion-button round><span><i class="fa fa-rupee"></i> {{allCart.price}} </span></button> -->
+                                    <button class="cart-pro-edit" ion-button round><span><i class="fa fa-rupee"></i> {{allCart.price}} </span></button>
+                                    <!-- <button class="cart-pro-edit" ion-button round><span>Edit</span></button> -->
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-12>
+                            <p class="cart-bag-value">Bag Value: <i class="fa fa-rupee"></i>{{total_item_price}}</p>
                         </ion-col>
                     </ion-row>
+                    <ion-row>
+                        <ion-col col-2></ion-col>
+                        <ion-col col-4>
+                            <div class="btn-round btn-submit" (click)="gotoPage()"><a>Proceed</a></div>
+                        </ion-col>
+                        <ion-col col-4>
+                            <div class="btn-round btn-back" (click)="goback()"><a>Back</a></div>
+                        </ion-col>
+                        <ion-col col-2></ion-col>
+                    </ion-row>
                 </ion-grid>
-
-            </ion-card-content>
-
-        </ion-card>
-        <ion-card>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-12>
-                        <p class="cart-bag-value">Bag Value: {{total_item_price}}</p>
-                    </ion-col>
-
-                </ion-row>
-                <ion-row>
-                    <ion-col col-2></ion-col>
-                    <ion-col col-4>
-                        <div class="btn-round btn-submit" (click)="gotoPage()"><a>Proceed</a></div>
-                    </ion-col>
-                    <ion-col col-4>
-                        <div class="btn-round btn-back" (click)="goback()"><a>Back</a></div>
-                    </ion-col>
-                    <ion-col col-2></ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-card>
-
-
-
+            </ion-card>
+        </div>
     </div>
-</div>
-
-<div *ngIf ="customer_cart_data.length==0">
+    <div *ngIf="customer_cart_data.length==0">
         <img src="assets/imgs/no-records.png">
-</div>
-
-
-
-
-
+    </div>
 </ion-content>
