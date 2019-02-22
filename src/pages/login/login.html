@@ -34,34 +34,12 @@
                         </ion-col>
                     </ion-row>
             </ion-grid>
-            <!-- <ion-list >
-                <ion-item >
-                    <ion-input type="text" formControlName="email_contact"  name="email_contact" [ngClass]="displayFieldCss('email_contact')" placeholder="Email / Mobile Number"></ion-input>
-                    <span class="error-msg" *ngIf="isFieldValid('email_contact')">Please enter a Email / Mobile Number.</span>
-                         
-                </ion-item>
-
-                <ion-item>
-                    <ion-input type="password" formControlName="password" name="password" [ngClass]="displayFieldCss('password')" placeholder="Password"></ion-input>
-                    <span class="error-msg" *ngIf="isFieldValid('password')">Please enter a Password.</span>
-                   
-                </ion-item>
-
-            </ion-list>
-            <ion-row responsive-sm class="login-bottom">
-                <ion-col class="pl-0 pr-0">
-                    <button ion-button color="primary"  block (click)="signIn()">Login</button>
-                </ion-col>
-            </ion-row> -->
         </form>
-        <p class="text-center not-member" (click)="gotoForgotPassword()"> <span class="creat">Forgot Password</span>
+        <p class="text-center not-member" (click)="gotoPage('ForgotPasswordPage')"> <span class="creat">Forgot Password</span>
         </p>
-        <p class="text-center not-member" (click)="gotoSignup()">Not a member? <span class="creat">Create your account</span>
+        <p class="text-center not-member" (click)="gotoPage('SignupPage')">Not a member? <span class="creat">Create your account</span>
         </p>
 
-        <p class="text-center not-member" (click)="gotoDashboard()"> <span class="creat">Skip</span> </p>
+        <p class="text-center not-member" (click)="gotoPage('HomePage')"> <span class="creat">Skip</span> </p>
     </div>
-
-
-
 </ion-content>

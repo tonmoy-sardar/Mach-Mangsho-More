@@ -44,7 +44,6 @@ export class OrderhistoryPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderhistoryPage');
     this.menuCtrl.close();
     this.getOrderList(this.userId);
   }
@@ -53,7 +52,6 @@ export class OrderhistoryPage {
     this.productService.myOrderList(id).subscribe(
       res => {
        this.orderList = res['result'];
-       console.log(this.orderList);
        this.visibleKey = true;
        this.spinnerDialog.hide();
       },
@@ -70,16 +68,12 @@ export class OrderhistoryPage {
 
   repeatOrder(order)
   {
-   
     this.spinnerDialog.show();
     var productIds: any = [];
     order.order_details.forEach(x => {
       productIds.push(x.product_id)
     })
-    
     var ids = productIds.toString();
-   
-    
     this.productService.getRepeatOrder(ids).subscribe(
       res => {
        this.productList = res['result'];
@@ -114,7 +108,6 @@ export class OrderhistoryPage {
         {
           this.navCtrl.push('CartPage');
         }
-
        }
 
        this.spinnerDialog.hide();

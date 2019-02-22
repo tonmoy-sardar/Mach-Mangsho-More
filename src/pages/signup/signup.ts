@@ -50,14 +50,12 @@ export class SignupPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
   }
 
 
   gotoSignin() {
     this.navCtrl.push('LoginPage');
   }
-
 
   signUp() {
     this.spinnerDialog.show();
@@ -66,17 +64,13 @@ export class SignupPage {
       this.signupForm.value.address =  '1';
       this.signupService.userSignup(this.signupForm.value).subscribe(
         res => {
-          console.log(res);
-         // this.signupService.loginStatus(true);
           this.presentToast("Succesfully User Register");
           this.navCtrl.setRoot('LoginPage');
           this.spinnerDialog.hide();
         },
         error => {
-          this.presentToast("Error in User Registration");
-          console.log(error);
+          this.presentToast(error.error.message);
           this.spinnerDialog.hide();
-    
         }
       )
     } else {

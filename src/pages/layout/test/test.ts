@@ -79,7 +79,6 @@ export class TestPage {
 //   }
 
 //   shareFacebook() {
-//     alert(2);
 //     this.socialSharing.shareViaFacebook('This is Testing message share in facebook', '', '').then(() => {
 //       // Success!
 //       console.log("success");
@@ -100,7 +99,6 @@ export class TestPage {
 // {
 // this.socialSharing.share('This is Testing message share in whatsapp', 'http://132.148.130.125/mach_mangso_more/uploads/product_images/image_large/1548928909images1.jpg', 'http://www.banaoapp.com/').
 // then(() => {
-// alert("Sharing success");
 // // Success!
 // }).catch(() => {
 // // Error!

@@ -1,5 +1,5 @@
-import { Component ,NgZone} from '@angular/core';
-import { IonicPage, NavController,MenuController, NavParams,Platform } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, MenuController, NavParams, Platform } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ToastController } from 'ionic-angular';
@@ -34,41 +34,40 @@ export class AlacartPage {
     private spinnerDialog: SpinnerDialog,
     public events: Events,
     private toastCtrl: ToastController,
-    public menuCtrl:MenuController,
+    public menuCtrl: MenuController,
     private speechRecognition: SpeechRecognition,
     public productService: ProductService,
     private zone: NgZone,
-    private platform:Platform
+    private platform: Platform
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-    this.searchText =='';
+    this.searchText == '';
 
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductlistPage');
     this.menuCtrl.close();
     this.visibleKey = false;
     this.catName = this.navParams.get('name');
     this.productList(this.userId);
     if (this.platform.is('cordova')) {
-       // Check permission
-    this.speechRecognition.hasPermission()
-    .then((hasPermission: boolean) => console.log(hasPermission))
+      // Check permission
+      this.speechRecognition.hasPermission()
+        .then((hasPermission: boolean) => console.log(hasPermission))
 
-  // Request permissions
-  this.speechRecognition.requestPermission()
-    .then(
-      () => console.log('Granted'),
-      () => console.log('Denied')
-    )
+      // Request permissions
+      this.speechRecognition.requestPermission()
+        .then(
+          () => console.log('Granted'),
+          () => console.log('Denied')
+        )
     }
     else {
-      
+
     }
   }
 
@@ -77,12 +76,7 @@ export class AlacartPage {
     this.productService.getAlacartList(user_id).subscribe(
       res => {
         this.allProductList = res['result'];
-
-        
-        console.log("Product List123 ==>", this.allProductList);
         this.visibleKey = true;
-
-        console.log(this.visibleKey);
         this.spinnerDialog.hide();
       },
       error => {
@@ -91,10 +85,6 @@ export class AlacartPage {
       }
     )
   }
-
-  
-
-  
 
   gotoDetails(id) {
     this.navCtrl.push('ProductdetailsPage', { id: id });
@@ -108,17 +98,13 @@ export class AlacartPage {
     this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
-        console.log(res);
         this.productList(this.userId);
         this.spinnerDialog.hide();
         this.presentToast("Added in Wishlist");
-        //this.navCtrl.push('WishlistPage');
-        
       },
       error => {
         this.spinnerDialog.hide();
         this.presentToast("Already added in Wishlist");
-        
       }
     )
   }
@@ -131,6 +117,4 @@ export class AlacartPage {
     });
     toast.present();
   }
-
-
 }

@@ -104,7 +104,6 @@ export class ProductService {
     {
       return this.http.get(environment.apiEndpoint + 'productslistsearchbywhishlist/?search_key='+keywords)
     }
-
   }
 
   getRepeatOrder(ids): Observable<any> {

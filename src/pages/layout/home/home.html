@@ -10,13 +10,14 @@
     <button *ngIf="showCat==2" class="cat-less" ><span>Back</span></button>
   </div>
   <button class="footer-bottom-right"><span>Order</span></button>
-  <!-- <div id='ss_menu'>
+  <div id='ss_menu'>
       <div *ngFor="let category of categoryList| slice:startCatNum:endCatNum; let i = index">
-        <img (click)="goToProList(category.id,category.name)"
-          [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'">
-      </div>
-    </div> -->
-    <div class="wrapper">
+      
+          <img (click)="goToProList(category.id,category.name)"
+          [src]="category.image_small != ''? imageBaseUrl+ category.image_small : 'assets/imgs/no-image.png'">
+        </div>
+    </div>
+    <!-- <div class="wrapper">
       <div class="menu">
       <a href="#" class="four">Four</a>
       <div class="circle">
@@ -25,12 +26,9 @@
       <li> <img src="assets/imgs/group2.png"></li>
       <li> <img src="assets/imgs/group3.png"></li>
       <li> <img src="assets/imgs/group4.png"></li>
-   
-      <!-- <li *ngFor="let category of categoryList let i = index"><img (click)="goToProList(category.id,category.name)"
-        [src]="category.image_small != '' && imageBaseUrl+ category.image_small || 'assets/imgs/no-image.png'"></li> -->
       </ul>
       </div>
       </div>
-      </div>
+      </div> -->
 
 </ion-content>

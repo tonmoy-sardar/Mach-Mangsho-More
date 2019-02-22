@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 //import { ApiProvider} from '../../core/api/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
-import { LoginService} from '../../core/services/login.service';
+import { LoginService } from '../../core/services/login.service';
 
 /**
  * Generated class for the LoginPage page.
@@ -23,43 +23,32 @@ export class LoginPage {
   loginForm: FormGroup;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
-   // public api:ApiProvider,
     private toastCtrl: ToastController,
-    public menuCtrl:MenuController,
-    public loginService:LoginService,
+    public menuCtrl: MenuController,
+    public loginService: LoginService,
     private formBuilder: FormBuilder,
     private spinnerDialog: SpinnerDialog
-    ) {
-      //Header Show Hide Code 
-    events.publish('hideHeader', { isHeaderHidden: true,isSubHeaderHidden: true}); 
+  ) {
+    //Header Show Hide Code 
+    events.publish('hideHeader', { isHeaderHidden: true, isSubHeaderHidden: true });
     this.loginForm = this.formBuilder.group({
-      email_contact: ["",Validators.required],
+      email_contact: ["", Validators.required],
       password: ["", Validators.required]
     });
- 
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
     this.menuCtrl.close();
-
-  }
-  
-
-  gotoSignup() {
-    this.navCtrl.push('SignupPage');
-  }
-  gotoForgotPassword() {
-    this.navCtrl.push('ForgotPasswordPage');
   }
 
-  // signin() {
-  //   this.navCtrl.setRoot('DashboardPage');
-  // }
-
+  gotoPage(page) {
+    this.navCtrl.push(page);
+  }
+ 
   signIn() {
     if (this.loginForm.valid) {
       this.spinnerDialog.show();
@@ -73,14 +62,13 @@ export class LoginPage {
           localStorage.setItem('userImage', res['result']['profile_image']);
           this.loginService.loginStatus(true);
           this.presentToast("Succesfully Login");
-          this.navCtrl.setRoot('DashboardPage');
+          this.navCtrl.setRoot('HomePage');
           this.spinnerDialog.hide();
         },
         error => {
           this.presentToast("Please enter valid login credentials");
-          console.log(error);
           this.spinnerDialog.hide();
-    
+
         }
       )
     } else {
@@ -88,7 +76,7 @@ export class LoginPage {
     }
   }
 
- 
+
 
   markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
@@ -114,14 +102,11 @@ export class LoginPage {
     const toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position:'top'
+      position: 'top'
     });
     toast.present();
   }
 
-  gotoDashboard() {
-    this.navCtrl.setRoot('DashboardPage');
-  }
 
 
 }

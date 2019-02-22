@@ -14,12 +14,9 @@ export class ForgotpasswordService {
   userForgotPassword(data): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'userforgetpasswordotp/', data)
   }
-
+  
   updatePassword(data): Observable<any> {
     return this.http.post(environment.apiEndpoint + 'userforgetpasswordupdate/', data)
   }
-
-  
-
 
 }

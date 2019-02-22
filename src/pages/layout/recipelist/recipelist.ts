@@ -40,7 +40,6 @@ export class RecipelistPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecipelistPage');
     this.rating = [1, 2, 3, 4, 5];
     this.recipeList(this.navParams.get('id'));
   }
@@ -56,7 +55,6 @@ export class RecipelistPage {
         this.productName = res['product_name'];
         this.productImage = res['product_image'];
         this.proRecipeList = res['result'];
-        console.log("Recipe List ==>", this.proRecipeList);
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },

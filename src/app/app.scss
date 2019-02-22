@@ -239,7 +239,8 @@ border-radius: 100%; }
     height: 35px;
     color: #fff;
     width: 35px;
-    margin-left: -20px;
+    margin-left: -17px;
+    z-index: 9999;
 }
 
 .form-inline .input-group {
@@ -247,7 +248,7 @@ border-radius: 100%; }
 }
 
 .form-inline .input-group::before {
-    content: "Search";
+   //content: "Search";
     background: #92d9e2;
     color: #000;
     top: 0;
@@ -256,6 +257,19 @@ border-radius: 100%; }
     position: absolute;
     z-index: 0;
     border-radius: 25px;
+}
+
+.text-search-btn {
+    background: #92d9e2;
+    color: #000;
+    top: -5px;
+    left: 30px;
+    padding: 9px 23px 9px 15px;
+    position: absolute;
+    z-index: 0;
+    border-radius: 25px;
+    text-transform: capitalize;
+    font-size:10px;
 }
 
 button.btn-menu {
@@ -442,6 +456,7 @@ button.btn-menu {
     line-height: 1;
     color: #000000;
     text-align: center;
+    z-index: 9999;
 }
 
 .product-list-body .favrate {
@@ -574,6 +589,7 @@ ion-input, ion-textarea
 }
 .product-list-body ion-card {
     border-radius: 4%;
+    position: relative;
 }
 .product-list-body .pro-status button {
     border-radius: 0em 4em 4em 0em;
@@ -657,7 +673,8 @@ ion-input, ion-textarea
     width: 50%;
     opacity: 0.9;
     padding: 5px 9px;
-    font-size: 12px;
+    font-size: 11px;
+    text-transform: lowercase
 }
 .our-price {
     position: absolute;
@@ -669,7 +686,8 @@ ion-input, ion-textarea
     width: 50%;
     opacity: 0.9;
     padding: 5px 9px;
-    font-size: 12px;
+    font-size: 11px;
+    text-transform: lowercase
 }
 .market-price span {
     display: block;
@@ -717,4 +735,12 @@ ion-input, ion-textarea
     display: inline-block;
     vertical-align: middle;
 }
+
+#search-form input {
+    text-align: center;
+}
+.delete {
+    color:#ff0000;
+}
+
 

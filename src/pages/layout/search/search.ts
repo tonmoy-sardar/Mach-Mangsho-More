@@ -49,7 +49,6 @@ export class SearchPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductlistPage');
     this.visibleKey = false;
     this.searchText = this.navParams.get('searchText');
     this.getSearchList(this.searchText,this.userId);
@@ -75,12 +74,7 @@ export class SearchPage {
     this.productService.getSearchList(id,user_id).subscribe(
       res => {
         this.allProductList = res['result'];
-
-        
-        console.log("Product List123 ==>", this.allProductList);
         this.visibleKey = true;
-
-        console.log(this.visibleKey);
         this.spinnerDialog.hide();
       },
       error => {
@@ -91,35 +85,33 @@ export class SearchPage {
   }
 
   start() {
-    console.log("Voice button clicked!!!");
     this.speechRecognition.startListening()
       .subscribe(
         (matches: Array<string>) => {
-          console.log(matches);
           this.visibleKey = false;
           this.searchText = matches[0];
-          console.log(this.searchText);
           this.allProductList = [];
          
           this.getSearchList(this.searchText,this.userId);
         })
   }
-
-  // proSearch(keywords) {
-  //   console.log("Test==>",keywords);
-  //   this.visibleKey = false;
-  //   this.spinnerDialog.show();
-  //   this.productService.productSearch(this.navParams.get('id'), keywords).subscribe(
-  //     res => {
-  //       this.zone.run(() => this.allProductList = res['result']['products']);
-  //       this.spinnerDialog.hide();
-  //       this.visibleKey = true
-  //     },
-  //     error => {
-  //       this.spinnerDialog.hide();
-  //     }
-  //   )
-  // }
+  proSearch(searchtxt) {
+    this.visibleKey = false;
+    this.searchText = searchtxt;
+    this.allProductList = [];
+    this.spinnerDialog.show();
+    this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
+      res => {
+        this.visibleKey = true
+        this.zone.run(() => this.allProductList = res['result']['products']);
+        
+        this.spinnerDialog.hide();
+      },
+      error => {
+        this.spinnerDialog.hide();
+      }
+    )
+  }
 
   gotoDetails(id) {
     this.navCtrl.push('ProductdetailsPage', { id: id });
@@ -133,12 +125,9 @@ export class SearchPage {
     this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
-        console.log(res);
         this.getSearchList(this.searchText,this.userId);
         this.spinnerDialog.hide();
-        this.presentToast("Added in Wishlist");
-        //this.navCtrl.push('WishlistPage');
-        
+        this.presentToast("Added in Wishlist"); 
       },
       error => {
         this.spinnerDialog.hide();

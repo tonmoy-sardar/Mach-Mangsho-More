@@ -50,7 +50,6 @@ export class CombooffertPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductlistPage');
     this.menuCtrl.close();
     this.visibleKey = false;
     this.catName = this.navParams.get('name');
@@ -77,12 +76,7 @@ export class CombooffertPage {
     this.productService.getCombooffertList(user_id).subscribe(
       res => {
         this.allProductList = res['result'];
-
-        
-        console.log("Product List123 ==>", this.allProductList);
         this.visibleKey = true;
-
-        console.log(this.visibleKey);
         this.spinnerDialog.hide();
       },
       error => {
@@ -108,12 +102,9 @@ export class CombooffertPage {
     this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
-        console.log(res);
         this.productList(this.userId);
         this.spinnerDialog.hide();
         this.presentToast("Added in Wishlist");
-        //this.navCtrl.push('WishlistPage');
-        
       },
       error => {
         this.spinnerDialog.hide();

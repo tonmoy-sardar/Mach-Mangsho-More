@@ -53,14 +53,9 @@ export class SpendingpatternPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WishlistPage');
     this.visibleKey = false;
     this.menuCtrl.close();
-
     this. getSpendingPattern(this.userId);
-
-    
-    
   }
 
 
@@ -112,8 +107,7 @@ export class SpendingpatternPage {
       },
       error => {
         this.visibleKey = true;
-
-        // this.whisListProduct =[];
+        this.spinnerDialog.hide();
       }
     )
   }

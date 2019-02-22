@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
-import {environment} from '../../../core/global';
+import { environment } from '../../../core/global';
 import { ToastController } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ProductService } from '../../../core/services/product.service';
@@ -12,19 +12,18 @@ import { ProductService } from '../../../core/services/product.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage( { segment: 'rating/:id' })
+@IonicPage({ segment: 'rating/:id' })
 @Component({
   selector: 'page-rating',
   templateUrl: 'rating.html',
 })
 export class RatingPage {
-  //rating: number = 4;
   ratingNumber;
   userId: number;
   recipeId: number;
-  recipeDetails:any={};
-  imageBaseUrl:any;
-  recipeBannerImage:any;
+  recipeDetails: any = {};
+  imageBaseUrl: any;
+  recipeBannerImage: any;
   visibleKey: boolean;
   rate;
   constructor(
@@ -38,18 +37,17 @@ export class RatingPage {
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
-    this.imageBaseUrl = environment.imageBaseUrl;  
+    this.imageBaseUrl = environment.imageBaseUrl;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RatingPage');
     this.userId = +localStorage.getItem('userId');
     this.recipeId = this.navParams.get('id');
-    this.ratingNumber='';
+    this.ratingNumber = '';
     this.getRecipeDetails(this.navParams.get('id'));
   }
 
- 
+
   onModelChange(event) {
     this.ratingNumber = event;
   }
@@ -58,10 +56,8 @@ export class RatingPage {
     this.spinnerDialog.show();
     this.productService.getrecipeDetails(id).subscribe(
       res => {
-       
         this.recipeDetails = res['result'];
-        this.recipeBannerImage = this.imageBaseUrl+this.recipeDetails.blog_large_image;
-       
+        this.recipeBannerImage = this.imageBaseUrl + this.recipeDetails.blog_large_image;
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },
@@ -81,7 +77,6 @@ export class RatingPage {
       }
       this.productService.addRating(data).subscribe(
         res => {
-          console.log(res);
           this.presentToast("Rating Added Succesfully");
           this.gotoPage(this.navParams.get('id'));
         },
@@ -97,11 +92,11 @@ export class RatingPage {
   }
 
   gotoreviewPage() {
-    this.navCtrl.push('ReviewPage',{id:this.recipeId,rating:this.ratingNumber});
+    this.navCtrl.push('ReviewPage', { id: this.recipeId, rating: this.ratingNumber });
   }
 
   gotoPage(id) {
-    this.navCtrl.push('RecipedetailsPage',{id:id});
+    this.navCtrl.push('RecipedetailsPage', { id: id });
   }
   presentToast(msg) {
     const toast = this.toastCtrl.create({

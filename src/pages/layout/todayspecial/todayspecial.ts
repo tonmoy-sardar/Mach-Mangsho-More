@@ -77,12 +77,7 @@ export class TodayspecialPage {
     this.productService.getTodayspecialList(user_id).subscribe(
       res => {
         this.allProductList = res['result'];
-
-        
-        console.log("Product List123 ==>", this.allProductList);
         this.visibleKey = true;
-
-        console.log(this.visibleKey);
         this.spinnerDialog.hide();
       },
       error => {
@@ -93,7 +88,9 @@ export class TodayspecialPage {
   }
 
   
-
+  gotoPage(page) {
+    this.navCtrl.push(page);
+  }
   
 
   gotoDetails(id) {
@@ -108,12 +105,9 @@ export class TodayspecialPage {
     this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
-        console.log(res);
         this.productList(this.userId);
         this.spinnerDialog.hide();
-        this.presentToast("Added in Wishlist");
-        //this.navCtrl.push('WishlistPage');
-        
+        this.presentToast("Added in Wishlist");      
       },
       error => {
         this.spinnerDialog.hide();

@@ -3,9 +3,8 @@
         <ion-row>
           <ion-col col-3>
             <div class="profile-pic-small">
-              <img
-                [src]="profileDetails.profile_image != '' && imageBaseUrl+ profileDetails.profile_image || 'assets/imgs/no-image.png'">
-            </div>
+                <img [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
+              </div>
           </ion-col>
           <ion-col col-4>
             <ion-list no-lines>{{profileDetails.name}}</ion-list>

@@ -75,7 +75,6 @@ export class MyaddressPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MyaddressPage');
     this.myAddressList(this.userId);
     this.getProfileDetails(this.userId);
     this.populateData();
@@ -90,29 +89,23 @@ export class MyaddressPage {
   populateData() {
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
-      console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
-      //this.customer_cart_data.length =1;
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
     else {
       this.customer_cart_data = [];
-      //alert(this.customer_cart_data.length);
     }
   }
   getTotalItemPrice() {
     this.total_item_price = 0;
     this.total_market_price = 0;
     this.total_market_saving = 0
-    console.log(this.customer_cart_data);
     this.customer_cart_data.forEach(x => {
       if (x.discounted_price > 0) {
         this.total_item_price += (x.discounted_price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
-        console.log(this.total_item_price);
-
       }
       else {
         this.total_item_price += (x.price * x.quantity);
@@ -144,7 +137,6 @@ export class MyaddressPage {
     this.profileService.addressList(id).subscribe(
       res => {
         this.allAddressList = res['result'];
-        console.log("Address List ==>", this.allAddressList);
         this.spinnerDialog.hide();
       },
       error => {
@@ -163,12 +155,10 @@ export class MyaddressPage {
          
           this.customer_data ={};
           this.customer_data.address_id = addressId;
-          //console.log(myAddress);
           this.customer_data.address = myAddress.address;
           this.customer_data.pincode = myAddress.pincode;
           this.customer_data.state_name = myAddress.state_name;
           this.customer_data.type = myAddress.type;
-          //console.log(myAddress);
           sessionStorage.setItem("customer_details", JSON.stringify(this.customer_data));
           this.navCtrl.push('DeliveryslotPage',{pincode:pinCode});
         }
@@ -208,7 +198,6 @@ export class MyaddressPage {
         },
         error => {
           this.presentToast("Please enter valid login credentials");
-          console.log(error);
           this.spinnerDialog.hide();
         }
       )
@@ -220,12 +209,9 @@ export class MyaddressPage {
   checkPinCode() {
     if (this.pinCheckForm.valid) {
       this.spinnerDialog.show();
-      console.log(this.pinCheckForm.value);
       this.pincode = this.pinCheckForm.value.pincheck;
       this.profileService.getPinCode(this.pincode).subscribe(
         res => {
-          console.log(res);
-         // this.deliverySlot = res['result'];
          this.isAvailable='';
           this.isAvailablePin = res['result'].length;    
           this.spinnerDialog.hide();
@@ -233,7 +219,6 @@ export class MyaddressPage {
         },
         error => {
           this.presentToast("Error");
-          console.log(error);
           this.spinnerDialog.hide();
         }
       )

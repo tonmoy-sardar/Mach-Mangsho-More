@@ -33,16 +33,12 @@ export class FoodvaluePage {
   }
   
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FoodvaluePage');
-    
+  ionViewDidLoad() { 
   }
   productFoodValue(id) {
     this.productService.getFoodValue(id).subscribe(
       res => {
        this.foodValue = res['result'];
-       console.log("Food Value ==>", this.foodValue);
-       
       },
       error => {
       }

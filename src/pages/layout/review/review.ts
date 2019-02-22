@@ -59,9 +59,7 @@ export class ReviewPage {
     this.productService.getrecipeDetails(id).subscribe(
       res => {
         this.recipeDetails = res['result'];
-        console.log(this.recipeDetails);
         this.recipeBannerImage = this.imageBaseUrl+this.recipeDetails.blog_large_image;
-        console.log(this.recipeBannerImage);
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },
@@ -74,19 +72,15 @@ export class ReviewPage {
 
   addReview() {
     if (this.reviewForm.valid) {
-      console.log(this.reviewForm.value);
- 
-      var data = {
+     var data = {
         "post_id": this.recipeId,
         "user_id": this.userId,
         "rating": this.rating ,
         "comment_parent":"0",
         "title":this.reviewForm.value.review
       }
-      console.log("Review==>",data);
       this.productService.addReview(data).subscribe(
         res => {
-          console.log(res);
           this.presentToast("Review Added Succesfully");
           this.gotoPage(this.navParams.get('id'));
         },

@@ -44,7 +44,6 @@ export class PaymentmodePage {
     this.user_email = localStorage.getItem('userEmail');
     this.imageBaseUrl = environment.imageBaseUrl;
     this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
-    console.log(this.all_customer_data);
     this.delivery_charge = parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
     if (localStorage.getItem('userId')) {
       this.userId = +localStorage.getItem('userId');
@@ -55,7 +54,6 @@ export class PaymentmodePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PaymentmodePage');
     this.getProfileDetails(this.userId);
     this.populateData();
     this.todayDate = Date.now();
@@ -64,29 +62,23 @@ export class PaymentmodePage {
   populateData() {
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
-      console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
-      //this.customer_cart_data.length =1;
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
     else {
       this.customer_cart_data = [];
-      //alert(this.customer_cart_data.length);
     }
   }
   getTotalItemPrice() {
     this.total_item_price = 0;
     this.total_market_price = 0;
     this.total_market_saving = 0
-    console.log(this.customer_cart_data);
     this.customer_cart_data.forEach(x => {
       if (x.discounted_price > 0) {
         this.total_item_price += (x.discounted_price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
-        console.log(this.total_item_price);
-
       }
       else {
         this.total_item_price += (x.price * x.quantity);
@@ -114,20 +106,21 @@ export class PaymentmodePage {
     )
   }
 
-  // placeOrder(payment_type) {
-  //   console.log("Final Cart==>",this.customer_cart_data);
-
-  // }
-
   placeOrder(payment_type) {
-    console.log("cccc",this.all_customer_data);
     this.order_data = {};
+    console.log("Customer Data ==>",this.all_customer_data);
     this.order_data.payment_type = payment_type;
     this.order_data.address_id = this.all_customer_data.address_id;
     this.order_data.address = this.all_customer_data.address;
     this.order_data.customer_id = this.userId;
     this.order_data.customer_email = this.user_email;
     this.order_data.order_total_price = this.total_item_price + parseFloat(this.all_customer_data.delivery_slot.deliver_charge);
+    this.order_data.deliver_slot=this.all_customer_data.delivery_slot.deliver_slot_id;
+    this.order_data.deliver_charge=this.all_customer_data.delivery_slot.deliver_charge;
+    this.order_data.pincode= this.all_customer_data.pincode;
+    this.order_data.state_id= "1";
+    this.order_data.type=this.all_customer_data.type;
+   
     this.order_details = [];
     this.customer_cart_data.forEach(item => {
       this.order_details.push(
@@ -142,21 +135,13 @@ export class PaymentmodePage {
       );
     });
     this.order_data.order_details = this.order_details;
+    console.log("Order Details==>",this.order_data);
     this.cartService.addOrder(this.order_data).subscribe(
       res => {
         this.orderStatus = res.result;
-        console.log(this.orderStatus);
         sessionStorage.clear();
         this.cartService.cartNumberStatus(true);
         this.navCtrl.push('OrdersuccessPage');
-        // if (payment_type == 1) {
-        //   this.getPaymentSettingsDetails();
-        // }
-        // else {
-        //   sessionStorage.clear();
-        //   this.cartService.cartNumberStatus(true);
-        //   this.router.navigateByUrl('/ordersuccess/' + this.orderStatus.id);
-        // }
       },
       error => {
         console.log(error);

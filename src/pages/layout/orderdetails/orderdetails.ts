@@ -44,7 +44,6 @@ export class OrderdetailsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderdetailsPage');
     this.menuCtrl.close();
     this.getOrderDetails(this.navParams.get('id'));
   }
@@ -56,19 +55,13 @@ export class OrderdetailsPage {
 
        this.visibleKey = true;
        this.spinnerDialog.hide();
-       console.log(this.orderDetails);
        this.productList = res['result']['order_details'];
-      //  console.log("Order Details ==>", this.orderDetails);
-      //  console.log("Product List ==>", this.productList);
       },
       error => {
         this.spinnerDialog.hide();
       }
     )
   }
-
-  
-
   goBack() {
     this.navCtrl.pop();
   }

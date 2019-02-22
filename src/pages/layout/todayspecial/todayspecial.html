@@ -7,14 +7,9 @@
 <ion-content fullscreen>
     <div class="product-banner-image">
         <img src="assets/imgs/banner2.jpg" alt="" />
-        <!-- banner_image
-        <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'"> -->
-
-        <div class="product-banner-text">
-            <h1>Today's Special</h1>
-            
+       <div class="product-banner-text">
+            <h1>Today's Special</h1>   
         </div>
-
     </div>
     <div class="product-list-body" *ngIf="visibleKey">
         <ion-card *ngFor="let product of allProductList">
@@ -33,12 +28,8 @@
                         </ion-col>
                         <ion-col col-6>
                             <div class="product-image" (click)="gotoDetails(product.id)">
-                                <!-- <img src="assets/imgs/veg1.png"> -->
-                                <img [src]="product.image_small != '' && imageBaseUrl+ product.image_small || 'assets/imgs/no-image.png'">
-
-                               
-
-                                <button class="price-trend-up" *ngIf="product.price_status==1">
+                                <img [src]="product.image_small != ''? imageBaseUrl+ product.image_small : 'assets/imgs/no-image.png'">
+                               <button class="price-trend-up" *ngIf="product.price_status==1">
                                     <ion-icon name="arrow-round-up"></ion-icon>
                                 </button>
                                 <button class="price-trend-down" *ngIf="product.price_status==2">
@@ -63,7 +54,7 @@
 
                 <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && this.userId>0" aria-hidden="true"
                     (click)="addWishList(product.id)"></i>
-                <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && !this.userId" aria-hidden="true"></i>
+                <i class="fa fa-heart not-favrate" (click)="gotoPage('LoginPage')" *ngIf="product.whishlist == null && !this.userId" aria-hidden="true"></i>
                 <i class="fa fa-heart not-favrate favrate" *ngIf="product.whishlist != null" aria-hidden="true"></i>
 
             </ion-card-content>

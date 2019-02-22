@@ -21,37 +21,33 @@ export class ProfilePage {
   userName:string;
   imageBaseUrl:any;
   userImage:any;
-
-
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public events: Events,
-
+    public events: Events
     ) {
       //Header Show Hide Code 
       events.publish('hideHeader', { isHeaderHidden: false,isSubHeaderHidden: false}); 
  
       this.imageBaseUrl = environment.imageBaseUrl;
-      this.userName = localStorage.getItem('userName');
-      this.userImage = localStorage.getItem('userImage');
-    //  alert(this.userImage);
+      // this.userName = localStorage.getItem('userName');
+      // this.userImage = localStorage.getItem('userImage');
+      if (localStorage.getItem('isLoggedin')) {
+        this.loggedIn = true;
+        this.userName = localStorage.getItem('userName');
+        this.userImage = localStorage.getItem('userImage');
+      }
+      else {
+        this.loggedIn = false;
+        this.userName = 'Guest';
+        this.userImage = '';
+      }
       
   }
-
-  
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
   }
-  gotoEditProfile() {
-    this.navCtrl.push('ProfileeditPage');
-  }
-  gotoViewProfile() {
-    this.navCtrl.push('ProfileviewPage');
-  }
-  gotoWishList() {
-    this.navCtrl.push('WishlistPage');
+  gotoPage(page) {
+    this.navCtrl.push(page);
   }
 
 }

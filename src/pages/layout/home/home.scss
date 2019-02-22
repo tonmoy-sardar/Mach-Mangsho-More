@@ -1,4 +1,8 @@
 page-home {
+  .ion-ios-arrow-back-outline:before {
+    width: 25px;
+    display:none;
+}
     .dashboard-page {
         position: relative;
     }

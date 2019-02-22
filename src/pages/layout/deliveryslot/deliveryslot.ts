@@ -13,7 +13,7 @@ import { ProfileService } from '../../../core/services/profile.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage( { segment: 'deliveryslot/:pincode' })
+@IonicPage({ segment: 'deliveryslot/:pincode' })
 @Component({
   selector: 'page-deliveryslot',
   templateUrl: 'deliveryslot.html',
@@ -31,7 +31,7 @@ export class DeliveryslotPage {
   total_price: any;
   total_market_price: any;
   total_market_saving: any;
-  all_customer_data:any;
+  all_customer_data: any;
   todayDate;
   constructor(
     public navCtrl: NavController,
@@ -40,25 +40,23 @@ export class DeliveryslotPage {
     private spinnerDialog: SpinnerDialog,
     public profileService: ProfileService
   ) {
-      //Header Show Hide Code 
-      events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
+    //Header Show Hide Code 
+    events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
+    this.userId = +localStorage.getItem('userId');
+    this.imageBaseUrl = environment.imageBaseUrl;
+    if (localStorage.getItem('userId')) {
       this.userId = +localStorage.getItem('userId');
-      this.imageBaseUrl = environment.imageBaseUrl;
-      if (localStorage.getItem('userId')) {
-        this.userId = +localStorage.getItem('userId');
-      }
-      else {
-        this.userId = '';
-      }
+    }
+    else {
+      this.userId = '';
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DeliveryslotPage');
     this.getProfileDetails(this.userId);
     this.populateData();
     this.getDeliverySlot();
     this.all_customer_data = JSON.parse(sessionStorage.getItem("customer_details"));
-    console.log(this.all_customer_data);
     this.todayDate = Date.now();
   }
 
@@ -66,47 +64,39 @@ export class DeliveryslotPage {
     this.spinnerDialog.show();
     this.profileService.getPinCode(this.navParams.get('pincode')).subscribe(
       res => {
-        console.log(res);
         this.deliverySlot = res['result'];
         this.spinnerDialog.hide();
       },
       error => {
-        console.log(error);
         this.spinnerDialog.hide();
       }
     )
   }
 
-  
+
 
   populateData() {
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
-      console.log(this.all_cart_data);
       this.customer_cart_data = this.all_cart_data;
-     this.getTotalItemPrice();
+      this.getTotalItemPrice();
       this.getTotalPackingPrice();
     }
     else {
       this.customer_cart_data = [];
-      //alert(this.customer_cart_data.length);
     }
   }
   getTotalItemPrice() {
     this.total_item_price = 0;
     this.total_market_price = 0;
     this.total_market_saving = 0
-    console.log(this.customer_cart_data);
     this.customer_cart_data.forEach(x => {
       if (x.discounted_price > 0) {
         this.total_item_price += (x.discounted_price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
-        console.log(this.total_item_price);
-
       }
       else {
-        console.log("zz", x);
         this.total_item_price += (x.price * x.quantity);
         this.total_market_price += x.totalMarketPrice;
         this.total_market_saving += x.totalSavings;
@@ -133,10 +123,9 @@ export class DeliveryslotPage {
   }
 
   gotoPayMode(delivery) {
-    // this.customer_cart_data.delivery_slot_id =id;
     this.all_customer_data.delivery_slot = delivery;
-     sessionStorage.setItem("customer_details", JSON.stringify(this.all_customer_data));
-     this.navCtrl.push('PaymentmodePage');
-   }
+    sessionStorage.setItem("customer_details", JSON.stringify(this.all_customer_data));
+    this.navCtrl.push('PaymentmodePage');
+  }
 
 }

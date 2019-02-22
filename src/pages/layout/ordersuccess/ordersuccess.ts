@@ -25,7 +25,6 @@ export class OrdersuccessPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdersuccessPage');
   }
 
 }

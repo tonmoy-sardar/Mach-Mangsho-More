@@ -12,7 +12,6 @@ export class LoginService {
   constructor(
     private http: HttpClient
   ) {
-    console.log(environment.apiEndpoint);
    }
 
   loginStatus(data): Observable<any> {

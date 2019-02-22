@@ -39,7 +39,6 @@ export class TriviaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TriviaPage');
     this.getTriviaDetails(this.navParams.get('id'));
     this.productDetails(this.navParams.get('id'));
   }
@@ -51,13 +50,12 @@ export class TriviaPage {
         this.productName = res['product_name'];
         this.productImage = res['product_image'];
         this.triviaDetails = res['result'];
-        console.log("zzzz",this.triviaDetails);
         this.visibleKey = true;
-        this.spinnerDialog.hide();
-        
+        this.spinnerDialog.hide();  
       },
       error => {
         this.visibleKey = true;
+        this.spinnerDialog.hide();  
       }
     )
   }
@@ -67,10 +65,10 @@ export class TriviaPage {
     this.productService.getProductDetails(id,this.userId).subscribe(
       res => {
         this.proDetails = res['result']['productlist'];
-        console.log(this.proDetails);
         this.spinnerDialog.hide();
       },
       error => {
+        this.spinnerDialog.hide();  
       }
     )
   }

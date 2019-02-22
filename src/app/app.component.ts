@@ -9,7 +9,6 @@ import { LoginService } from '../core/services/login.service';
 import { ProfileService } from '../core/services/profile.service';
 import { CartService } from '../core/services/cart.service';
 
-//import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
@@ -20,10 +19,11 @@ export class MyApp {
   userImage: any;
   totalCart: any;
   @ViewChild(Nav) nav: Nav;
-  //rootPage:any = HomePage;
   rootPage: any;
-  topHeaderIsHidden: any;
-  subHeaderIsHidden: any;
+  topHeaderIsHidden: boolean;
+  subHeaderIsHidden: boolean;
+  backHide:boolean;
+  backButtonIsHidden:boolean;
 
   constructor(
     platform: Platform,
@@ -42,21 +42,21 @@ export class MyApp {
       statusBar.styleLightContent();
       splashScreen.hide();
       this.rootPage = 'HomePage';
+     // this.backHide =true;
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {
-      console.log("Header Data ==>", data);
+      //console.log("Header Data ==>", data);
       this.topHeaderIsHidden = data.isHeaderHidden;
       this.subHeaderIsHidden = data.isSubHeaderHidden;
+      this.backButtonIsHidden = data.backButtonHidden;
     })
 
     this.imageBaseUrl = environment.imageBaseUrl;
     loginService.getLoggedInStatus.subscribe(status => this.changeStatus(status));
     profileService.getProfileUpdateStatus.subscribe(status => this.updateStatus(status));
-
     if (sessionStorage.getItem("cart")) {
       this.totalCart = JSON.parse(sessionStorage.getItem("cart")).length;
-
     }
     else {
       this.totalCart = 0;
@@ -70,7 +70,6 @@ export class MyApp {
       this.loggedIn = false;
       this.userName = 'Guest';
       this.userImage = '';
-
     }
   }
 
@@ -119,9 +118,7 @@ export class MyApp {
       else {
         this.totalCart = 0;
       }
-
     }
-
   }
 
   gotoPage(page) {
@@ -136,7 +133,6 @@ export class MyApp {
     localStorage.clear();
     this.loadUserInfo();
     this.nav.setRoot('LoginPage');
-
   }
 
 }

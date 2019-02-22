@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-//import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
 import { Events, ToastController } from 'ionic-angular';
 import { environment } from '../../../core/global';
@@ -22,7 +21,6 @@ import { ProfileService } from '../../../core/services/profile.service';
  * Ionic pages and navigation.
  */
 declare var cordova: any;
-//declare const FilePath: any;
 @IonicPage()
 @Component({
   selector: 'page-profileedit',
@@ -37,7 +35,7 @@ export class ProfileeditPage {
   isNameShowId: any;
   isEmailShowId: any;
   isContactShowId: any;
-  isaddressShowId:any;
+  isaddressShowId: any;
   lastImage: any;
   imageURI: any;
   imageFileName: any;
@@ -45,9 +43,9 @@ export class ProfileeditPage {
   loading: any;
   apiUrl: any;
   allAddressList: any = [];
- 
   addressForm: FormGroup;
-
+  addressDetails = {};
+  isShowAddressForm: any;
   constructor(
     public platform: Platform,
     public navCtrl: NavController,
@@ -73,23 +71,25 @@ export class ProfileeditPage {
     this.userName = localStorage.getItem('userName');
     this.userImage = localStorage.getItem('userImage');
     this.userId = +localStorage.getItem('userId');
-    this.getProfileDetails(this.userId);
+
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
       address: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
     });
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileeditPage');
     this.isNameShowId = 0;
     this.isEmailShowId = 0;
     this.isContactShowId = 0;
-    this.isaddressShowId=0;
+    // this.isaddressShowId = 0;
+    this.getProfileDetails(this.userId);
     this.getmyAddress();
     this.menuCtrl.close();
+    this.isShowAddressForm = 0;
   }
 
 
@@ -97,7 +97,6 @@ export class ProfileeditPage {
     this.profileService.getProfile(id).subscribe(
       res => {
         this.profileDetails = res['result'];
-        console.log("Profile Details ==>", this.profileDetails);
       },
       error => {
       }
@@ -118,10 +117,8 @@ export class ProfileeditPage {
       this.isEmailShowId = 0;
       this.isContactShowId = 0;
     }
-
   }
 
-  
   updateProfile(profileDetails) {
     this.userId = +localStorage.getItem('userId');
 
@@ -129,8 +126,6 @@ export class ProfileeditPage {
     this.profileService.updateUserProfile(this.userId, profileDetails).subscribe(
       res => {
         this.profileDetails = res['result'];
-
-        console.log("Profile Details ==>", this.profileDetails);
         this.getProfileDetails(this.userId);
         this.isNameShowId = 0;
         this.isEmailShowId = 0;
@@ -274,6 +269,7 @@ export class ProfileeditPage {
     this.profileService.addressList(this.userId).subscribe(
       res => {
         this.allAddressList = res['result'];
+        console.log(this.allAddressList)
       },
       error => {
       }
@@ -289,6 +285,50 @@ export class ProfileeditPage {
       'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
     };
   }
+  showAddressForm(id) {
+    this.profileService.myAddressDetails(id).subscribe(
+      res => {
+        this.addressDetails = res['result'];
+        this.isShowAddressForm = 1;
+        console.log(this.allAddressList)
+      },
+      error => {
+      }
+    )
+  }
+
+  submitAddress() {
+    if (this.addressForm.valid) {
+      this.spinnerDialog.show();
+      this.addressForm.value.customer_id = this.userId;
+      this.addressForm.value.state_id = '1';
+      console.log(this.addressForm.value);
+      // this.profileService.submitAddress(this.addressForm.value).subscribe(
+      //   res => {
+      //     this.presentToast("Address added succesfully.");
+      //     this.spinnerDialog.hide();
+      //     this.addressForm.reset();
+      //   },
+      //   error => {
+      //     this.presentToast("Please enter valid login credentials");
+      //     this.spinnerDialog.hide();
+      //   }
+      // )
+    } else {
+      this.markFormGroupTouched(this.addressForm)
+    }
+  }
+
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control.controls) {
+        control.controls.forEach(c => this.markFormGroupTouched(c));
+      }
+    });
+  }
+
 
 
 }

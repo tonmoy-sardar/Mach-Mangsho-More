@@ -12,13 +12,10 @@ export class ProfileService {
     return this.http.get(environment.apiEndpoint + 'userprofile/' + id + '/')
   }
   updateUserProfile(id, data): Observable<any> {
-    console.log(data);
     return this.http.post(environment.apiEndpoint + 'userprofileupdate/' + id, data)
   }
 
   updateUserImage(id, option): Observable<any> {
-    console.log(option)
-    console.log(environment.apiEndpoint + 'userprofileimageupdate/' + id);
     return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
   }
 
@@ -41,8 +38,14 @@ export class ProfileService {
   }
 
   getPinCode(pincode): Observable<any> {
-    console.log(pincode);
     return this.http.get(environment.apiEndpoint + 'deliverslotbypincode/' + pincode + '/')
   }
 
+  deleteMyAddress(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'deletecustomeraddress/' +id)
+  }
+
+  myAddressDetails(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'listcustomeraddressbyid/' +id)
+  }
 }

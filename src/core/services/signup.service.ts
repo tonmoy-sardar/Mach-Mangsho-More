@@ -11,7 +11,6 @@ export class SignupService {
   constructor(
     private http: HttpClient
   ) {
-    console.log(environment.apiEndpoint);
    }
 
   loginStatus(data): Observable<any> {
@@ -22,7 +21,6 @@ export class SignupService {
   }
 
   userSignup(data): Observable<any> {
-    console.log(data);
     return this.http.post(environment.apiEndpoint + 'userregister/', data)
   }
 }

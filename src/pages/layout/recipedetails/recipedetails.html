@@ -59,15 +59,14 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 style="text-align: left">
-            <button class="recipe-rate" ion-button round (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
+            <button class="recipe-rate" ion-button round *ngIf="this.userId" (click)="gotoRatePage(recipeDetails.id)"><span>Rate </span></button>
+            <button class="recipe-rate" ion-button round *ngIf="!this.userId" (click)="gotoPage('LoginPage')"><span>Rate </span></button>
           </ion-col>
           <ion-col col-6 style="text-align: right">
             <button class="recipe-share" ion-button round (click)="shareInfo(recipeDetails)"><span>Share </span></button>
           </ion-col>
         </ion-row>
       </ion-grid>
-
-
     </div>
 
   </div>

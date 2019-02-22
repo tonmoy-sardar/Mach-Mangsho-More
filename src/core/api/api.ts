@@ -19,12 +19,6 @@ export class ApiProvider {
     });
 
   }
-//   get(data){
-//     return this.http.post(apiUrl+'/users/',data).map(response => {
-//         return response;
-//   });
-
-// }
 
 }
 

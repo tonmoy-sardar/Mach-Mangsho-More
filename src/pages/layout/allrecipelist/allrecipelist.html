@@ -4,22 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!-- <ion-header>
-
-  <ion-navbar>
-    <ion-title>productlist</ion-title>
-  </ion-navbar>
-
-</ion-header> -->
-
 
 <ion-content fullscreen *ngIf="visibleKey">
   <div class="product-banner">
-    <!-- <h5 class="pro-title">{{productName}}</h5>
-    <div class="product-pic">
-        <img [src]="productImage != ''? imageBaseUrl+ productImage : 'assets/imgs/no-image.png'">
-
-    </div> -->
   </div>
   <div class="recipe-list-body">
     <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
@@ -28,27 +15,35 @@
           <ion-row>
             <ion-col col-7>
               <ion-list no-lines class="recipe-name">{{recipeList.blog_title}}</ion-list>
-              <ion-item class="recipe-category" *ngIf="recipeList.recipe_type =='veg'"><button class="veg">{{recipeList.recipe_type}}</button></ion-item>
-              <ion-item class="recipe-category" *ngIf="recipeList.recipe_type !='veg'"><button class="nonveg">{{recipeList.recipe_type}}</button></ion-item>
+              <ion-item class="recipe-category" *ngIf="recipeList.recipe_type =='veg'"><button
+                  class="veg">{{recipeList.recipe_type}}</button></ion-item>
+              <ion-item class="recipe-category" *ngIf="recipeList.recipe_type !='veg'"><button
+                  class="nonveg">{{recipeList.recipe_type}}</button></ion-item>
               <ion-list *ngIf="recipeList.average_rating==null" style="padding-left: 10px;">
-                  <!-- <span  *ngFor="let rat of rating; let i = index" ngClass]="[i <= 3 - 1 ? 'active' : '']" class="fa rating"><ion-icon name="star-outline"></ion-icon></span> -->
-                  <span class="card-small-headding">Rating :</span>
-                  <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= 0 - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
+                <span class="card-small-headding">Rating :</span>
+                <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= 0 - 1 ? 'active' : '']"
+                  style="margin-right: 2px;">
+                  <ion-icon name="star"></ion-icon>
+                </span>
               </ion-list>
               <ion-list *ngIf="recipeList.average_rating!=null" style="padding-left: 10px;">
-                  <!-- <span  *ngFor="let rat of rating; let i = index" ngClass]="[i <= 3 - 1 ? 'active' : '']" class="fa rating"><ion-icon name="star-outline"></ion-icon></span> -->
-                  <span class="card-small-headding">Rating : </span>
-                  <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= recipeList.average_rating.averagerating - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
+                <span class="card-small-headding">Rating : </span>
+                <span class="rating" *ngFor="let rat of rating; let i = index"
+                  [ngClass]="[i <= recipeList.average_rating.averagerating - 1 ? 'active' : '']"
+                  style="margin-right: 2px;">
+                  <ion-icon name="star"></ion-icon>
+                </span>
               </ion-list>
-              <ion-list  style="padding-left: 10px;" *ngIf="recipeList.user_name!=null">
-                  <span class="card-small-headding">Author : </span>
-                  <span >{{recipeList.user_name.name}}</span>
+              <ion-list style="padding-left: 10px;" *ngIf="recipeList.user_name!=null">
+                <span class="card-small-headding">Author : </span>
+                <span>{{recipeList.user_name.name}}</span>
               </ion-list>
             </ion-col>
             <ion-col col-5>
               <div class="recipe-image">
 
-                <img [src]="recipeList.blog_small_image != ''? imageBaseUrl+ recipeList.blog_small_image : 'assets/imgs/no-image.png'">
+                <img
+                  [src]="recipeList.blog_small_image != ''? imageBaseUrl+ recipeList.blog_small_image : 'assets/imgs/no-image.png'">
 
                 <button class="market-price" ion-button round><span>Cooking </span>
                   <small>{{recipeList.cooking_time}}</small>

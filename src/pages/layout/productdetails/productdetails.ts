@@ -7,7 +7,7 @@ import { environment } from '../../../core/global';
 import { ProductService } from '../../../core/services/product.service';
 import { CartService } from '../../../core/services/cart.service';
 
-@IonicPage( { segment: 'productdetails/:id' })
+@IonicPage({ segment: 'productdetails/:id' })
 @Component({
   selector: 'page-productdetails',
   templateUrl: 'productdetails.html',
@@ -44,20 +44,16 @@ export class ProductdetailsPage {
     else {
       this.userId = '';
     }
-
     this.rangeValue = 1;
-
     if (sessionStorage.getItem("cart")) {
       this.customer_cart_data = JSON.parse(sessionStorage.getItem("cart"));
     }
     else {
       this.customer_cart_data = [];
     }
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductdetailsPage');
     if (sessionStorage.getItem("cart")) {
       this.customer_cart_data = JSON.parse(sessionStorage.getItem("cart"));
     }
@@ -89,29 +85,23 @@ export class ProductdetailsPage {
           this.proDetails.isCart = false;
           this.proDetails.quantity = 0;
         }
-
-        console.log(this.proDetails);
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },
       error => {
         this.visibleKey = true;
+        this.spinnerDialog.hide();
       }
     )
   }
 
   changeRangeValue(value, proDetailss) {
-    console.log("Pro Details ==>", proDetailss);
-    console.log("Now Range ==>", value._value);
     this.proDetails.quantity = value._value;
     this.proDetails.totalOurPrice = value._value * proDetailss.price;
     this.proDetails.totalMarketPrice = value._value * proDetailss.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
-    console.log(this.proDetails.totalSavings);
   }
   addtoCart(item) {
-    console.log(item);
-    //if (localStorage.getItem('isLoggedin')) {
     var data = {
       customer_id: this.userId,
       product_id: item.id,
@@ -127,26 +117,17 @@ export class ProductdetailsPage {
       totalMarketPrice: item.totalMarketPrice,
       totalSavings: item.totalSavings
     }
-
-    console.log("Cart Data ==>", data);
     var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
-
     this.proDetails.isCart = true;
     this.proDetails.quantity = item.quantity + 1;
-
-
     if (index == -1) {
       this.customer_cart_data.push(data);
       this.setCartData();
     }
     this.cartService.cartNumberStatus(true);
-    // }
   }
 
   buyNow(item) {
-    console.log(item);
-
-    if (localStorage.getItem('isLoggedin')) {
       var data = {
         customer_id: this.userId,
         product_id: item.id,
@@ -163,13 +144,10 @@ export class ProductdetailsPage {
         totalSavings: item.totalSavings
       }
       var index = this.customer_cart_data.findIndex(y => y.product_id == item.id && y.customer_id == this.userId);
-      if (this.proDetails.id == item.id) {
         this.proDetails.isCart = true;
-        this.proDetails.quantity = item.quantity;
-
-      }
-
+      console.log(index);
       if (index == -1) {
+        this.proDetails.quantity = item.quantity+1;
         this.customer_cart_data.push(data);
         this.setCartData();
         this.cartService.cartNumberStatus(true);
@@ -178,8 +156,6 @@ export class ProductdetailsPage {
       else {
         this.navCtrl.push('CartPage');
       }
-      console.log(this.customer_cart_data);
-    }
   }
 
   setCartData() {
@@ -195,10 +171,8 @@ export class ProductdetailsPage {
     if (this.proDetails['id'] == item.id) {
       this.proDetails.isCart = false;
       this.proDetails.quantity = 1;
-
     }
     this.cartService.cartNumberStatus(true);
-    console.log(this.proDetails);
   }
 
   decrement(product_details) {
@@ -239,7 +213,6 @@ export class ProductdetailsPage {
       this.proDetails.quantity = product_details.quantity - 1
 
     }
-    console.log(this.customer_cart_data);
     this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
     this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
@@ -253,13 +226,10 @@ export class ProductdetailsPage {
       this.setCartData();
     }
     this.proDetails.quantity = product_details.quantity + 1
-
-
     this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
     this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
     this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
     this.cartService.cartNumberStatus(true);
-
   }
 
   gotoFoodValue(id) {
@@ -272,7 +242,6 @@ export class ProductdetailsPage {
     this.navCtrl.push('TriviaPage', { id: id });
   }
 
-
   getFoodValueList(id) {
     this.spinnerDialog.show();
     this.productService.getFoodList(id).subscribe(res => {
@@ -280,7 +249,6 @@ export class ProductdetailsPage {
       this.photos.push({
         url: this.imageBaseUrl + this.foodValueList.food_value_large,
       });
-      console.log(this.photos);
       this.spinnerDialog.hide();
     },
       error => { this.spinnerDialog.hide(); })
@@ -289,10 +257,8 @@ export class ProductdetailsPage {
   private openModal() {
     let modal = this.modalCtrl.create(GalleryModal, {
       photos: this.photos,
-      initialSlide: 1, // The second image
+      initialSlide: 0, // The second image
     });
     modal.present();
   }
-
-
 }

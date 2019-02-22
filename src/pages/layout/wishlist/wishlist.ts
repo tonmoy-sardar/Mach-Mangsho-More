@@ -1,4 +1,4 @@
-import { Component,NgZone } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 
@@ -47,7 +47,6 @@ export class WishlistPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WishlistPage');
     this.visibleKey = false;
     this.menuCtrl.close();
     this.getWishList(this.userId);
@@ -74,38 +73,14 @@ export class WishlistPage {
       res => {
         this.whisListProduct = res['result'];
         this.visibleKey = true;
-
-        console.log(this.whisListProduct);
         this.spinnerDialog.hide();
       },
       error => {
         this.visibleKey = true;
-
-        // this.whisListProduct =[];
+        this.spinnerDialog.hide();
       }
     )
   }
-
-  // deleteWishList(id) {
-  //   let data =  {
-  //     "product_id": id,
-  //     "whist_status": "0",
-  //     "user_id":this.userId
-  // }
-  // this.spinnerDialog.show();
-  // this.productService.addWishlist(data).subscribe(
-  //   res => {
-  //     console.log(res);
-  //     this.getWishList(this.navParams.get('id'));
-  //     this.presentToast("Removed from Wishlist");
-  //     //this.navCtrl.push('WishlistPage');
-  //     this.spinnerDialog.hide();
-  //   },
-  //   error => {
-  //     //this.presentToast("");
-  //   }
-  // )
-  // }
 
   deleteWishList(id) {
     let data = {
@@ -128,14 +103,12 @@ export class WishlistPage {
           handler: () => {
             this.productService.addWishlist(data).subscribe(
               res => {
-                console.log(res);
                 this.getWishList(this.userId);
                 this.presentToast("Removed from Wishlist");
-                //this.navCtrl.push('WishlistPage');
                 this.spinnerDialog.hide();
               },
               error => {
-                //this.presentToast("");
+                this.spinnerDialog.hide();
               }
             )
           }
@@ -150,30 +123,38 @@ export class WishlistPage {
   }
 
   start() {
-    console.log("Voice button clicked!!!");
     this.speechRecognition.startListening()
       .subscribe(
         (matches: Array<string>) => {
-          console.log(matches);
           this.visibleKey = false;
           this.searchText = matches[0];
-          console.log(this.searchText);
           this.spinnerDialog.show();
           this.productService.myWishlistSearch(this.userId, this.searchText).subscribe(
             res => {
               this.visibleKey = true;
               this.zone.run(() => this.whisListProduct = res['result']);
-              
-              console.log(this.whisListProduct);
               this.spinnerDialog.hide();
             },
             error => {
-           
               this.spinnerDialog.hide();
-              // this.whisListProduct =[];
             }
           )
         })
+  }
+  proSearch(searchtxt) {
+    this.visibleKey = false;
+    this.searchText = searchtxt;
+    this.spinnerDialog.show();
+    this.productService.myWishlistSearch(this.userId, this.searchText).subscribe(
+      res => {
+        this.visibleKey = true;
+        this.zone.run(() => this.whisListProduct = res['result']);
+        this.spinnerDialog.hide();
+      },
+      error => {
+        this.spinnerDialog.hide();
+      }
+    )
   }
 
   presentToast(msg) {

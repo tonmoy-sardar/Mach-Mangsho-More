@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
-import { Events,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController, NavParams } from 'ionic-angular';
+import { Events, ToastController } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../core/global';
@@ -25,7 +25,7 @@ export class ProfileviewPage {
   addressForm: FormGroup;
   public buttonClicked: boolean = false;
   public showAddAddressForm: boolean = false;
-  
+
   allAddressList: any = [];
   constructor(
     public navCtrl: NavController,
@@ -35,13 +35,14 @@ export class ProfileviewPage {
     private spinnerDialog: SpinnerDialog,
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder,
+    public alertCtrl: AlertController,
     public profileService: ProfileService
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-    this.getProfileDetails(this.userId);
+   
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
       address: ["", Validators.required],
@@ -51,30 +52,27 @@ export class ProfileviewPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileviewPage');
     this.menuCtrl.close();
+    this.getProfileDetails(this.userId);
   }
 
   getProfileDetails(id) {
     this.profileService.getProfile(id).subscribe(
       res => {
         this.profileDetails = res['result'];
-        console.log("Profile Details ==>", this.profileDetails);
       },
       error => {
       }
     )
   }
   onButtonClick() {
-    
+
     this.spinnerDialog.show();
     this.profileService.addressList(this.userId).subscribe(
       res => {
         this.allAddressList = res['result'];
         this.buttonClicked = !this.buttonClicked;
         this.spinnerDialog.hide();
-
-        
       },
       error => {
         this.buttonClicked = !this.buttonClicked;
@@ -86,8 +84,6 @@ export class ProfileviewPage {
   showAddAddress() {
     this.showAddAddressForm = !this.showAddAddressForm;
   }
-
-
 
   markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
@@ -108,12 +104,9 @@ export class ProfileviewPage {
           this.presentToast("Address added succesfully.");
           this.spinnerDialog.hide();
           this.addressForm.reset();
-         // this.showAddressForm = false;
-         // this.myAddressList(this.userId);
         },
         error => {
           this.presentToast("Please enter valid login credentials");
-          console.log(error);
           this.spinnerDialog.hide();
         }
       )
@@ -133,6 +126,37 @@ export class ProfileviewPage {
     };
   }
 
+  deleteAddress(id) {
+    let alert = this.alertCtrl.create({
+      message: 'Do you want to remove?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.profileService.deleteMyAddress(id).subscribe(
+              res => {
+                this.onButtonClick();
+                this.buttonClicked =true;
+                this.presentToast("Removed from Address");
+                this.spinnerDialog.hide();
+              },
+              error => {
+                this.spinnerDialog.hide();
+              }
+            )
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   presentToast(msg) {
     const toast = this.toastCtrl.create({
       message: msg,

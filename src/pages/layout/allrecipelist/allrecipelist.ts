@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,MenuController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { environment } from '../../../core/global';
@@ -30,7 +30,7 @@ export class AllrecipelistPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private spinnerDialog: SpinnerDialog,
-    public menuCtrl:MenuController,
+    public menuCtrl: MenuController,
     public events: Events,
     public productService: ProductService
   ) {
@@ -41,7 +41,6 @@ export class AllrecipelistPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecipelistPage');
     this.rating = [1, 2, 3, 4, 5];
     this.menuCtrl.close();
     this.allrecipeList();
@@ -55,10 +54,7 @@ export class AllrecipelistPage {
     this.spinnerDialog.show();
     this.productService.getAllRecipeList().subscribe(
       res => {
-        // this.productName = res['product_name'];
-        // this.productImage = res['product_image'];
         this.proRecipeList = res['result'];
-        console.log("Recipe List ==>", this.proRecipeList);
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },
@@ -74,10 +70,10 @@ export class AllrecipelistPage {
     this.productService.getProductDetails(id, this.userId).subscribe(
       res => {
         this.proDetails = res['result']['productlist'];
-        console.log(this.proDetails);
         this.spinnerDialog.hide();
       },
       error => {
+        this.spinnerDialog.hide();
       }
     )
   }
