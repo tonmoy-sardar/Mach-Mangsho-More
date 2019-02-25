@@ -74,7 +74,7 @@ export class ProductlistPage {
     this.productService.getProductList(id,user_id).subscribe(
       res => {
         this.categoryBannerImage=res['category_banner_image'];
-        this.allProductList = res['result'];
+        this.allProductList = res['result']['productlist'];
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },

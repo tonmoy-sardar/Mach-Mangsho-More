@@ -54,7 +54,7 @@ export class AllrecipelistPage {
     this.spinnerDialog.show();
     this.productService.getAllRecipeList().subscribe(
       res => {
-        this.proRecipeList = res['result'];
+        this.proRecipeList = res['result']['recipelist'];
         this.visibleKey = true;
         this.spinnerDialog.hide();
       },
