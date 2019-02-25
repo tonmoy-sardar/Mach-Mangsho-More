@@ -64,16 +64,13 @@
     </ion-toolbar> -->
     <div class="rotating-slider">
             <ul class="slides">
-                <li> <img src="assets/imgs/group1.png"></li>
-                <li> <img src="assets/imgs/group2.png"></li>
-                <li> <img src="assets/imgs/group3.png"></li>
-                <li> <img src="assets/imgs/group4.png"></li>
-                <li> <img src="assets/imgs/group2.png"></li>
-                <li> <img src="assets/imgs/group3.png"></li>
-                <li> <img src="assets/imgs/group2.png"></li>
-                <li> <img src="assets/imgs/group3.png"></li>
-                <li> <img src="assets/imgs/group4.png"></li>
-                <li> <img src="assets/imgs/group2.png"></li>
+                <li *ngFor="let category of categoryList"> 
+                      <img (click)="goToProList(category.id,category.name)"
+                        [src]="category.image_small != ''? imageBaseUrl+ category.image_small : 'assets/imgs/no-image.png'">
+                        
+                    </li>
+                   
+               <!-- <li> <img src="assets/imgs/group2.png"></li> -->
             </ul>
           </div>
 

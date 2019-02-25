@@ -19,9 +19,9 @@
                     // slideHeight : 360,
                     // slideWidth : 480,
                 }, options);
-                this.settings.slideHeight = 120;
-                this.settings.slideWidth = 120;
-                console.log("kk",this.settings);
+                this.settings.slideHeight = 110;
+                this.settings.slideWidth = 110;
+                //console.log("kk",this.settings);
                 
                 this.slideAngle = 360 / this.$slides.length;
                 this.currentRotationAngle = 0;
@@ -105,7 +105,7 @@
                 var halfAngleRadian = this.slideAngle / 2 * Math.PI/180;
                 var innerRadius = 1 / Math.tan(halfAngleRadian) * this.settings.slideWidth / 2;
                 var outerRadius = Math.sqrt(Math.pow(innerRadius + this.settings.slideHeight, 2) + (Math.pow((this.settings.slideWidth / 2), 2)));
-                console.log(outerRadius);
+                //console.log(outerRadius);
                 upperArcHeight = outerRadius - (innerRadius + this.settings.slideHeight);
                 lowerArcHeight = innerRadius - (innerRadius * (Math.cos(halfAngleRadian)));
                 var slideFullWidth = (Math.sin(halfAngleRadian) * outerRadius) * 2;
@@ -157,8 +157,8 @@
                     $slide.css('transform', 'translateX(-50%) rotate('+this.slideAngle * i+'deg) translateY(-'+ upperArcHeight +'px)');
 
                     /* Add clipping path  */
-                    $slide.css('-webkit-clip-path', 'url(#slideClipPath)');
-                    $slide.css('clip-path', 'url(#slideClipPath)');
+                   // $slide.css('-webkit-clip-path', 'url(#slideClipPath)'); //25.02.2019
+                   // $slide.css('clip-path', 'url(#slideClipPath)');  //25.02.2019
                 }.bind(this));
                 
                 /* Render Arrow Controls */

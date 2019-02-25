@@ -48,16 +48,20 @@ export class HomePage {
     this.menuCtrl.close();
     this.startCatNum = 0
     this.endCatNum = 3;
-    jQuery('.rotating-slider').rotatingSlider({
-      slideHeight : Math.min(360, window.innerWidth -80),
-      slideWidth : Math.min(480, window.innerWidth - 80),
-    });
+    setTimeout(() => {
+      jQuery('.rotating-slider').rotatingSlider({
+        slideHeight : Math.min(360, window.innerWidth -80),
+        slideWidth : Math.min(480, window.innerWidth - 80),
+      });
+    }, 4000);
+  
+
+    //this.getcategoryList();
     
   }
 
   ionViewDidEnter() {
     this.events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false,backButtonHidden:true }); // For Show- hide Header
-  
   }
 
   moreCategory() {
@@ -78,6 +82,7 @@ export class HomePage {
     this.productService.getCategoryList().subscribe(
       res => {
         this.categoryList = res['result'];
+        console.log(this.categoryList);
 
     // Check which arrows should be shown
     this.showLeftButton = false;
