@@ -604,4 +604,41 @@ page-home {
       -o-transform: rotate(-270deg);
       transform: rotate(-270deg);
     }
+
+
+
+// 25 Feb 2019 Custom css code
+.rotating-slider ul.slides li { color: #fff }
+
+.rotating-slider ul.slides li:nth-of-type(1) { 
+ // background: #3498db; 
+}
+
+.rotating-slider ul.slides li:nth-of-type(2) { 
+  //background: url('http://static.pexels.com/wp-content/uploads/2014/05/car-oldtimer-snow-342-825x550.jpg'); 
+}
+
+.rotating-slider ul.slides li:nth-of-type(3) { 
+ // background: #e74c3c;
+ }
+
+.rotating-slider ul.slides li:nth-of-type(4) { 
+  //background: url('http://static.pexels.com/wp-content/uploads/2014/06/analog-camera-old-olympus-om-10-1528-825x550.jpg'); 
+}
+
+.rotating-slider ul.slides li:nth-of-type(5) { 
+  //background: #f1c40f; 
+}
+
+.rotating-slider ul.slides li:nth-of-type(6) { 
+  //background: url(http://static.pexels.com/wp-content/uploads/2014/06/bridge-city-night-645-827x550.jpg); 
+}
+
+.rotating-slider ul.slides li .inner {
+  box-sizing: border-box;
+  padding: 2em;
+  height: 100%;
+  width: 100%;
+}
+
 }

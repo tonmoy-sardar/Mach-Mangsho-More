@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, NavParams,Events } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage,Slides, NavController, MenuController, NavParams,Events } from 'ionic-angular';
 import { environment } from '../../../core/global';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ProductService } from '../../../core/services/product.service';
@@ -11,18 +11,23 @@ import * as $ from "jquery";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+declare var jQuery: any;
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
+  @ViewChild(Slides) slides: Slides;
   showCat: number;
   categoryList: any = [];
   imageBaseUrl: any;
   startCatNum: number;
   endCatNum: number;
+
+  public showLeftButton: boolean;
+  public showRightButton: boolean;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,10 +48,16 @@ export class HomePage {
     this.menuCtrl.close();
     this.startCatNum = 0
     this.endCatNum = 3;
+    jQuery('.rotating-slider').rotatingSlider({
+      slideHeight : Math.min(360, window.innerWidth -80),
+      slideWidth : Math.min(480, window.innerWidth - 80),
+    });
+    
   }
 
   ionViewDidEnter() {
     this.events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false,backButtonHidden:true }); // For Show- hide Header
+  
   }
 
   moreCategory() {
@@ -67,6 +78,10 @@ export class HomePage {
     this.productService.getCategoryList().subscribe(
       res => {
         this.categoryList = res['result'];
+
+    // Check which arrows should be shown
+    this.showLeftButton = false;
+    this.showRightButton = this.categoryList.length > 3;
         this.spinnerDialog.hide();
       },
       error => {
@@ -107,5 +122,22 @@ export class HomePage {
 
     });
   }
+
+  // Method executed when the slides are changed
+  public slideChanged(): void {
+    let currentIndex = this.slides.getActiveIndex();
+    this.showLeftButton = currentIndex !== 0;
+    this.showRightButton = currentIndex !== Math.ceil(this.slides.length() / 3);
+}
+
+// Method that shows the next slide
+public slideNext(): void {
+    this.slides.slideNext();
+}
+
+// Method that shows the previous slide
+public slidePrev(): void {
+    this.slides.slidePrev();
+}
 
 }

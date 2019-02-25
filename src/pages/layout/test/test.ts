@@ -10,12 +10,14 @@ import * as $ from "jquery";
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+declare var jQuery: any;
 @IonicPage()
 @Component({
   selector: 'page-test',
   templateUrl: 'test.html',
 })
 export class TestPage {
+  
 
   constructor(
     public navCtrl: NavController, 
@@ -25,6 +27,10 @@ export class TestPage {
   }
 
   ionViewDidLoad() {
+    jQuery('.rotating-slider').rotatingSlider({
+      slideHeight : Math.min(360, window.innerWidth -80),
+      slideWidth : Math.min(480, window.innerWidth - 80),
+    });
 
   // $(document).ready(function () {
   //   $('.wheel').circleMenu({

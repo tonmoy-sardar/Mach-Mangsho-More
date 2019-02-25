@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
 import { Events, ToastController } from 'ionic-angular';
 import { environment } from '../../../core/global';
@@ -27,6 +27,7 @@ declare var cordova: any;
   templateUrl: 'profileedit.html',
 })
 export class ProfileeditPage {
+  @ViewChild('content') content:any;
   userName: string;
   imageBaseUrl: any;
   userImage: any;
@@ -286,34 +287,37 @@ export class ProfileeditPage {
     };
   }
   showAddressForm(id) {
+   
     this.profileService.myAddressDetails(id).subscribe(
       res => {
         this.addressDetails = res['result'];
         this.isShowAddressForm = 1;
         console.log(this.allAddressList)
+        //this.content.scrollToBottom(300);//300ms animation speed
+
       },
       error => {
       }
     )
   }
 
-  submitAddress() {
+  updatemyAddress() {
     if (this.addressForm.valid) {
       this.spinnerDialog.show();
       this.addressForm.value.customer_id = this.userId;
       this.addressForm.value.state_id = '1';
       console.log(this.addressForm.value);
-      // this.profileService.submitAddress(this.addressForm.value).subscribe(
-      //   res => {
-      //     this.presentToast("Address added succesfully.");
-      //     this.spinnerDialog.hide();
-      //     this.addressForm.reset();
-      //   },
-      //   error => {
-      //     this.presentToast("Please enter valid login credentials");
-      //     this.spinnerDialog.hide();
-      //   }
-      // )
+      this.profileService.updateAddress(this.addressForm.value,this.userId).subscribe(
+        res => {
+          this.presentToast("Update address succesfully.");
+          this.spinnerDialog.hide();
+          this.addressForm.reset();
+        },
+        error => {
+          this.presentToast("Error in Address Update");
+          this.spinnerDialog.hide();
+        }
+      )
     } else {
       this.markFormGroupTouched(this.addressForm)
     }

@@ -48,4 +48,7 @@ export class ProfileService {
   myAddressDetails(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'listcustomeraddressbyid/' +id)
   }
+  updateAddress(data,id): Observable<any> {
+    return this.http.post(environment.apiEndpoint + 'updateCustomerAddressById/' + id, data)
+  }
 }

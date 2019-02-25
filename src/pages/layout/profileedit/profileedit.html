@@ -132,7 +132,7 @@
         <ion-row >
           <ion-col col-12>
         
-            <form [formGroup]="addressForm" novalidate novalidate> 
+            <form #content [formGroup]="addressForm" novalidate novalidate> 
                   <ion-grid>
                     <ion-row>
                       <ion-col col-12>
@@ -165,7 +165,7 @@
         
                     <ion-row>
                       <ion-col col-12 style="text-align: center;">
-                        <button ion-button color="dark" round (click)="submitAddress()">Submit</button>
+                        <button ion-button color="dark" round (click)="updatemyAddress()">Submit</button>
                       </ion-col>
                     </ion-row>
                   </ion-grid>
