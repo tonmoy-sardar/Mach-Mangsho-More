@@ -13,14 +13,16 @@
                     autoRotateInterval: 6000,
                     draggable: true,
                     directionControls: true,
-                    directionLeftText: '&lsaquo;',
-                    directionRightText: '&rsaquo;',
+                    // directionLeftText: '&lsaquo;',
+                    // directionRightText: '&rsaquo;',
+                    directionLeftText: 'Back',
+                    directionRightText: 'More',
                     rotationSpeed: 750,
                     // slideHeight : 360,
                     // slideWidth : 480,
                 }, options);
-                this.settings.slideHeight = 110;
-                this.settings.slideWidth = 110;
+                this.settings.slideHeight = 90;
+                this.settings.slideWidth = 90;
                 //console.log("kk",this.settings);
                 
                 this.slideAngle = 360 / this.$slides.length;
@@ -164,8 +166,8 @@
                 /* Render Arrow Controls */
                 if(this.settings.directionControls){
                     var directionArrowsHTML = '<ul class="direction-controls">';
-                    directionArrowsHTML += '<li class="left-arrow">Back<button>'+this.settings.directionLeftText+'</button></li>';
-                    directionArrowsHTML += '<li class="right-arrow">More<button>'+this.settings.directionRightText+'</button></li>';
+                    directionArrowsHTML += '<li class="left-arrow"><button>'+this.settings.directionLeftText+'</button></li>';
+                    directionArrowsHTML += '<li class="right-arrow"><button>'+this.settings.directionRightText+'</button></li>';
                     directionArrowsHTML += '</ul>';
                     this.$slider.append(directionArrowsHTML);
                     this.$directionControls = this.$slider.find('ul.direction-controls');

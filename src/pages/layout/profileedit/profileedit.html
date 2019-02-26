@@ -150,7 +150,7 @@
                       </ion-col>
                       <ion-col col-12>
                         <ion-label>Land Mark</ion-label>
-                        <ion-input type="text" formControlName="landmark" name="landmark"
+                        <ion-input type="text" formControlName="landmark" [(ngModel)]="addressDetails.landmark" name="landmark"
                           [ngClass]="displayFieldCss('landmark')"></ion-input>
                         <span class="error-msg" *ngIf="isFieldValid('landmark')">Please enter a Land Mark</span>
                       </ion-col>

@@ -47,6 +47,7 @@ export class ProfileeditPage {
   addressForm: FormGroup;
   addressDetails = {};
   isShowAddressForm: any;
+  editAddressId:number;
   constructor(
     public platform: Platform,
     public navCtrl: NavController,
@@ -287,7 +288,7 @@ export class ProfileeditPage {
     };
   }
   showAddressForm(id) {
-   
+    this.editAddressId = id;
     this.profileService.myAddressDetails(id).subscribe(
       res => {
         this.addressDetails = res['result'];
@@ -307,10 +308,12 @@ export class ProfileeditPage {
       this.addressForm.value.customer_id = this.userId;
       this.addressForm.value.state_id = '1';
       console.log(this.addressForm.value);
-      this.profileService.updateAddress(this.addressForm.value,this.userId).subscribe(
+      this.profileService.updateAddress(this.addressForm.value,this.editAddressId).subscribe(
         res => {
           this.presentToast("Update address succesfully.");
           this.spinnerDialog.hide();
+          this.getmyAddress();
+          this.isShowAddressForm = 0;
           this.addressForm.reset();
         },
         error => {

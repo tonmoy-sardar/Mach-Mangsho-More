@@ -641,4 +641,35 @@ page-home {
   width: 100%;
 }
 
+// Css for more button
+
+.rotating-slider ul.direction-controls .right-arrow button {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg) !important;
+  background: #e2f5f7;
+  padding: 1px;
+  right: -9%;
+  position: absolute;
+  border-radius: 10px;
+  width: 103px;
+  bottom: 45%;
+  font-size: 18px;
+  height: 29px;
+  color: #000000;
+}
+
+.rotating-slider ul.direction-controls .left-arrow button {
+  background: #e2f5f7;
+  padding: 1px;
+  border-radius: 10px;
+  width: 103px;
+  font-size: 20px;
+  height: 29px;
+  color: #000000;
+  position: absolute;
+  bottom: -240px;
+ 
+
+}
+
 }

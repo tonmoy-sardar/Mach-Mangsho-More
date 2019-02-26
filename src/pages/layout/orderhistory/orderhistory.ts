@@ -51,7 +51,7 @@ export class OrderhistoryPage {
     this.spinnerDialog.show();
     this.productService.myOrderList(id).subscribe(
       res => {
-       this.orderList = res['result'];
+       this.orderList = res['result']['orderlist'];
        this.visibleKey = true;
        this.spinnerDialog.hide();
       },

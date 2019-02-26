@@ -11,15 +11,14 @@
 }
 .rotating-slider ul.direction-controls li.left-arrow{
     position: absolute;
-        top: 50%;
-        right: 100%;
-    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
 }
 .rotating-slider ul.direction-controls li.right-arrow{
-    position: absolute;
+    /* position: absolute; */
         top: 50%;
-        left: 100%;
-    transform: translateY(-50%);
+        /* left: 100%; */
+    /* transform: translateY(-50%); */
 }
 .rotating-slider ul.direction-controls li button{
     background: rgba(0,0,0,0.2);
