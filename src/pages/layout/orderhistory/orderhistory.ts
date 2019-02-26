@@ -25,7 +25,8 @@ export class OrderhistoryPage {
   visibleKey: boolean;
   productList;
   customer_cart_data: any;
-
+  orderListNext:any;
+  defaultPagination:number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,12 +46,16 @@ export class OrderhistoryPage {
 
   ionViewDidLoad() {
     this.menuCtrl.close();
+    this.defaultPagination = 1;
     this.getOrderList(this.userId);
   }
   getOrderList(id) {
     this.spinnerDialog.show();
-    this.productService.myOrderList(id).subscribe(
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.myOrderList(id,params).subscribe(
       res => {
+        this.orderListNext = res['result']['next'];
        this.orderList = res['result']['orderlist'];
        this.visibleKey = true;
        this.spinnerDialog.hide();
@@ -60,6 +65,35 @@ export class OrderhistoryPage {
         this.visibleKey = true;
       }
     )
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    this.spinnerDialog.show();
+    console.log("aa",this.defaultPagination);
+    this.defaultPagination = this.defaultPagination + 1;
+    console.log("bb",this.defaultPagination);
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.myOrderList(this.userId,params).subscribe(
+      res => {
+        this.orderListNext = res['result']['next'];
+     //  this.orderList = res['result']['orderlist'];
+       res['result']['orderlist'].forEach(x => {
+        this.orderList.push(x);
+      })
+       this.visibleKey = true;
+       this.spinnerDialog.hide();
+       infiniteScroll.complete();
+      },
+      error => {
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
+        infiniteScroll.complete();
+      }
+    )
+
+    console.log('Begin async operation end');
   }
 
   gotoOrderDetails(id) {

@@ -5,10 +5,10 @@
   Ionic pages and navigation.
 -->
 
-<ion-content fullscreen *ngIf="visibleKey">
+<ion-content fullscreen>
   <div class="product-banner">
   </div>
-  <div class="recipe-list-body">
+  <div class="recipe-list-body" *ngIf="visibleKey">
     <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
       <ion-card-content (click)="gotoDetails(recipeList.id)">
         <ion-grid>
@@ -64,4 +64,10 @@
       <img src="assets/imgs/no-records.png">
     </div>
   </div>
+
+  <ion-infinite-scroll *ngIf="proRecipeListNext !='null'" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

@@ -172,7 +172,10 @@ export class ProfileeditPage {
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
+      allowEdit: true,
       quality: 100,
+      targetWidth: 500,
+      targetHeight: 500,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
       correctOrientation: true

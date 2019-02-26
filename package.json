@@ -26,6 +26,7 @@
     "@ionic-native/file": "^4.6.0",
     "@ionic-native/file-path": "^4.12.0",
     "@ionic-native/file-transfer": "^4.6.0",
+    "@ionic-native/image-resizer": "^5.2.0",
     "@ionic-native/social-sharing": "^4.20.0",
     "@ionic-native/speech-recognition": "^4.20.0",
     "@ionic-native/spinner-dialog": "^4.20.0",
@@ -51,6 +52,7 @@
     "cordova-plugin-x-socialsharing": "^5.4.4",
     "es6-promise-plugin": "^4.2.2",
     "font-awesome": "^4.7.0",
+    "info.protonet.imageresizer": "0.1.1",
     "ionic-angular": "3.9.2",
     "ionic-gallery-modal": "^0.2.7",
     "ionic2-rating": "^1.2.2",
@@ -86,7 +88,8 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
-      }
+      },
+      "info.protonet.imageresizer": {}
     },
     "platforms": [
       "android"

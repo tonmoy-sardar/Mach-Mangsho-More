@@ -4,9 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content fullscreen *ngIf="visibleKey">
-  <div class="order-list-body">
-    <ion-card  *ngFor="let order of orderList; let i = index">
+<ion-content fullscreen>
+  <div class="order-list-body" *ngIf="visibleKey">
+    <ion-card *ngFor="let order of orderList; let i = index">
       <ion-card-content>
         <ion-grid>
           <ion-row (click)="gotoOrderDetails(order.id)">
@@ -17,7 +17,7 @@
               <ion-list no-lines class="recipe-name" style="text-align: right;">Date : {{order.date_created |
                 date:'MMM d, y'}}</ion-list>
             </ion-col>
-          </ion-row >
+          </ion-row>
           <ion-row style="background-color:#c3e8eb" (click)="gotoOrderDetails(order.id)">
             <ion-col col-4 style="text-align: center; border-right: 1px solid #ffffff; ">
               <ion-list no-lines class="recipe-name">Payment Status</ion-list>
@@ -50,11 +50,11 @@
             </ion-col>
           </ion-row>
           <ion-row (click)="repeatOrder(order)">
-              <ion-col col-12>
-                <hr>
-                <p class="order-placed">Repeat Order</p>
-              </ion-col>
-            </ion-row>
+            <ion-col col-12>
+              <hr>
+              <p class="order-placed">Repeat Order</p>
+            </ion-col>
+          </ion-row>
         </ion-grid>
       </ion-card-content>
 
@@ -64,4 +64,9 @@
       <img src="assets/imgs/no-records.png">
     </div>
   </div>
+
+  <ion-infinite-scroll *ngIf="orderListNext !='null'" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

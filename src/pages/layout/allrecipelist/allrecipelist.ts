@@ -26,6 +26,8 @@ export class AllrecipelistPage {
   visibleKey: boolean;
   productName;
   productImage;
+  defaultPagination: number;
+  proRecipeListNext:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,6 +45,7 @@ export class AllrecipelistPage {
   ionViewDidLoad() {
     this.rating = [1, 2, 3, 4, 5];
     this.menuCtrl.close();
+    this.defaultPagination = 1;
     this.allrecipeList();
   }
 
@@ -52,8 +55,12 @@ export class AllrecipelistPage {
 
   allrecipeList() {
     this.spinnerDialog.show();
-    this.productService.getAllRecipeList().subscribe(
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.getAllRecipeList(params).subscribe(
       res => {
+        console.log(res);
+        this.proRecipeListNext =res['result']['next'];
         this.proRecipeList = res['result']['recipelist'];
         this.visibleKey = true;
         this.spinnerDialog.hide();
@@ -63,6 +70,35 @@ export class AllrecipelistPage {
         this.visibleKey = true;
       }
     )
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    this.spinnerDialog.show();
+    this.defaultPagination = this.defaultPagination +1;
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    
+    this.productService.getAllRecipeList(params).subscribe(
+      res => {
+        console.log(res);
+        this.proRecipeListNext =res['result']['next'];
+       // this.proRecipeList = res['result']['recipelist'];
+        res['result']['recipelist'].forEach(x => {
+          this.proRecipeList.push(x);
+        })
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+        infiniteScroll.complete();
+      },
+      error => {
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
+        infiniteScroll.complete();
+      }
+    )
+
+    console.log('Begin async operation end');
   }
 
   productDetails(id) {

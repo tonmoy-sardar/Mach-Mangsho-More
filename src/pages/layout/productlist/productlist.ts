@@ -1,5 +1,5 @@
-import { Component ,NgZone} from '@angular/core';
-import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ToastController } from 'ionic-angular';
@@ -15,7 +15,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
  * Ionic pages and navigation.
  */
 
-@IonicPage( { segment: 'productlist/:id/:name' })
+@IonicPage({ segment: 'productlist/:id/:name' })
 @Component({
   selector: 'page-productlist',
   templateUrl: 'productlist.html',
@@ -27,8 +27,9 @@ export class ProductlistPage {
   userId: number;
   searchText: string;
   visibleKey: boolean;
-
-  categoryBannerImage:any;
+  categoryBannerImage: any;
+  defaultPagination: number;
+  productResultNext: any;
 
   constructor(
     public navCtrl: NavController,
@@ -39,41 +40,47 @@ export class ProductlistPage {
     private speechRecognition: SpeechRecognition,
     public productService: ProductService,
     private zone: NgZone,
-    private platform:Platform
+    private platform: Platform
   ) {
     //Header Show Hide Code 
-    events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false,backButtonHidden:false });
+    events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false, backButtonHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-    this.searchText =='';
+    this.searchText == '';
+
   }
 
   ionViewDidLoad() {
     this.visibleKey = false;
     this.catName = this.navParams.get('name');
-    this.productList(this.navParams.get('id'),this.userId);
+    this.defaultPagination = 1;
+    this.productList(this.navParams.get('id'));
     if (this.platform.is('cordova')) {
-       // Check permission
-    this.speechRecognition.hasPermission()
-    .then((hasPermission: boolean) => console.log(hasPermission))
+      // Check permission
+      this.speechRecognition.hasPermission()
+        .then((hasPermission: boolean) => console.log(hasPermission))
 
-  // Request permissions
-  this.speechRecognition.requestPermission()
-    .then(
-      () => console.log('Granted'),
-      () => console.log('Denied')
-    )
+      // Request permissions
+      this.speechRecognition.requestPermission()
+        .then(
+          () => console.log('Granted'),
+          () => console.log('Denied')
+        )
     }
     else {
-      
+
     }
   }
 
-  productList(id,user_id) {
+  productList(id) {
     this.spinnerDialog.show();
-    this.productService.getProductList(id,user_id).subscribe(
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.getProductList(id, params).subscribe(
       res => {
-        this.categoryBannerImage=res['category_banner_image'];
+        console.log(res);
+        this.categoryBannerImage = res['category_banner_image'];
+        this.productResultNext = res['result']['next'];
         this.allProductList = res['result']['productlist'];
         this.visibleKey = true;
         this.spinnerDialog.hide();
@@ -85,6 +92,34 @@ export class ProductlistPage {
     )
   }
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    this.spinnerDialog.show();
+    this.defaultPagination = this.defaultPagination + 1;
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+
+    this.productService.getProductList(this.navParams.get('id'), params).subscribe(
+      res => {
+        console.log(res);
+        this.categoryBannerImage = res['category_banner_image'];
+        this.productResultNext = res['result']['next'];
+        res['result']['productlist'].forEach(x => {
+          this.allProductList.push(x);
+        })
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+        infiniteScroll.complete();
+      },
+      error => {
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+        infiniteScroll.complete();
+      }
+    )
+
+    console.log('Begin async operation end');
+  }
   start() {
     this.speechRecognition.startListening()
       .subscribe(
@@ -97,7 +132,7 @@ export class ProductlistPage {
             res => {
               this.visibleKey = true
               this.zone.run(() => this.allProductList = res['result']['products']);
-              
+
               this.spinnerDialog.hide();
             },
             error => {
@@ -115,7 +150,7 @@ export class ProductlistPage {
       res => {
         this.visibleKey = true
         this.zone.run(() => this.allProductList = res['result']['products']);
-        
+
         this.spinnerDialog.hide();
       },
       error => {
@@ -136,7 +171,7 @@ export class ProductlistPage {
     this.spinnerDialog.show();
     this.productService.addWishlist(data).subscribe(
       res => {
-        this.productList(this.navParams.get('id'),this.userId);
+        this.productList(this.navParams.get('id'));
         this.spinnerDialog.hide();
         this.presentToast("Added in Wishlist");
       },
@@ -151,7 +186,7 @@ export class ProductlistPage {
     this.navCtrl.push(page);
   }
 
- 
+
 
   presentToast(msg) {
     const toast = this.toastCtrl.create({

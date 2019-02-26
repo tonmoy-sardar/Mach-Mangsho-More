@@ -1,39 +1,15 @@
 
 <ion-content >
-
-  <!-- <div class="wrapper">
-    <div class="menu">
-    <a href="#" class="one">One</a>
-    <a href="#" class="two">Two</a>
-    <a href="#" class="three">Three</a>
-    <a href="#" class="four">Four</a>
-    <div class="circle">
-    <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-    <li>7</li>
-    </ul>
-    </div>
-    </div>
-    </div> -->
-    <div class="rotating-slider">
-  <ul class="slides">
-      <li> <img src="assets/imgs/group1.png"></li>
-      <li> <img src="assets/imgs/group2.png"></li>
-      <li> <img src="assets/imgs/group3.png"></li>
-      <li> <img src="assets/imgs/group4.png"></li>
-      <li> <img src="assets/imgs/group2.png"></li>
-      <li> <img src="assets/imgs/group3.png"></li>
-      <li> <img src="assets/imgs/group2.png"></li>
-      <li> <img src="assets/imgs/group3.png"></li>
-      <li> <img src="assets/imgs/group4.png"></li>
-      <li> <img src="assets/imgs/group2.png"></li>
-  </ul>
-</div>
-</ion-content>
+  <ion-list>
+    <ion-item *ngFor="let i of items">{{i}}</ion-item>
+  </ion-list>
+ 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  </ion-content>
 
 

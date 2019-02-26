@@ -10,8 +10,8 @@ export class ProductService {
   getCategoryList(): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productcategorylist/')
   }
-  getProductList(id,user_id): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/'+user_id)
+  getProductList(id,params): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/?'+params)
   }
   getTodayspecialList(user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'todayspecial/'+user_id)
@@ -45,8 +45,8 @@ export class ProductService {
     return this.http.get(environment.apiEndpoint + 'recipedetailsbyproduct/'+id)
   }
 
-  getAllRecipeList(): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'recipelist/recipe/')
+  getAllRecipeList(params): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'recipelist/recipe/?'+params)
   }
 
   addWishlist(data): Observable<any> {
@@ -61,9 +61,9 @@ export class ProductService {
     return this.http.get(environment.apiEndpoint + 'recipedetails/'+id)
   }
 
-  myOrderList(id): Observable<any> {
-
-    return this.http.get(environment.apiEndpoint + 'orderlistbycustid/'+id)
+  myOrderList(id,params): Observable<any> {
+    console.log(environment.apiEndpoint + 'orderlistbycustid/'+id+'/?'+params);
+    return this.http.get(environment.apiEndpoint + 'orderlistbycustid/'+id+'/?'+params)
   }
 
   getriviaDetails(id): Observable<any> {
