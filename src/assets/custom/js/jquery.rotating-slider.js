@@ -166,7 +166,7 @@
                 /* Render Arrow Controls */
                 if(this.settings.directionControls){
                     var directionArrowsHTML = '<ul class="direction-controls">';
-                    directionArrowsHTML += '<li class="left-arrow"><button>'+this.settings.directionLeftText+'</button></li>';
+                    //directionArrowsHTML += '<li class="left-arrow"><button>'+this.settings.directionLeftText+'</button></li>';
                     directionArrowsHTML += '<li class="right-arrow"><button>'+this.settings.directionRightText+'</button></li>';
                     directionArrowsHTML += '</ul>';
                     this.$slider.append(directionArrowsHTML);
