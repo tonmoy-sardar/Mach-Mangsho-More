@@ -7,7 +7,7 @@
       <form id="search-form" class="form-inline">
         <div class="input-group">
             <button (click)="proSearch(searchText)" ion-button color="default" round  class="text-search-btn">Search</button>
-          <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
+          <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form" placeholder="Search Product">
           <span class="input-group-btn"><button type="submit" class="btn btn-primary search-btn" data-target="#search-form"
               name="q"><i (click)="start()" class="fa fa-microphone" aria-hidden="true"></i>
 

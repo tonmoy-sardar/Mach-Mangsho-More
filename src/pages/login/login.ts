@@ -21,6 +21,8 @@ import { LoginService } from '../../core/services/login.service';
 })
 export class LoginPage {
   loginForm: FormGroup;
+  isCart:any;
+  lastPage:any;
 
   constructor(
     public navCtrl: NavController,
@@ -38,7 +40,10 @@ export class LoginPage {
       email_contact: ["", Validators.required],
       password: ["", Validators.required]
     });
-
+    this.isCart = JSON.parse(sessionStorage.getItem("cart"));
+    console.log(this.isCart);
+    this.lastPage=this.navCtrl.last();
+    
   }
 
   ionViewDidLoad() {
@@ -62,7 +67,14 @@ export class LoginPage {
           localStorage.setItem('userImage', res['result']['profile_image']);
           this.loginService.loginStatus(true);
           this.presentToast("Succesfully Login");
-          this.navCtrl.setRoot('HomePage');
+          if(this.isCart ==null || this.isCart.length==0) {
+            //this.navCtrl.setRoot('HomePage');
+            this.navCtrl.setRoot(this.lastPage.id);
+            
+          }
+          else {
+            this.navCtrl.setRoot('CartPage');
+          }
           this.spinnerDialog.hide();
         },
         error => {

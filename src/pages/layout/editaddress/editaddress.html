@@ -1,0 +1,48 @@
+<div class="editaddress-modal">
+   
+<ion-card >
+    <ion-row >
+      <ion-col col-12>
+ <form #content [formGroup]="addressForm" novalidate novalidate> 
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12>
+                    <ion-label>Type</ion-label>
+                    <ion-input type="text" formControlName="type" [(ngModel)]="addressDetails.type" name="type" placeholder="Home/Office"
+                      [ngClass]="displayFieldCss('type')"></ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span>
+                  </ion-col>
+    
+                  <ion-col col-12>
+                    <ion-label>Address</ion-label>
+                    <ion-input type="text" formControlName="address" name="address"  [(ngModel)]="addressDetails.address" [ngClass]="displayFieldCss('address')">
+                    </ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Address.</span>
+                  </ion-col>
+                  <ion-col col-12>
+                    <ion-label>Land Mark</ion-label>
+                    <ion-input type="text" formControlName="landmark" [(ngModel)]="addressDetails.landmark" name="landmark"
+                      [ngClass]="displayFieldCss('landmark')"></ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('landmark')">Please enter a Land Mark</span>
+                  </ion-col>
+    
+                  <ion-col col-12>
+                    <ion-label>Pin Code</ion-label>
+                    <ion-input type="text" formControlName="pincode" name="pincode"  [(ngModel)]="addressDetails.pincode" [ngClass]="displayFieldCss('pincode')">
+                    </ion-input>
+                    <span class="error-msg" *ngIf="isFieldValid('pincode')">Please enter a pincode.</span>
+                  </ion-col>
+                </ion-row>
+    
+                <ion-row>
+                  <ion-col col-12 style="text-align: center;">
+                    <button ion-button color="dark" round (click)="updatemyAddress()">Submit</button>
+                    <button ion-button color="dark" round (click)="closeModal()">Cancel</button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>  
+          </ion-col>
+    </ion-row>
+</ion-card>
+</div>

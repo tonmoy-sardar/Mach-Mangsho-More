@@ -65,12 +65,13 @@ export class ProfileviewPage {
       }
     )
   }
-  onButtonClick() {
+  showMyAddress() {
 
     this.spinnerDialog.show();
     this.profileService.addressList(this.userId).subscribe(
       res => {
         this.allAddressList = res['result'];
+        console.log(this.allAddressList);
         this.buttonClicked = !this.buttonClicked;
         this.spinnerDialog.hide();
       },
@@ -79,7 +80,9 @@ export class ProfileviewPage {
         this.spinnerDialog.hide();
       }
     )
+    
   }
+
 
   showAddAddress() {
     this.showAddAddressForm = !this.showAddAddressForm;
@@ -104,6 +107,10 @@ export class ProfileviewPage {
           this.presentToast("Address added succesfully.");
           this.spinnerDialog.hide();
           this.addressForm.reset();
+          this.getProfileDetails(this.userId);
+          this.showAddAddressForm = !this.showAddAddressForm;
+          //this.buttonClicked = !this.buttonClicked;
+          this.showMyAddress();
         },
         error => {
           this.presentToast("Please enter valid login credentials");
@@ -142,8 +149,8 @@ export class ProfileviewPage {
           handler: () => {
             this.profileService.deleteMyAddress(id).subscribe(
               res => {
-                this.onButtonClick();
-                this.buttonClicked =true;
+                this.showMyAddress();
+               // this.buttonClicked =true;
                 this.presentToast("Removed from Address");
                 this.spinnerDialog.hide();
               },

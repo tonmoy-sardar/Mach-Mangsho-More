@@ -1,0 +1,9 @@
+page-editaddress {
+    .fa-remove:before, .fa-close:before, .fa-times:before {
+        font-size: 20px;
+    }
+
+    .editaddress-modal form {
+        min-height: 595px;
+    }
+}

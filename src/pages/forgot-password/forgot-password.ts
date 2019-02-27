@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ForgotpasswordService } from '../../core/services/forgotpassword.service';
 /**
@@ -26,17 +27,31 @@ export class ForgotPasswordPage {
   lastFourNumber: number;
   getResult: any = {};
   useContactEmail;
+  forgotForm: FormGroup;
+  otpForm: FormGroup;
+  newPasswordForm:FormGroup;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
     private toastCtrl: ToastController,
     private spinnerDialog: SpinnerDialog,
+    private formBuilder: FormBuilder,
     public forgotpasswordService: ForgotpasswordService
   ) {
     this.isShow = 0;
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: true, isSubHeaderHidden: true });
+    this.forgotForm = this.formBuilder.group({
+      contact_or_email: ["", Validators.required]
+    });
+    this.otpForm = this.formBuilder.group({
+      otp: ["", Validators.required]
+    });
+    this.newPasswordForm = this.formBuilder.group({
+      newpass: ["", Validators.required],
+      confpass: ["", Validators.required]
+    });
   }
 
   ionViewDidLoad() {
@@ -116,6 +131,48 @@ export class ForgotPasswordPage {
       position: 'top'
     });
     toast.present();
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control.controls) {
+        control.controls.forEach(c => this.markFormGroupTouched(c));
+      }
+    });
+  }
+
+  isFieldValidForgot(field: string) {
+    return !this.forgotForm.get(field).valid && (this.forgotForm.get(field).dirty || this.forgotForm.get(field).touched);
+  }
+
+  displayFieldCssForgot(field: string) {
+    return {
+      'is-invalid': this.forgotForm.get(field).invalid && (this.forgotForm.get(field).dirty || this.forgotForm.get(field).touched),
+      'is-valid': this.forgotForm.get(field).valid && (this.forgotForm.get(field).dirty || this.forgotForm.get(field).touched)
+    };
+  }
+
+  isFieldValidOtp(field: string) {
+    return !this.otpForm.get(field).valid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched);
+  }
+
+  displayFieldCssOtp(field: string) {
+    return {
+      'is-invalid': this.otpForm.get(field).invalid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched),
+      'is-valid': this.otpForm.get(field).valid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched)
+    };
+  }
+
+  isFieldValidNewpassword(field: string) {
+    return !this.newPasswordForm.get(field).valid && (this.newPasswordForm.get(field).dirty || this.newPasswordForm.get(field).touched);
+  }
+
+  displayFieldCssNewpassword(field: string) {
+    return {
+      'is-invalid': this.newPasswordForm.get(field).invalid && (this.newPasswordForm.get(field).dirty || this.newPasswordForm.get(field).touched),
+      'is-valid': this.newPasswordForm.get(field).valid && (this.newPasswordForm.get(field).dirty || this.newPasswordForm.get(field).touched)
+    };
   }
 
 

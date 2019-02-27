@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams, Platform, Nav, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
-import { Events, ToastController } from 'ionic-angular';
+import { Events, ToastController,ModalController } from 'ionic-angular';
 import { environment } from '../../../core/global';
 import { File } from '@ionic-native/file';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -9,6 +9,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop/ngx';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+// modal page
+import { EditaddressPage } from '../editaddress/editaddress';
 //Services
 import { ProfileService } from '../../../core/services/profile.service';
 
@@ -64,7 +66,8 @@ export class ProfileeditPage {
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     public profileService: ProfileService,
-    private crop: Crop
+    private crop: Crop,
+    public modalCtrl: ModalController
   ) {
     //Header Show Hide Code 
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
@@ -74,12 +77,12 @@ export class ProfileeditPage {
     this.userImage = localStorage.getItem('userImage');
     this.userId = +localStorage.getItem('userId');
 
-    this.addressForm = this.formBuilder.group({
-      type: ["", Validators.required],
-      address: ["", Validators.required],
-      landmark: ["", Validators.required],
-      pincode: ["", Validators.required],
-    });
+    // this.addressForm = this.formBuilder.group({
+    //   type: ["", Validators.required],
+    //   address: ["", Validators.required],
+    //   landmark: ["", Validators.required],
+    //   pincode: ["", Validators.required],
+    // });
 
   }
 
@@ -93,6 +96,8 @@ export class ProfileeditPage {
     this.menuCtrl.close();
     this.isShowAddressForm = 0;
   }
+
+ 
 
 
   getProfileDetails(id) {
@@ -280,64 +285,72 @@ export class ProfileeditPage {
       }
     )
   }
-  isFieldValid(field: string) {
-    return !this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched);
-  }
+  // isFieldValid(field: string) {
+  //   return !this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched);
+  // }
 
-  displayFieldCss(field: string) {
-    return {
-      'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
-      'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
-    };
-  }
+  // displayFieldCss(field: string) {
+  //   return {
+  //     'is-invalid': this.addressForm.get(field).invalid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched),
+  //     'is-valid': this.addressForm.get(field).valid && (this.addressForm.get(field).dirty || this.addressForm.get(field).touched)
+  //   };
+  // }
   showAddressForm(id) {
-    this.editAddressId = id;
-    this.profileService.myAddressDetails(id).subscribe(
-      res => {
-        this.addressDetails = res['result'];
-        this.isShowAddressForm = 1;
-        console.log(this.allAddressList)
-        //this.content.scrollToBottom(300);//300ms animation speed
+   // this.presentModal();
+   const modal = this.modalCtrl.create(EditaddressPage,{id: id});
+   modal.present();
+    // this.editAddressId = id;
+    // this.profileService.myAddressDetails(id).subscribe(
+    //   res => {
+    //     this.addressDetails = res['result'];
+    //     this.isShowAddressForm = 1;
+    //     console.log(this.allAddressList)
+    //     //this.content.scrollToBottom(300);//300ms animation speed
 
-      },
-      error => {
-      }
-    )
+    //   },
+    //   error => {
+    //   }
+    // )
   }
 
-  updatemyAddress() {
-    if (this.addressForm.valid) {
-      this.spinnerDialog.show();
-      this.addressForm.value.customer_id = this.userId;
-      this.addressForm.value.state_id = '1';
-      console.log(this.addressForm.value);
-      this.profileService.updateAddress(this.addressForm.value,this.editAddressId).subscribe(
-        res => {
-          this.presentToast("Update address succesfully.");
-          this.spinnerDialog.hide();
-          this.getmyAddress();
-          this.isShowAddressForm = 0;
-          this.addressForm.reset();
-        },
-        error => {
-          this.presentToast("Error in Address Update");
-          this.spinnerDialog.hide();
-        }
-      )
-    } else {
-      this.markFormGroupTouched(this.addressForm)
-    }
-  }
+  // presentModal() {
+  //   const modal = this.modalCtrl.create(EditaddressPage,{id: id});
+  //   modal.present();
+  // }
+
+  // updatemyAddress() {
+  //   if (this.addressForm.valid) {
+  //     this.spinnerDialog.show();
+  //     this.addressForm.value.customer_id = this.userId;
+  //     this.addressForm.value.state_id = '1';
+  //     console.log(this.addressForm.value);
+  //     this.profileService.updateAddress(this.addressForm.value,this.editAddressId).subscribe(
+  //       res => {
+  //         this.presentToast("Update address succesfully.");
+  //         this.spinnerDialog.hide();
+  //         this.getmyAddress();
+  //         this.isShowAddressForm = 0;
+  //         this.addressForm.reset();
+  //       },
+  //       error => {
+  //         this.presentToast("Error in Address Update");
+  //         this.spinnerDialog.hide();
+  //       }
+  //     )
+  //   } else {
+  //     this.markFormGroupTouched(this.addressForm)
+  //   }
+  // }
 
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-      if (control.controls) {
-        control.controls.forEach(c => this.markFormGroupTouched(c));
-      }
-    });
-  }
+  // markFormGroupTouched(formGroup: FormGroup) {
+  //   (<any>Object).values(formGroup.controls).forEach(control => {
+  //     control.markAsTouched();
+  //     if (control.controls) {
+  //       control.controls.forEach(c => this.markFormGroupTouched(c));
+  //     }
+  //   });
+  // }
 
 
 

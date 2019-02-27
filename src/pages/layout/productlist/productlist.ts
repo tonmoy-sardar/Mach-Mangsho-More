@@ -76,7 +76,7 @@ export class ProductlistPage {
     this.spinnerDialog.show();
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', this.defaultPagination.toString());
-    this.productService.getProductList(id, params).subscribe(
+    this.productService.getProductList(id, this.userId,params).subscribe(
       res => {
         console.log(res);
         this.categoryBannerImage = res['category_banner_image'];
@@ -107,6 +107,7 @@ export class ProductlistPage {
         res['result']['productlist'].forEach(x => {
           this.allProductList.push(x);
         })
+        console.log(this.allProductList);
         this.visibleKey = true;
         this.spinnerDialog.hide();
         infiniteScroll.complete();

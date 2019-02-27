@@ -10,8 +10,8 @@ export class ProductService {
   getCategoryList(): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productcategorylist/')
   }
-  getProductList(id,params): Observable<any> {
-    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/?'+params)
+  getProductList(id,user_id,params): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productslistbycatid/'+id+'/'+user_id+'/?'+params)
   }
   getTodayspecialList(user_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'todayspecial/'+user_id)

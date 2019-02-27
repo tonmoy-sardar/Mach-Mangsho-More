@@ -53,7 +53,7 @@
         (click)="checkAvailability(i,myAddress.id,myAddress.pincode,myAddress)">
         <ion-item><span>Saved Address </span> <span class="address-type">{{myAddress.type}}</span></ion-item>
         <ion-item>
-          <p>{{myAddress.address}} , {{myAddress.pincode}}</p>
+          <p>{{myAddress.address}} ,{{myAddress.landmark}} {{myAddress.pincode}}</p>
         </ion-item>
         <p class="error-msg" *ngIf="isAvailable===0 && isActive ==i">Currently out of stock in this area.</p>
       </ion-card>

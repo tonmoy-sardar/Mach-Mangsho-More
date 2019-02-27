@@ -40,6 +40,7 @@
                                     <button *ngIf="product.product_stock > 0 && product.product_stock < 6"
                                         class="pro-limited">Limited</button>
                                     <button *ngIf="product.product_stock < 1" class="pro-sold">Sold Out</button>
+                                    
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -76,7 +77,7 @@
                 </ion-grid>
                 
             </ion-card-content>
-          
+         
             <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && this.userId>0" aria-hidden="true"
                 (click)="addWishList(product.id)"></i>
            <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && !this.userId"

@@ -7,11 +7,13 @@ import { MyApp } from './app.component';
 //import { HomePage } from '../pages/home/home';
 // core module
 import { CoreModule } from '../../src/core/core.module';
+import { EditaddressPage} from '../pages/layout/editaddress/editaddress';
 
 
 @NgModule({
   declarations: [
     MyApp,
+    EditaddressPage
     //HomePage
   ],
   imports: [
@@ -22,6 +24,7 @@ import { CoreModule } from '../../src/core/core.module';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    EditaddressPage
     //HomePage
   ],
   providers: [
