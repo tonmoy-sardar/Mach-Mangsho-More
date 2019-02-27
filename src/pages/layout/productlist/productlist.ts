@@ -99,7 +99,7 @@ export class ProductlistPage {
     var params: URLSearchParams = new URLSearchParams();
     params.set('page', this.defaultPagination.toString());
 
-    this.productService.getProductList(this.navParams.get('id'), params).subscribe(
+    this.productService.getProductList(this.navParams.get('id'),this.userId, params).subscribe(
       res => {
         console.log(res);
         this.categoryBannerImage = res['category_banner_image'];
