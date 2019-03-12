@@ -14,7 +14,7 @@
   </div>
   <div class="recipe-list-body">
     <h5 style="color:#5387d2; text-align:center;">Recipe</h5>
-    <ion-card *ngFor="let recipeList of proRecipeList; let i = index">
+    <ion-card (click)="gotoDetails(recipeList.id)" *ngFor="let recipeList of proRecipeList; let i = index">
       <ion-card-content >
         <ion-grid>
           <ion-row>
@@ -38,7 +38,7 @@
               </ion-list>
             </ion-col>
             <ion-col col-5>
-              <div class="recipe-image" (click)="gotoDetails(recipeList.id)">
+              <div class="recipe-image" >
 
                 <img [src]="recipeList.blog_small_image != ''? imageBaseUrl+ recipeList.blog_small_image : 'assets/imgs/no-image.png'">
 

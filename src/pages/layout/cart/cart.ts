@@ -52,6 +52,7 @@ export class CartPage {
     this.getProfileDetails(this.userId);
     this.todayDate = Date.now();
   }
+ 
 
   goback() {
     this.navCtrl.pop();
@@ -154,6 +155,7 @@ export class CartPage {
     if (qty > 1) {
       this.customer_cart_data[i].quantity = qty - 1;
       var index = this.all_cart_data.findIndex(x => x.customer_id == this.userId && x.product_id == this.customer_cart_data[i].product_id);
+
       if (index != -1) {
         this.all_cart_data[index].quantity = qty - 1;
         this.all_cart_data[index].totalOurPrice = (this.all_cart_data[index].price * this.all_cart_data[index].quantity);

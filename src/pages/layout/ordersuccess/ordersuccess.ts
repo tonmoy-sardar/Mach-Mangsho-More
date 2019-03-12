@@ -21,7 +21,8 @@ export class OrdersuccessPage {
     public navParams: NavParams,
     public events: Events,
     ) {
-      events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
+      events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false,backButtonHidden:true }); // For Show- hide Header
+    
   }
 
   ionViewDidLoad() {

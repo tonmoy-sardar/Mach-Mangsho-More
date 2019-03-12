@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Alert } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { GalleryModal } from 'ionic-gallery-modal';
@@ -45,15 +45,19 @@ export class ProductdetailsPage {
       this.userId = '';
     }
     this.rangeValue = 1;
-    if (sessionStorage.getItem("cart")) {
-      this.customer_cart_data = JSON.parse(sessionStorage.getItem("cart"));
-    }
-    else {
-      this.customer_cart_data = [];
-    }
+    // if (sessionStorage.getItem("cart")) {
+    //   this.customer_cart_data = JSON.parse(sessionStorage.getItem("cart"));
+    // }
+    // else {
+    //   this.customer_cart_data = [];
+    // }
   }
 
   ionViewDidLoad() {
+    
+  }
+  ionViewWillEnter() {
+    console.log(123);
     if (sessionStorage.getItem("cart")) {
       this.customer_cart_data = JSON.parse(sessionStorage.getItem("cart"));
     }
@@ -183,39 +187,38 @@ export class ProductdetailsPage {
         this.customer_cart_data[index].quantity = product_details.quantity - 1;
         this.setCartData();
       }
-      this.proDetails['quantity'] = product_details.quantity - 1
-
+      
+      this.proDetails['quantity'] = product_details.quantity - 1;
       if (this.proDetails['quantity'] == 0) {
-
+       
         index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
         if (index != -1) {
           this.customer_cart_data.splice(index, 1);
           this.setCartData();
         }
-
         this.proDetails.isCart = false;
-
       }
-
-
+      this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
+    this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
+    this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
     }
     else {
-
       index = this.customer_cart_data.findIndex(y => y.product_id == product_details.id && y.customer_id == this.userId);
-
       if (index != -1) {
-
         this.customer_cart_data.splice(index, 1);
         this.setCartData();
       }
 
       this.proDetails.isCart = false;
-      this.proDetails.quantity = product_details.quantity - 1
+      console.log(this.proDetails);
+      this.proDetails.quantity = product_details.quantity - 1;
+      this.proDetails.totalOurPrice = product_details.price;
+    this.proDetails.totalMarketPrice = product_details.market_price;
+    this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
 
     }
-    this.proDetails.totalOurPrice = this.proDetails.quantity * product_details.price;
-    this.proDetails.totalMarketPrice = this.proDetails.quantity * product_details.market_price;
-    this.proDetails.totalSavings = this.proDetails.totalMarketPrice - this.proDetails.totalOurPrice;
+    console.log(this.proDetails);
+    
     this.cartService.cartNumberStatus(true);
 
   }
@@ -260,5 +263,9 @@ export class ProductdetailsPage {
       initialSlide: 0, // The second image
     });
     modal.present();
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 }

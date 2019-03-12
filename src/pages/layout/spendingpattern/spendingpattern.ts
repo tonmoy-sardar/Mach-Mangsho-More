@@ -79,24 +79,25 @@ export class SpendingpatternPage {
           type: 'doughnut',
           data: {
               labels: categoryNames,
+             
               datasets: [{
-                  label: '# of Votes',
-                  data: categorySpending,
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)'
-                  ],
-                  hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56",
-                      "#FF6384",
-                      "#36A2EB"
-                  ]
-              }]
+                label: '# of Votes',
+                data: categorySpending,
+                backgroundColor: [
+                    '#ff9980',
+                    '#74bff1',
+                    '#ffdb80',
+                    '#ff809b',
+                    '#80ffff'
+                ],
+                hoverBackgroundColor: [
+                    "#cc2900",
+                    "#1068a2",
+                    "#ffb700",
+                    "#e60032",
+                    "#00b3b3"
+                ]
+            }]
           }
     
       });

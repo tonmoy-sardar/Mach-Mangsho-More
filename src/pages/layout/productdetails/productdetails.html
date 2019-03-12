@@ -63,9 +63,15 @@
 
                     </ion-col>
                     <ion-col col-6 class="pro-btn" *ngIf="proDetails.product_stock ==0">
-                            <button class="buyNow" (click)="addtoCart(proDetails)">
-                                    Inform when Available</button>
-                        </ion-col>
+                        <!-- <button class="buyNow" (click)="addtoCart(proDetails)">
+                                    Inform when Available</button> -->
+                        <div>
+                            <button class="buyNow">Inform when Available</button>
+                        </div>
+                        <div style="padding-top: 10px;">
+                            <button class="buyNow" (click)="goBack()">Back</button>
+                        </div>
+                    </ion-col>
                 </ion-row>
                 <ion-row class="price-saving" *ngIf="proDetails.product_stock > 1">
                     <ion-col col-6>Price <span><i class="fa fa-rupee"></i>{{proDetails.totalOurPrice}}</span></ion-col>

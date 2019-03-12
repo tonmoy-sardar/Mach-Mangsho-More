@@ -46,7 +46,7 @@ export class MyApp {
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
     events.subscribe('hideHeader', (data) => {
-      //console.log("Header Data ==>", data);
+      console.log("Header Data ==>", data);
       this.topHeaderIsHidden = data.isHeaderHidden;
       this.subHeaderIsHidden = data.isSubHeaderHidden;
       this.backButtonIsHidden = data.backButtonHidden;

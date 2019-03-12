@@ -46,7 +46,7 @@ export class ProductlistPage {
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false, backButtonHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-    this.searchText == '';
+    this.searchText = '';
 
   }
 

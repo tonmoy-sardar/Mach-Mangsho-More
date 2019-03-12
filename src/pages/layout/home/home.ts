@@ -52,7 +52,7 @@ export class HomePage {
         slideHeight : Math.min(360, window.innerWidth -80),
         slideWidth : Math.min(480, window.innerWidth - 80),
       });
-    }, 2500);
+    }, 2000);
  
   }
 
