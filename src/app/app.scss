@@ -748,3 +748,71 @@ ion-input, ion-textarea
 }
 
 
+
+// 25 Feb 2019 Custom css code
+.rotating-slider ul.slides li { 
+    color: #fff;
+    z-index:9;
+   }
+  
+//   .rotating-slider ul.slides li:nth-of-type(1) { 
+//    // background: #3498db; 
+//   }
+  
+//   .rotating-slider ul.slides li:nth-of-type(2) { 
+//     //background: url('http://static.pexels.com/wp-content/uploads/2014/05/car-oldtimer-snow-342-825x550.jpg'); 
+//   }
+  
+//   .rotating-slider ul.slides li:nth-of-type(3) { 
+//    // background: #e74c3c;
+//    }
+  
+//   .rotating-slider ul.slides li:nth-of-type(4) { 
+//     //background: url('http://static.pexels.com/wp-content/uploads/2014/06/analog-camera-old-olympus-om-10-1528-825x550.jpg'); 
+//   }
+  
+//   .rotating-slider ul.slides li:nth-of-type(5) { 
+//     //background: #f1c40f; 
+//   }
+  
+//   .rotating-slider ul.slides li:nth-of-type(6) { 
+//     //background: url(http://static.pexels.com/wp-content/uploads/2014/06/bridge-city-night-645-827x550.jpg); 
+//   }
+  
+  .rotating-slider ul.slides li .inner {
+    box-sizing: border-box;
+    padding: 2em;
+    height: 100%;
+    width: 100%;
+  }
+  
+  // Css for more button
+  
+  .rotating-slider ul.direction-controls .right-arrow button {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg) !important;
+    background: #e2f5f7;
+    padding: 1px;
+    right: -9%;
+    position: absolute;
+    border-radius: 10px;
+    width: 103px;
+    bottom: 45%;
+    font-size: 18px;
+    height: 29px;
+    color: #000000;
+  }
+  
+  .rotating-slider ul.direction-controls .left-arrow button {
+    background: #e2f5f7;
+    padding: 1px;
+    border-radius: 10px;
+    width: 103px;
+    font-size: 20px;
+    height: 29px;
+    color: #000000;
+    position: absolute;
+    bottom: -240px;
+  
+  }
+

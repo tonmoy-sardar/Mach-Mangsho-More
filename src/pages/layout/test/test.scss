@@ -196,5 +196,53 @@ page-test {
   height: 100%;
   width: 100%;
 }
-
+.ion-ios-arrow-back-outline:before {
+  width: 25px;
+  display:none;
+}
+  .dashboard-page {
+      position: relative;
+  }
+  // .cart-icon {
+  //     color:#B51E19;
+  // }
+  // .sub-header {
+  //     min-height:0px;
+  // }
+  // .top-header-button {
+  //     background: none;
+  //     color: #1a87fe;
+  //     font-size: 16px;
+  // }
+  // .cart-icon {
+  //     height: 30px;
+  // }
+  // .sub-header-menu {
+  //     color:#92d9e2;
+  // }
+  // .sub-header-back {
+  //     font-size:25px;
+  //     color:#92d9e2;
+  // }
+  .footer-bottom-right {
+      position: absolute;
+      bottom: 76px;
+      right: 0px;
+      width: 100px;
+      height: 100px;
+      background: #62c8d4;
+      border-radius: 90px 0 0 0;
+      z-index:9999 !important;
+  }
+  .footer-bottom-right span {
+      font-size: 20px;
+  }
+  .dashboard-body img {
+      padding-top: 10px;
+  }
+  .scroll-content {
+    overflow-y: hidden;
+    will-change: hidden;
+  }
+ 
 }

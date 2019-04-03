@@ -35,7 +35,7 @@
     width: 1.5em;
 }
 .rotating-slider ul.direction-controls li button:hover{
-    background: rgba(0,0,0,0.6);
+    /* background: rgba(0,0,0,0.6); */
 }
 .rotating-slider ul.slides{
     border-radius: 50%;
@@ -45,7 +45,8 @@
     padding: 0;
     /* position: relative; */
     position: absolute;
-        top: 49% !important;
+        /* top: 49% !important; */
+        top:60% !important;
         left: 82%;
     transform: translateX(-50%) rotate(0);
     transform-origin: center center;
@@ -65,5 +66,5 @@
     width: 100%;
 }
 .rotating-slider ul.slides li img{
-    
+    width:80px;
 }

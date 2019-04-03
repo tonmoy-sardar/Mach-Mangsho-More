@@ -49,8 +49,8 @@ export class HomePage {
     this.endCatNum = 3;
     setTimeout(() => {
       jQuery('.rotating-slider').rotatingSlider({
-        slideHeight : Math.min(360, window.innerWidth -80),
-        slideWidth : Math.min(480, window.innerWidth - 80),
+        slideHeight : Math.min(360, window.innerWidth -50),
+        slideWidth : Math.min(480, window.innerWidth - 50),
       });
     }, 2000);
  

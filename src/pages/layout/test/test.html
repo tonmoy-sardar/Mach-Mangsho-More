@@ -1,4 +1,4 @@
-
+<!-- 
 <ion-content >
   <ion-list>
     <ion-item *ngFor="let i of items">{{i}}</ion-item>
@@ -10,6 +10,25 @@
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  </ion-content> -->
+
+  <ion-content padding class="no-scroll dashboard-page">
+    <div class="logo">
+      <img src="assets/imgs/logo.png" alt="Ionic logo">
+    </div>
+    <div class="dashboard-body">
+      <img src="assets/imgs/women1.png">
+    </div>
+    <button class="footer-bottom-right"><span>Order</span></button>
+    <div class="rotating-slider">
+      <ul class="slides">
+        <li *ngFor="let category of categoryList">
+          <img (click)="goToProList(category.id,category.name)"
+            [src]="category.image_small != ''? imageBaseUrl+ category.image_small : 'assets/imgs/no-image.png'">
+  
+        </li>
+      </ul>
+    </div>
   </ion-content>
 
 
