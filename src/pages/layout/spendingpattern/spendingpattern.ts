@@ -9,6 +9,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { ProductService } from '../../../core/services/product.service';
 
 import { Chart } from 'chart.js';
+import { v } from '@angular/core/src/render3';
 /**
  * Generated class for the SpendingpatternPage page.
  *
@@ -27,11 +28,15 @@ export class SpendingpatternPage {
   imageBaseUrl: any;
   visibleKey: boolean;
   searchText: string;
+  monthList:any=[];
   spendingPattern;
   @ViewChild('doughnutCanvas') doughnutCanvas;
+  @ViewChild('doughnutCanvasMonth') doughnutCanvasMonth;
   @ViewChild('lineCanvas') lineCanvas;
   @ViewChild('barCanvas') barCanvas;
   doughnutChart: any;
+  doughnutChartMonth: any;
+  isMonthShow:number;
 
   constructor(
     public navCtrl: NavController,
@@ -60,6 +65,58 @@ export class SpendingpatternPage {
     this. getSpendingPattern(this.userId);
     //this.getLineChart();
     //this.getBarChart();
+    this.isMonthShow=0;
+    this.monthList = [
+      {
+        'id':'01',
+        'name':'Jan'
+      },
+      {
+        'id':'02',
+        'name':'Feb'
+      },
+      {
+        'id':'03',
+        'name':'March'
+      },
+      {
+        'id':'04',
+        'name':'Apr'
+      },
+      {
+        'id':'05',
+        'name':'May'
+      },
+      {
+        'id':'06',
+        'name':'Jun'
+      },
+      {
+        'id':'07',
+        'name':'Jul'
+      },
+      {
+        'id':'08',
+        'name':'Aug'
+      },
+      {
+        'id':'09',
+        'name':'Sep'
+      },
+      {
+        'id':'10',
+        'name':'Oct'
+      },
+      {
+        'id':'11',
+        'name':'Nov'
+      },
+      {
+        'id':'12',
+        'name':'Dec'
+      }
+    ]
+    
   }
 
 
@@ -69,6 +126,7 @@ export class SpendingpatternPage {
     this.productService.getSpendingPattern(userId).subscribe(
       res => {
         this.spendingPattern = res['result'];
+      
         console.log(this.spendingPattern);
         this.visibleKey = true;
         var categoryNames: any = [];
@@ -254,4 +312,65 @@ export class SpendingpatternPage {
   }
 
 
+  getMonth(data) {
+    console.log(data);
+  }
+
+  selectMonth(data){ 
+    console.log("Selected Month", data); 
+    this.spinnerDialog.show();
+    this.productService.getSpendingPatternMonthWise(this.userId,data.id).subscribe(
+      res => {
+        this.isMonthShow =1;
+        this.spendingPattern = res['result'];  
+        console.log(this.spendingPattern);
+        this.visibleKey = true;
+        var categoryNames: any = [];
+        var categorySpending: any = [];
+        this.spendingPattern.forEach(x => {
+          categoryNames.push(x.product_category_name);
+          categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+        })
+
+        setTimeout( () => { 
+          this.doughnutChartMonth = new Chart(this.doughnutCanvasMonth.nativeElement, {
+
+            type: 'doughnut',
+            data: {
+                labels: categoryNames,
+               
+                datasets: [{
+                  label: '# of Votes',
+                  data: categorySpending,
+                  backgroundColor: [
+                      '#ff9980',
+                      '#74bff1',
+                      '#ffdb80',
+                      '#ff809b',
+                      '#80ffff'
+                  ],
+                  hoverBackgroundColor: [
+                      "#cc2900",
+                      "#1068a2",
+                      "#ffb700",
+                      "#e60032",
+                      "#00b3b3"
+                  ]
+              }]
+            }
+      
+        });
+  
+          console.log(this.spendingPattern);
+  
+          this.spinnerDialog.hide();
+        }, 3000 );
+  
+      },
+      error => {
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+      }
+    )
+  } 
 }

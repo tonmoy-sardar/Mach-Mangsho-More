@@ -69,6 +69,7 @@ export class CartPage {
   }
 
   populateData() {
+    console.log("cccc",sessionStorage.getItem("cart"));
     if (sessionStorage.getItem("cart")) {
       this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
       this.customer_cart_data = this.all_cart_data;
@@ -76,8 +77,10 @@ export class CartPage {
       this.getTotalPackingPrice();
     }
     else {
-      //this.customer_cart_data = [];
+      
+      this.customer_cart_data = [];
     }
+    console.log(this.customer_cart_data);
   }
 
 
@@ -138,7 +141,7 @@ export class CartPage {
   }
 
   increment(i) {
-    var qty = this.customer_cart_data[i].quantity;
+    var qty = parseInt(this.customer_cart_data[i].quantity);
     this.customer_cart_data[i].quantity = qty + 1;
     var index = this.all_cart_data.findIndex(x => x.customer_id == this.userId && x.product_id == this.customer_cart_data[i].product_id);
     if (index != -1) {
@@ -151,7 +154,7 @@ export class CartPage {
   }
 
   decrement(i) {
-    var qty = this.customer_cart_data[i].quantity;
+    var qty = parseInt(this.customer_cart_data[i].quantity);
     if (qty > 1) {
       this.customer_cart_data[i].quantity = qty - 1;
       var index = this.all_cart_data.findIndex(x => x.customer_id == this.userId && x.product_id == this.customer_cart_data[i].product_id);

@@ -27,6 +27,7 @@ export class OrderhistoryPage {
   customer_cart_data: any;
   orderListNext:any;
   defaultPagination:number;
+  all_cart_data:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,7 +42,7 @@ export class OrderhistoryPage {
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-    this.customer_cart_data = [];
+   // this.customer_cart_data = [];
   }
 
   ionViewDidLoad() {
@@ -49,18 +50,41 @@ export class OrderhistoryPage {
     this.defaultPagination = 1;
     this.getOrderList(this.userId);
   }
+  ionViewWillEnter() {
+    //this.customer_cart_data = [];
+    this.populateData();
+  }
+
+  populateData() {
+    console.log("cccc",sessionStorage.getItem("cart"));
+    if (sessionStorage.getItem("cart")) {
+      this.all_cart_data = JSON.parse(sessionStorage.getItem("cart"));
+      this.customer_cart_data = this.all_cart_data;
+      //this.getTotalItemPrice();
+     // this.getTotalPackingPrice();
+    }
+    else {
+      
+      this.customer_cart_data = [];
+    }
+    console.log(this.customer_cart_data);
+  }
+
+
   getOrderList(id) {
     this.spinnerDialog.show();
     var params: URLSearchParams = new URLSearchParams();
     params.set('page', this.defaultPagination.toString());
     this.productService.myOrderList(id,params).subscribe(
       res => {
+        console.log("Order History==>",res);
         this.orderListNext = res['result']['next'];
        this.orderList = res['result']['orderlist'];
        this.visibleKey = true;
        this.spinnerDialog.hide();
       },
       error => {
+        this.orderList=[];
         this.spinnerDialog.hide();
         this.visibleKey = true;
       }
@@ -134,7 +158,7 @@ export class OrderhistoryPage {
           totalMarketPrice: totalMarketPrice,
           totalSavings: totalSavings
         }
-
+        console.log("zz",this.customer_cart_data);
         this.customer_cart_data.push(data);
         this.setCartData();
         this.cartService.cartNumberStatus(true);

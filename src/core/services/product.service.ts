@@ -113,4 +113,8 @@ export class ProductService {
   getSpendingPattern(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productspendcatwisebyuserid/'+id+'/')
   }
+
+  getSpendingPatternMonthWise(user_id,month_id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productspendcatwisebyuserid/'+user_id+'/'+month_id)
+  }
 }
