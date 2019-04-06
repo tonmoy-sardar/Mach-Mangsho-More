@@ -132,7 +132,7 @@ export class ProductlistPage {
           this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
             res => {
               this.visibleKey = true
-              this.zone.run(() => this.allProductList = res['result']['products']);
+              this.zone.run(() => this.allProductList = res['result']);
 
               this.spinnerDialog.hide();
             },
@@ -149,8 +149,10 @@ export class ProductlistPage {
     this.spinnerDialog.show();
     this.productService.productSearch(this.navParams.get('id'), this.searchText).subscribe(
       res => {
-        this.visibleKey = true
-        this.zone.run(() => this.allProductList = res['result']['products']);
+        this.visibleKey = true;
+        console.log("saerch Result",res);
+       // this.zone.run(() => this.allProductList = res['result']['products']);
+       this.zone.run(() => this.allProductList = res['result']);
 
         this.spinnerDialog.hide();
       },
