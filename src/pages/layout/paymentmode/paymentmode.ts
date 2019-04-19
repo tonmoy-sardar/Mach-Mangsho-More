@@ -31,6 +31,7 @@ export class PaymentmodePage {
   delivery_charge;
   todayDate;
   userId: any;
+  orderId:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -123,11 +124,13 @@ export class PaymentmodePage {
    
     this.order_details = [];
     this.customer_cart_data.forEach(item => {
+      console.log("Item ==>",item);
       this.order_details.push(
         {
           'product_id': item.product_id,
           'quantity': item.quantity,
           'unit_price': item.price,
+          'saving_price': (item.market_price - item.price),
           'IGST': '',
           'CGST': '',
           'GST': ''
@@ -138,10 +141,12 @@ export class PaymentmodePage {
     console.log("Order Details==>",this.order_data);
     this.cartService.addOrder(this.order_data).subscribe(
       res => {
+        console.log("Order Id===>",res.result.id);
+        this.orderId = res.result.id;
         this.orderStatus = res.result;
         sessionStorage.clear();
         this.cartService.cartNumberStatus(true);
-        this.navCtrl.push('OrdersuccessPage');
+        this.navCtrl.push('OrdersuccessPage', { id: this.orderId });
       },
       error => {
         console.log(error);

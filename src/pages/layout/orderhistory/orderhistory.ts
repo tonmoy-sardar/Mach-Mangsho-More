@@ -28,6 +28,10 @@ export class OrderhistoryPage {
   orderListNext:any;
   defaultPagination:number;
   all_cart_data:any;
+  orderType: string = "all";
+  favOrderListNext:any;
+
+  favOrderList: any =[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,6 +53,7 @@ export class OrderhistoryPage {
     this.menuCtrl.close();
     this.defaultPagination = 1;
     this.getOrderList(this.userId);
+    this.getFavOrderList(this.userId);
   }
   ionViewWillEnter() {
     //this.customer_cart_data = [];
@@ -92,11 +97,8 @@ export class OrderhistoryPage {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     this.spinnerDialog.show();
-    console.log("aa",this.defaultPagination);
     this.defaultPagination = this.defaultPagination + 1;
-    console.log("bb",this.defaultPagination);
     var params: URLSearchParams = new URLSearchParams();
     params.set('page', this.defaultPagination.toString());
     this.productService.myOrderList(this.userId,params).subscribe(
@@ -105,6 +107,51 @@ export class OrderhistoryPage {
      //  this.orderList = res['result']['orderlist'];
        res['result']['orderlist'].forEach(x => {
         this.orderList.push(x);
+      })
+       this.visibleKey = true;
+       this.spinnerDialog.hide();
+       infiniteScroll.complete();
+      },
+      error => {
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
+        infiniteScroll.complete();
+      }
+    )
+
+    console.log('Begin async operation end');
+  }
+
+  getFavOrderList(id) {
+    this.spinnerDialog.show();
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.myFavOrderList(id,params).subscribe(
+      res => {
+        console.log("Fav Order History==>",res);
+        this.orderListNext = res['result']['next'];
+       this.favOrderList = res['result']['orderlist'];
+       this.visibleKey = true;
+       this.spinnerDialog.hide();
+      },
+      error => {
+        this.favOrderList=[];
+        this.spinnerDialog.hide();
+        this.visibleKey = true;
+      }
+    )
+  }
+
+  doInfiniteFavList(infiniteScroll) {
+    this.spinnerDialog.show();
+    this.defaultPagination = this.defaultPagination + 1;
+    var params: URLSearchParams = new URLSearchParams();
+    params.set('page', this.defaultPagination.toString());
+    this.productService.myFavOrderList(this.userId,params).subscribe(
+      res => {
+        this.favOrderListNext = res['result']['next'];
+       res['result']['orderlist'].forEach(x => {
+        this.favOrderList.push(x);
       })
        this.visibleKey = true;
        this.spinnerDialog.hide();

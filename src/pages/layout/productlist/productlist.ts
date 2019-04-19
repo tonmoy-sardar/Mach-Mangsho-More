@@ -189,6 +189,10 @@ export class ProductlistPage {
     this.navCtrl.push(page);
   }
 
+  gotoPriceTrend(id) {
+    this.navCtrl.push('PricetrendPage',{id:id});
+  }
+
 
 
   presentToast(msg) {

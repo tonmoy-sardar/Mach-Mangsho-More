@@ -66,14 +66,14 @@ export class EditaddressPage {
       console.log(this.addressForm.value);
       this.profileService.updateAddress(this.addressForm.value,this.addressId).subscribe(
         res => {
-          this.presentToast("Update address succesfully.");
+          this.presentToast("Profile update succesfully.");
           this.spinnerDialog.hide();
           this.addressForm.reset();
           this.viewCtrl.dismiss();
           this.navCtrl.push('ProfileeditPage');
         },
         error => {
-          this.presentToast("Error in Address Update");
+          this.presentToast("Error in Profile Update");
           this.spinnerDialog.hide();
         }
       )

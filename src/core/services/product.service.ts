@@ -117,4 +117,16 @@ export class ProductService {
   getSpendingPatternMonthWise(user_id,month_id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productspendcatwisebyuserid/'+user_id+'/'+month_id)
   }
+
+  myFavOrderList(id,params): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'favouriteorderlistbycustid/'+id+'/?'+params)
+  }
+
+  getSpendingPatternQuater(user_id,id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productspendcatandmonthbyuserid/'+user_id+'/'+id)
+  }
+
+  getPriceTrendDetails(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productpricedetails/'+id)
+  }
 }

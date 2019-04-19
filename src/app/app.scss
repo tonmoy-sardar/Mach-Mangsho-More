@@ -21,7 +21,8 @@
 }
 
 .ion-ios-arrow-back-outline:before {
-    width:25px;
+    width:28px;
+    padding-left:5px;
 }
 
 .logo {
@@ -69,8 +70,9 @@ li {
 }
 
 .sub-header-back {
-    font-size: 25px;
+    font-size: 28px;
     color: #92d9e2;
+    font-weight: bold;
 }
 
 .profile-banner {
@@ -827,4 +829,14 @@ ion-input, ion-textarea
   }
   .our-price:active {
     background:#b0e3e9 !important;
+  }
+
+  .spend-savings h3 {
+      text-align: center;
+  }
+
+  .price-trend-details ion-label {
+      font-size: 15px;
+      font-weight: bold;
+      text-align: center;
   }

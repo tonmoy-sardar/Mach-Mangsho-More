@@ -5,99 +5,97 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen>
-    <div class="product-banner-image">
-        <img [src]="categoryBannerImage != '' ? imageBaseUrl+ categoryBannerImage : 'assets/imgs/banner2.jpg'" alt="" />
-        <div class="product-banner-text">
-            <h1>{{catName}}</h1>
-            <div class="product-banner-search">
+  <div class="product-banner-image">
+    <img [src]="categoryBannerImage != '' ? imageBaseUrl+ categoryBannerImage : 'assets/imgs/banner2.jpg'" alt="" />
+    <div class="product-banner-text">
+      <h1>{{catName}}</h1>
+      <div class="product-banner-search">
 
-                <form id="search-form" class="form-inline">
-                    <div class="input-group">
-                            <button (click)="proSearch(searchText)" ion-button color="default" round  class="text-search-btn">Search</button>
-                        <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary search-btn"
-                                data-target="#search-form" name="q">
-                                <i (click)="start()" class="fa fa-microphone"
-                                    aria-hidden="true"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <form id="search-form" class="form-inline">
+          <div class="input-group">
+            <button (click)="proSearch(searchText)" ion-button color="default" round
+              class="text-search-btn">Search</button>
+            <input type="text" name="searchText" [(ngModel)]="searchText" class="form-control search-form">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary search-btn" data-target="#search-form" name="q">
+                <i (click)="start()" class="fa fa-microphone" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="product-list-body" *ngIf="visibleKey">
-        <ion-card  *ngFor="let product of allProductList">
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <div class="product-detais">
-                                <ion-list no-lines class="product-name">{{product.name}}</ion-list>
-                                <ion-item class="pro-status">
-                                    <button *ngIf="product.product_stock > 5" class="pro-available">Available</button>
-                                    <button *ngIf="product.product_stock > 0 && product.product_stock < 6"
-                                        class="pro-limited">Limited</button>
-                                    <button *ngIf="product.product_stock < 1" class="pro-sold">Sold Out</button>
-                                    
-                                </ion-item>
-                            </div>
-                        </ion-col>
-                        <ion-col col-6>
-                            <div class="product-image" >
-                               
-                                    <img (click)="gotoDetails(product.id)" [src]="product.image_small != '' ? imageBaseUrl+ product.image_small : 'assets/imgs/banner2.jpg'" alt="" />
-                                
-                                    <button class="price-trend-up" *ngIf="product.price_status==1">
-                                    <ion-icon name="arrow-round-up"></ion-icon>
-                                </button>
-                                <button class="price-trend-down" *ngIf="product.price_status==2">
-                                    <ion-icon name="arrow-round-down"></ion-icon>
-                                </button>
-                                <button class="price-trend-same" *ngIf="product.price_status==3"><i
-                                        class="fa fa-arrows-h" aria-hidden="true"></i></button>
+  </div>
+  <div class="product-list-body" *ngIf="visibleKey">
+    <ion-card *ngFor="let product of allProductList">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <div class="product-detais">
+                <ion-list no-lines class="product-name">{{product.name}}</ion-list>
+                <ion-item class="pro-status">
+                  <button *ngIf="product.product_stock > 5" class="pro-available">Available</button>
+                  <button *ngIf="product.product_stock > 0 && product.product_stock < 6"
+                    class="pro-limited">Limited</button>
+                  <button *ngIf="product.product_stock < 1" class="pro-sold">Sold Out</button>
 
-                                <button class="market-price" ion-button round><span><i
-                                            class="fa fa-rupee"></i>{{product.market_price}} /
-                                        {{product.quantity_count}} {{product.unit}}
-                                    </span>
-                                    <small>Market price</small>
-                                </button>
-                                <button class="our-price" ion-button round><span><i
-                                            class="fa fa-rupee"></i>{{product.price}} /
-                                        {{product.quantity_count}} {{product.unit}} </span>
-                                    <small>Our price</small>
-                                </button>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col col-6>
+              <div class="product-image">
 
-                 
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-                
-            </ion-card-content>
-         
-            <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && this.userId>0" aria-hidden="true"
-                (click)="addWishList(product.id)"></i>
-           <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && !this.userId"
-                aria-hidden="true" (click)="gotoPage('LoginPage')"></i>
-           <i class="fa fa-heart not-favrate favrate" *ngIf="product.whishlist != null" aria-hidden="true"></i>
-            
-        </ion-card>
-        <!-- <div *ngIf="allProductList.length==0">
+                <img (click)="gotoDetails(product.id)"
+                  [src]="product.image_small != '' ? imageBaseUrl+ product.image_small : 'assets/imgs/banner2.jpg'"
+                  alt="" />
+
+                <button (click)="gotoPriceTrend(product.id)" class="price-trend-up" *ngIf="product.price_status==1">
+                  <ion-icon name="arrow-round-up"></ion-icon>
+                </button>
+                <button (click)="gotoPriceTrend(product.id)" class="price-trend-down" *ngIf="product.price_status==2">
+                  <ion-icon name="arrow-round-down"></ion-icon>
+                </button>
+                <button (click)="gotoPriceTrend(product.id)" class="price-trend-same" *ngIf="product.price_status==3"><i class="fa fa-arrows-h"
+                    aria-hidden="true"></i></button>
+
+                <button class="market-price" ion-button round><span><i class="fa fa-rupee"></i>{{product.market_price}}
+                    /
+                    {{product.quantity_count}} {{product.unit}}
+                  </span>
+                  <small>Market price</small>
+                </button>
+                <button class="our-price" ion-button round><span><i class="fa fa-rupee"></i>{{product.price}} /
+                    {{product.quantity_count}} {{product.unit}} </span>
+                  <small>Our price</small>
+                </button>
+
+
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-card-content>
+
+      <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && this.userId>0" aria-hidden="true"
+        (click)="addWishList(product.id)"></i>
+      <i class="fa fa-heart not-favrate" *ngIf="product.whishlist == null && !this.userId" aria-hidden="true"
+        (click)="gotoPage('LoginPage')"></i>
+      <i class="fa fa-heart not-favrate favrate" *ngIf="product.whishlist != null" aria-hidden="true"></i>
+
+    </ion-card>
+    <!-- <div *ngIf="allProductList.length==0">
             <img src="assets/imgs/no-records.png">
         </div> -->
 
-      
-    </div>
-   
-    <ion-infinite-scroll *ngIf="productResultNext !='null'" (ionInfinite)="doInfinite($event)">
-            <ion-infinite-scroll-content
-                 loadingSpinner="bubbles"
-                 loadingText="Loading more data...">
-               </ion-infinite-scroll-content>
-             </ion-infinite-scroll>
+
+  </div>
+
+  <ion-infinite-scroll *ngIf="productResultNext !='null'" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 
 </ion-content>

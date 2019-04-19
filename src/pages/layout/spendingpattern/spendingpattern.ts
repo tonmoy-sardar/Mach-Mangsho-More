@@ -30,14 +30,22 @@ export class SpendingpatternPage {
   searchText: string;
   monthList:any=[];
   spendingPattern;
+  quarterly:any =[];
   @ViewChild('doughnutCanvas') doughnutCanvas;
   @ViewChild('doughnutCanvasMonth') doughnutCanvasMonth;
+  @ViewChild('doughnutCanvasQuater') doughnutCanvasQuater;
   @ViewChild('lineCanvas') lineCanvas;
   @ViewChild('barCanvas') barCanvas;
   doughnutChart: any;
   doughnutChartMonth: any;
+  doughnutChartQuater: any;
   isMonthShow:number;
-
+  isQuaterShow:number;
+  selectedMonth:any;
+  selectedQuater:any;
+  totalQuater:any;
+  totalQuaterSum:any;
+  CatSpendPrice:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -66,14 +74,28 @@ export class SpendingpatternPage {
     //this.getLineChart();
     //this.getBarChart();
     this.isMonthShow=0;
+    this.quarterly = [
+      {
+        'id':'3',
+        'name':'3 Months'
+      },
+      {
+        'id':'6',
+        'name':'6 Months'
+      },
+      {
+        'id':'12',
+        'name':'12 Months'
+      },
+    ];
     this.monthList = [
       {
         'id':'01',
-        'name':'Jan'
+        'name':'January'
       },
       {
         'id':'02',
-        'name':'Feb'
+        'name':'February'
       },
       {
         'id':'03',
@@ -81,7 +103,7 @@ export class SpendingpatternPage {
       },
       {
         'id':'04',
-        'name':'Apr'
+        'name':'April'
       },
       {
         'id':'05',
@@ -89,31 +111,31 @@ export class SpendingpatternPage {
       },
       {
         'id':'06',
-        'name':'Jun'
+        'name':'June'
       },
       {
         'id':'07',
-        'name':'Jul'
+        'name':'July'
       },
       {
         'id':'08',
-        'name':'Aug'
+        'name':'August'
       },
       {
         'id':'09',
-        'name':'Sep'
+        'name':'September'
       },
       {
         'id':'10',
-        'name':'Oct'
+        'name':'October'
       },
       {
         'id':'11',
-        'name':'Nov'
+        'name':'November'
       },
       {
         'id':'12',
-        'name':'Dec'
+        'name':'December'
       }
     ]
     
@@ -316,8 +338,13 @@ export class SpendingpatternPage {
     console.log(data);
   }
 
+  gotoBarChart() {
+    this.navCtrl.push('SpendingbarchartPage');
+  }
+
   selectMonth(data){ 
     console.log("Selected Month", data); 
+    this.selectedMonth =data.name;
     this.spinnerDialog.show();
     this.productService.getSpendingPatternMonthWise(this.userId,data.id).subscribe(
       res => {
@@ -373,4 +400,73 @@ export class SpendingpatternPage {
       }
     )
   } 
+
+  selectQuater(data) {
+    console.log("Select Quater",data)
+    this.spinnerDialog.show();
+    this.selectedQuater = data.name;
+    this.productService.getSpendingPatternQuater(this.userId,data.id).subscribe(
+      res => {
+        this.isQuaterShow =1;
+        this.spendingPattern = res['result'];  
+        console.log("Quaterly==>",this.spendingPattern);
+        this.visibleKey = true;
+        var categoryNames: any = [];
+        var categorySpending: any = [];
+        this.totalQuaterSum =0;
+        this.spendingPattern.forEach(x => {
+          categoryNames.push(x.product_category_name);
+          console.log("zz",parseFloat(x.order_details.total_price_val));
+          this.CatSpendPrice = parseFloat(x.order_details.total_price_val);
+          if(isNaN(this.CatSpendPrice)) {
+            this.CatSpendPrice =0;
+          }
+          // categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0);
+          categorySpending.push(this.CatSpendPrice);
+        })
+        console.log(categorySpending);
+        const sum = categorySpending.reduce((partial_sum, a) => partial_sum + a); 
+        this.totalQuaterSum  = sum;
+        console.log("Sum==>",this.totalQuaterSum); 
+        setTimeout( () => { 
+          this.doughnutChartQuater = new Chart(this.doughnutCanvasQuater.nativeElement, {
+
+            type: 'doughnut',
+            data: {
+                labels: categoryNames,
+               
+                datasets: [{
+                  label: '# of Votes',
+                  data: categorySpending,
+                  backgroundColor: [
+                      '#ff9980',
+                      '#74bff1',
+                      '#ffdb80',
+                      '#ff809b',
+                      '#80ffff'
+                  ],
+                  hoverBackgroundColor: [
+                      "#cc2900",
+                      "#1068a2",
+                      "#ffb700",
+                      "#e60032",
+                      "#00b3b3"
+                  ]
+              }]
+            }
+      
+        });
+  
+          console.log(this.spendingPattern);
+  
+          this.spinnerDialog.hide();
+        }, 3000 );
+  
+      },
+      error => {
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+      }
+    )
+  }
 }
