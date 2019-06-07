@@ -6,7 +6,7 @@ Ionic pages and navigation.
 -->
 
 <ion-content fullscreen>
-  <div class="product-banner-image">
+  <div class="product-banner-image" ion-fixed>
     <img src="assets/imgs/banner2.jpg" alt="" />
     <div class="product-banner-text">
       <h1>Spending Pattern</h1>
@@ -22,8 +22,8 @@ Ionic pages and navigation.
       </ion-card-header>
       <ion-card-content>
         <div class="spend-savings">
-          <h3 (click)="gotoBarChart()">Total : 4800</h3>
-          <h3>Savings : 800</h3>
+          <h3 ><span class="stxt">Total : {{totalCurrentSum}} </span> <button (click)="gotoBarChart(spendingPattern)" ion-button class="bargraph-button">Bar Graph</button></h3>
+          <h3><span class="stxt">Savings : {{totalCurrentSaving}}</span></h3>
         </div>
         <canvas #doughnutCanvas></canvas>
       </ion-card-content>
@@ -45,8 +45,8 @@ Ionic pages and navigation.
       </ion-card-header>
       <ion-card-content>
         <div class="spend-savings">
-          <h3 (click)="gotoBarChart()">Total : 4800</h3>
-          <h3>Savings : 800</h3>
+          <h3 ><span class="stxt">Total : {{totalMonthlySum}} </span><button (click)="gotoBarChart(spendingPattern)" ion-button class="bargraph-button">Bar Graph</button></h3>
+          <h3><span class="stxt">Savings : {{totalMonthlySaving}}</span></h3>
         </div>
         <canvas #doughnutCanvasMonth></canvas>
       </ion-card-content>
@@ -68,8 +68,8 @@ Ionic pages and navigation.
       </ion-card-header>
       <ion-card-content>
         <div class="spend-savings">
-          <h3 (click)="gotoBarChart()">Total : {{totalQuaterSum}}</h3>
-          <h3>Savings : 800</h3>
+          <h3><span class="stxt">Total : {{totalQuaterSum}}</span> <button (click)="gotoBarChart(spendingPattern)" ion-button class="bargraph-button">Bar Graph</button></h3>
+          <h3><span class="stxt">Savings : {{totalQuaterSaving}}</span></h3>
         </div>
         <canvas #doughnutCanvasQuater></canvas>
       </ion-card-content>

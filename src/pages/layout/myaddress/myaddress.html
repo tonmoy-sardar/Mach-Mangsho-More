@@ -5,6 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen>
+  <div class="banner-body" ion-fixed>
   <div class="product-banner">
     <ion-grid>
       <ion-row>
@@ -20,17 +21,18 @@
           <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list>
         </ion-col>
         <ion-col col-5>
-          <ion-list no-lines>Value <span> <i class="fa fa-rupee"></i>{{total_item_price}} </span>
+          <ion-list no-lines class="cart-total-price">Value <span> <i class="fa fa-rupee"></i>{{total_item_price}}
+            </span>
           </ion-list>
-          <ion-list no-lines>Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}} </span>
+          <ion-list no-lines class="cart-total-saving">Savings <span> <i class="fa fa-rupee"></i>{{total_market_saving}}
+            </span>
           </ion-list>
           <ion-list no-lines>Item <span> {{customer_cart_data.length}} </span> </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
-  <div class="cart-body">
-    <div class="page-tab">
+  <div class="page-tab">
       <ion-grid>
         <ion-row>
           <ion-col col-3>
@@ -47,13 +49,38 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <h3>Delivery Address</h3>
     </div>
+</div>
+  <div class="cart-body">
+    <!-- <div class="page-tab">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button></button>
+          </ion-col>
+          <ion-col col-3>
+            <button class="active"></button>
+          </ion-col>
+          <ion-col col-3>
+            <button></button>
+          </ion-col>
+          <ion-col col-3>
+            <button></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div> -->
     <div class="delivery-slot">
+      <!-- <h3>Delivery Address</h3> -->
       <ion-card *ngFor="let myAddress of allAddressList; let i = index"
         (click)="checkAvailability(i,myAddress.id,myAddress.pincode,myAddress)">
-        <ion-item><span>Saved Address </span> <span class="address-type">{{myAddress.type}}</span></ion-item>
-        <ion-item>
-          <p>{{myAddress.address}} ,{{myAddress.landmark}} {{myAddress.pincode}}</p>
+        <ion-item><span>{{myAddress.customer_name}} </span> <span class="address-type">{{myAddress.type}}</span></ion-item>
+        <!-- <ion-item><span>{{myAddress.type}} </span></ion-item> -->
+        <ion-item text-wrap>
+          <!-- <p>{{myAddress.address}} ,{{myAddress.landmark}} {{myAddress.pincode}}</p> -->
+          <!-- <p class="address1">{{myAddress.customer_name}}</p>   -->
+             <p class="address2"> {{myAddress.address}} ,{{myAddress.street_no}},{{myAddress.landmark}} {{myAddress.pincode}}</p>
         </ion-item>
         <p class="error-msg" *ngIf="isAvailable===0 && isActive ==i">Currently out of stock in this area.</p>
       </ion-card>
@@ -94,19 +121,43 @@
       <ion-card class="form-sec" *ngIf="showAddressForm==true">
         <form [formGroup]="addressForm" novalidate novalidate>
           <ion-grid>
+
             <ion-row>
               <ion-col col-12>
                 <ion-label>Type</ion-label>
-                <ion-input type="text" formControlName="type" name="type" placeholder="Home/Office"
+                <!-- <ion-input type="text" formControlName="type" name="type" placeholder="Home/Office"
                   [ngClass]="displayFieldCss('type')"></ion-input>
-                <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span>
+                <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span> -->
+                <ion-select [(ngModel)]="type" formControlName="type" class="address-type1">
+                  <ion-option value="Home">Home</ion-option>
+                  <ion-option value="Work">Work</ion-option>
+                </ion-select>
               </ion-col>
-
               <ion-col col-12>
+                  <ion-label>Name</ion-label>
+                  <ion-input type="text" formControlName="customer_name" name="customer_name" [ngClass]="displayFieldCss('customer_name')">
+                  </ion-input>
+                  <span class="error-msg" *ngIf="isFieldValid('customer_name')">Please enter a Name.</span>
+                </ion-col>
+
+              <!-- <ion-col col-12>
                 <ion-label>Address</ion-label>
                 <ion-input type="text" formControlName="address" name="address" [ngClass]="displayFieldCss('address')">
                 </ion-input>
                 <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Address.</span>
+              </ion-col> -->
+              <ion-col col-12>
+                <ion-label>Building Number</ion-label>
+                <ion-input type="text" formControlName="address" name="address" [ngClass]="displayFieldCss('address')">
+                </ion-input>
+                <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Building Number.</span>
+              </ion-col>
+              <ion-col col-12>
+                <ion-label>Street Name</ion-label>
+                <ion-input type="text" formControlName="street_no" name="street_no"
+                  [ngClass]="displayFieldCss('street_no')">
+                </ion-input>
+                <span class="error-msg" *ngIf="isFieldValid('street_no')">Please enter a Street Name.</span>
               </ion-col>
               <ion-col col-12>
                 <ion-label>Land Mark</ion-label>
@@ -115,7 +166,7 @@
                 <span class="error-msg" *ngIf="isFieldValid('landmark')">Please enter a Land Mark</span>
               </ion-col>
 
-              <ion-col col-6>
+              <ion-col col-12>
                 <ion-label>Pin Code</ion-label>
                 <ion-input type="text" formControlName="pincode" name="pincode" [ngClass]="displayFieldCss('pincode')">
                 </ion-input>
@@ -125,7 +176,7 @@
 
             <ion-row>
               <ion-col col-12 style="text-align: center;">
-                <button ion-button color="dark" round (click)="submitAddress()">Submit</button>
+                <button ion-button color="dark" round (click)="submitAddress()">Ok</button>
               </ion-col>
             </ion-row>
           </ion-grid>

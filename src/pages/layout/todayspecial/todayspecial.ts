@@ -72,6 +72,11 @@ export class TodayspecialPage {
     }
   }
 
+  gotoPriceTrend(id) {
+    this.navCtrl.push('PricetrendPage',{id:id});
+  }
+
+
   productList(user_id) {
     this.spinnerDialog.show();
     this.productService.getTodayspecialList(user_id).subscribe(

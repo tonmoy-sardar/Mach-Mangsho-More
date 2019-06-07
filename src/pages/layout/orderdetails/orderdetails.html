@@ -5,111 +5,198 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen *ngIf="visibleKey">
-    <div class="order-list-body">
-        <ion-card>
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-list no-lines class="recipe-name">No : {{orderDetails.order_no}}</ion-list>
+  <div class="order-list-body">
+    <ion-card>
+      <ion-card-content>
+          <div class="product-banner">
+              <ion-grid>
+                  <ion-row>
+                      <ion-col col-3>
+                          <div class="profile-pic-small">
+                              <img *ngIf="userId !=''"
+                                  [src]="orderDetails.customer_profile_image != ''? imageBaseUrl+ orderDetails.customer_profile_image : 'assets/imgs/no-image.png'">
+                                  <!-- <img  src="assets/imgs/man.jpeg"> -->
+                          </div>
+                      </ion-col>
+                      <ion-col col-5>
+                          <ion-list no-lines  class="user-text" >User ID: MMM000{{orderDetails.customer_id}} </ion-list>
+                          <ion-list no-lines class="username1" > {{orderDetails.customer_name}}</ion-list>
+                          <!-- <ion-list no-lines *ngIf="userId ==''">Guest</ion-list>
+                          <ion-list no-lines *ngIf="userId !=''">{{profileDetails.name}}</ion-list>
+                          <ion-list no-lines><small> {{todayDate | date:'MMM d, y'}} </small> </ion-list> -->
+                          <ion-list no-lines  class="cart-total-price cart-total-price2">Date {{orderDetails.date_created |
+                              date:'MMM d, y'}} </ion-list> 
+                          <!-- <ion-list no-lines  class="cart-total-price cart-total-price3">Order No: MMM000001 </ion-list>  -->
                         </ion-col>
-                        <ion-col col-6>
-                            <ion-list no-lines class="recipe-name" style="text-align: right;">Date :
-                                {{orderDetails.date_created |
+                      <ion-col col-4>
+                          <ion-list no-lines class="cart-total-price cart-total-price2">Value <span>
+                             <!-- <i class="fa fa-rupee"></i>{{total_item_price}}  -->
+                             <i class="fa fa-rupee"></i> {{orderDetails.total_price}} </span>                           
+                          </ion-list>
+                          <ion-list no-lines class="cart-total-price cart-total-price2">Item <span> 
+                              <!-- {{customer_cart_data?.length}} -->
+                              {{productList?.length}}
+                             </span> </ion-list>          
+                         
+                      </ion-col>
+                  </ion-row>
+                      <ion-row>
+                      <ion-col col-3></ion-col>
+                      <ion-col col-9>
+                          <ion-list no-lines  class="cart-total-price cart-total-price2">Order No: {{orderDetails.order_no}} </ion-list> 
+                      </ion-col>
+                    </ion-row>
+                 
+              </ion-grid>
+          </div>
+        <ion-grid>
+          <!-- <ion-row>
+            <ion-col col-6>
+              <ion-list no-lines class="recipe-name adtext">No : {{orderDetails.order_no}}</ion-list>
+            </ion-col>
+            <ion-col col-6>
+              <ion-list no-lines class="recipe-name adtext" style="text-align: right;">Date :
+                {{orderDetails.date_created |
                                 date:'MMM d, y'}}</ion-list>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row style="background-color:#c3e8eb">
-                        <ion-col col-4 style="text-align: center; border-right: 1px solid #ffffff; ">
-                            <ion-list no-lines class="recipe-name">Payment Status</ion-list>
-                        </ion-col>
-                        <ion-col col-4 style="text-align: center;border-right: 1px solid #ffffff;">
-                            <ion-list no-lines class="recipe-name">Payment Mode</ion-list>
-                        </ion-col>
-                        <ion-col col-4 style="text-align: center;">
-                            <ion-list no-lines class="recipe-name">Grand Total</ion-list>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col col-4 style="text-align: center;">
-                            <ion-list no-lines class="recipe-name">
-                                <p *ngIf="orderDetails.is_paid==0">Pending</p>
-                                <p *ngIf="orderDetails.is_paid==1">Paid</p>
-                                <p *ngIf="orderDetails.is_paid==2">Cancel</p>
-                            </ion-list>
-                        </ion-col>
-                        <ion-col col-4 style="text-align: center;">
-                            <ion-list no-lines class="recipe-name">
-                                <p *ngIf="orderDetails.payment_type ==1">Paytm</p>
-                                <p *ngIf="orderDetails.payment_type ==2">COD</p>
-                            </ion-list>
-                        </ion-col>
-                        <ion-col col-4 style="text-align: center;">
-                            <ion-list no-lines class="recipe-name">
-                                <p><i class="fa fa-rupee"></i>{{orderDetails.total_price}}</p>
-                            </ion-list>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row *ngFor="let product of productList; let i = index" style="padding-bottom: 8px;">
-                        <ion-col col-3 class="product-image">
-                            <img [src]="product.product_image_small != ''? imageBaseUrl+ product.product_image_small: 'assets/imgs/no-image.png'">
-                        </ion-col>
-                        <ion-col col-9>
-                            <ion-list no-lines>{{product.product_name}}</ion-list>
-                            <ion-list no-lines>quantity : {{product.quantity}}</ion-list>
-                            <ion-list no-lines>price : {{product.total_cost}}</ion-list>
-                        </ion-col>
-                        <ion-col col-12 ><hr/></ion-col>
-                    </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row style="background-color:#c3e8eb">
+            <ion-col col-4 style="text-align: center; border-right: 1px solid #ffffff; ">
+              <ion-list no-lines class="recipe-name adtext">Payment Status</ion-list>
+            </ion-col>
+            <ion-col col-4 style="text-align: center;border-right: 1px solid #ffffff;">
+              <ion-list no-lines class="recipe-name adtext">Payment Mode</ion-list>
+            </ion-col>
+            <ion-col col-4 style="text-align: center;">
+              <ion-list no-lines class="recipe-name adtext">Grand Total</ion-list>
+            </ion-col>
+          </ion-row> 
+          <ion-row>
+            <ion-col col-4 style="text-align: center;">
+              <ion-list no-lines class="recipe-name">
+                <p class="adtext" *ngIf="orderDetails.is_paid==0">Pending</p>
+                <p class="adtext" *ngIf="orderDetails.is_paid==1">Paid</p>
+                <p class="adtext" *ngIf="orderDetails.is_paid==2">Cancel</p>
+              </ion-list>
+            </ion-col>
+            <ion-col col-4 style="text-align: center;">
+              <ion-list no-lines class="recipe-name">
+                <p class="adtext" *ngIf="orderDetails.payment_type ==1">Paytm</p>
+                <p class="adtext" *ngIf="orderDetails.payment_type ==2">COD</p>
+              </ion-list>
+            </ion-col>
+            <ion-col col-4 style="text-align: center;">
+              <ion-list no-lines class="recipe-name">
+                <p class="adtext"><i class="fa fa-rupee"></i>{{orderDetails.total_price}}</p>
+              </ion-list>
+            </ion-col>
+          </ion-row>-->
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content class="order-details-product">
+        <ion-grid>
+          <ion-row style="padding-bottom: 8px;">
+            <ion-col col-2></ion-col>
+            <ion-col col-4 class="adtext">Items</ion-col>
+            <ion-col col-2 class="adtext">Qnty</ion-col>
+            <ion-col col-2 class="adtext">Rate</ion-col>
+            <ion-col col-2 class="adtext">Amount</ion-col>
+             
+                <!-- <ion-list no-lines>Items</ion-list>
+                <ion-list no-lines>Qnty</ion-list>
+                <ion-list no-lines>Rate</ion-list>
+                <ion-list no-lines>Amount</ion-list>
+            </ion-col> -->
+            <ion-col col-12>
+              <hr />
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let product of productList; let i = index" style="padding-bottom: 8px;">
+            <ion-col col-2 class="product-image">
+              <img
+                [src]="product.product_image_small != ''? imageBaseUrl+ product.product_image_small: 'assets/imgs/no-image.png'">
+            </ion-col>
+            <ion-col col-4 class="adtext">{{product.product_name}}</ion-col>
+            <ion-col col-2 class="adtext">{{product.quantity}}</ion-col>
+            <ion-col col-2 class="adtext">{{product.unit_price}}</ion-col>
+            <ion-col col-2 class="adtext">{{product.total_cost}}</ion-col>
+            <!-- <ion-col col-9>
+              <div>
+                <ion-list no-lines>{{product.product_name}}</ion-list>
+                <ion-list no-lines>quantity : {{product.quantity}}</ion-list>
+                <ion-list no-lines>price : {{product.total_cost}}</ion-list>
+              </div>
+            </ion-col> -->
+            <ion-col col-12>
+              <hr />
+            </ion-col>
+          </ion-row>
 
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-12>
-                            Delivery Address
-                        </ion-col>
-                        <ion-col col-12>
-                            {{orderDetails.customer_name}}, {{orderDetails.customer_address}}
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <ion-list no-lines>Delivery Charge</ion-list>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-list no-lines style="text-align: right;"> <i class="fa fa-rupee"></i>{{orderDetails.deliver_charge}}</ion-list>
-                        </ion-col>
-                        <ion-col col-6>
-                            <ion-list no-lines>Total</ion-list>
-                        </ion-col>
-                        <ion-col col-6 style="text-align: right;">
-                            <ion-list no-lines><i class="fa fa-rupee"></i>{{orderDetails.total_price}}</ion-list>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-    </div>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content style="margin-bottom:20%;">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="address" col-6> 
+              <p style="line-height:36px;"><span>Biller</span> </p>
+              <!-- <br>
+               {{orderDetails.customer_name}}
+              </p>
+              <p class="address2">
+                  {{orderDetails.address}} ,{{orderDetails.street_no}},{{orderDetails.landmark}} {{orderDetails.pincode}}
+              </p> -->
+              <p>
+              Manch Mangsho and More
+             </p>
+             <p class="address2">
+                 (A unit Of Pubsurv) <br>
+                 RAA 6, Raghunathpur VIP Road <br>
+                 Kolkata 700059
+             </p>
+
+              <p style="line-height:36px;"><span>Payment Mode</span>
+                <p class="adtext" *ngIf="orderDetails.payment_type ==1">Paytm</p>
+                <p class="adtext" *ngIf="orderDetails.payment_type ==2">COD</p>
+            </ion-col>
+            <ion-col col-6 class="delivery-total">
+                    <ion-list class="delivery-text" no-lines>Delivery : <i class="fa fa-rupee"></i>{{orderDetails.deliver_charge}}</ion-list>
+                    <ion-list class="total-text" no-lines>Total : <i class="fa fa-rupee"></i>{{orderDetails.total_price}}</ion-list>
+                </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <!-- <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <ion-list no-lines>Delivery Charge</ion-list>
+            </ion-col>
+            <ion-col col-6>
+              <ion-list no-lines style="text-align: right;"> <i class="fa fa-rupee"></i>{{orderDetails.deliver_charge}}
+              </ion-list>
+            </ion-col>
+            <ion-col col-6>
+              <ion-list no-lines>Total</ion-list>
+            </ion-col>
+            <ion-col col-6 style="text-align: right;">
+              <ion-list no-lines><i class="fa fa-rupee"></i>{{orderDetails.total_price}}</ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card> -->
+  </div>
 </ion-content>
-<!-- <ion-footer>
+<ion-footer>
     <ion-toolbar>
-        <button ion-button round>Continue</button>
-        <button ion-button round (click)="goBack()">Back</button>
+        <button ion-button class="print-btn" round>Print</button>
+        <button ion-button class="continue-btn" (click)="gotoCategory(last_cat_id,last_cat_name)" round>Continue</button>
+        <button ion-button class="back-btn" round (click)="goBack()">Back</button>
     </ion-toolbar>
-</ion-footer> -->
+</ion-footer> 

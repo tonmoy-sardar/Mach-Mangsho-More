@@ -36,6 +36,7 @@ export class SpendingbarchartPage {
   doughnutChart: any;
   doughnutChartMonth: any;
   isMonthShow:number;
+  getSpendingDetails:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -54,12 +55,14 @@ export class SpendingbarchartPage {
     this.userId = +localStorage.getItem('userId');
     this.searchText == '';
     this.userId = +localStorage.getItem('userId');
+
+   
   }
 
   ionViewDidLoad() {
     this.visibleKey = false;
     this.menuCtrl.close();
-    this.getLineChart();
+    //this.getLineChart();
     this.getBarChart();
     this.isMonthShow=0;
     this.monthList = [
@@ -115,81 +118,81 @@ export class SpendingbarchartPage {
     
   }
 
-  getLineChart() {
-    const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','Aug','sep','oct','Nov','Dec'],
-      datasets: [
-        {
-          label: 'My First dataset',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [65, 59, 80, 81, 56, 55, 40,0,0,0,0],
-          spanGaps: false,
-        },
-        {
-          label: 'My Second dataset',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(175,92,192,0.4)',
-          borderColor: 'rgba(31,156,156,1)',
-          borderCapStyle: 'butt',
-          borderDash: [5, 8],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(31,156,156,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(31,156,156,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [15, 39, 50, 81, 51, 55, 30,0,0,0,0],
-          spanGaps: false,
-        },
-        {
-          label: 'My Third dataset',
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(175,92,192,0.4)',
-          borderColor: 'rgba(31,156,156,1)',
-          borderCapStyle: 'butt',
-          borderDash: [5, 8],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: 'rgba(31,156,156,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: 'rgba(31,156,156,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [1, 30, 59, 60, 15, 30, 2,0,0,0,0],
-          spanGaps: false,
-        }
-      ]
-    };
+  // getLineChart() {
+  //   const data = {
+  //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','Aug','sep','oct','Nov','Dec'],
+  //     datasets: [
+  //       {
+  //         label: 'My First dataset',
+  //         fill: false,
+  //         lineTension: 0.1,
+  //         backgroundColor: 'rgba(75,192,192,0.4)',
+  //         borderColor: 'rgba(75,192,192,1)',
+  //         borderCapStyle: 'butt',
+  //         borderDash: [],
+  //         borderDashOffset: 0.0,
+  //         borderJoinStyle: 'miter',
+  //         pointBorderColor: 'rgba(75,192,192,1)',
+  //         pointBackgroundColor: '#fff',
+  //         pointBorderWidth: 1,
+  //         pointHoverRadius: 5,
+  //         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //         pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //         pointHoverBorderWidth: 2,
+  //         pointRadius: 1,
+  //         pointHitRadius: 10,
+  //         data: [65, 59, 80, 81, 56, 55, 40,0,0,0,0],
+  //         spanGaps: false,
+  //       },
+  //       {
+  //         label: 'My Second dataset',
+  //         fill: false,
+  //         lineTension: 0.1,
+  //         backgroundColor: 'rgba(175,92,192,0.4)',
+  //         borderColor: 'rgba(31,156,156,1)',
+  //         borderCapStyle: 'butt',
+  //         borderDash: [5, 8],
+  //         borderDashOffset: 0.0,
+  //         borderJoinStyle: 'miter',
+  //         pointBorderColor: 'rgba(31,156,156,1)',
+  //         pointBackgroundColor: '#fff',
+  //         pointBorderWidth: 1,
+  //         pointHoverRadius: 5,
+  //         pointHoverBackgroundColor: 'rgba(31,156,156,1)',
+  //         pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //         pointHoverBorderWidth: 2,
+  //         pointRadius: 1,
+  //         pointHitRadius: 10,
+  //         data: [15, 39, 50, 81, 51, 55, 30,0,0,0,0],
+  //         spanGaps: false,
+  //       },
+  //       {
+  //         label: 'My Third dataset',
+  //         fill: false,
+  //         lineTension: 0.1,
+  //         backgroundColor: 'rgba(175,92,192,0.4)',
+  //         borderColor: 'rgba(31,156,156,1)',
+  //         borderCapStyle: 'butt',
+  //         borderDash: [5, 8],
+  //         borderDashOffset: 0.0,
+  //         borderJoinStyle: 'miter',
+  //         pointBorderColor: 'rgba(31,156,156,1)',
+  //         pointBackgroundColor: '#fff',
+  //         pointBorderWidth: 1,
+  //         pointHoverRadius: 5,
+  //         pointHoverBackgroundColor: 'rgba(31,156,156,1)',
+  //         pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //         pointHoverBorderWidth: 2,
+  //         pointRadius: 1,
+  //         pointHitRadius: 10,
+  //         data: [1, 30, 59, 60, 15, 30, 2,0,0,0,0],
+  //         spanGaps: false,
+  //       }
+  //     ]
+  //   };
 
-    return this.getChart(this.lineCanvas.nativeElement, 'line', data);
-  }
+  //   return this.getChart(this.lineCanvas.nativeElement, 'line', data);
+  // }
 
   getChart(context, chartType, data, options?) {
     return new Chart(context, {
@@ -201,11 +204,24 @@ export class SpendingbarchartPage {
 
 
   getBarChart() {
+
+    this.getSpendingDetails =this.navParams.get('data');
+    console.log("Spending details==>",this.getSpendingDetails);
+    var categoryNames: any = [];
+    var categorySpending: any = [];
+    this.getSpendingDetails.forEach(x => {
+      categoryNames.push(x.product_category_name);
+      categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+
+    })
+    
+
+
     const data = {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: categoryNames,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: '',
+        data: categorySpending,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -248,7 +264,9 @@ export class SpendingbarchartPage {
     });
     toast.present();
   }
-
+  goBack() {
+    this.navCtrl.pop();
+  }
 
 
 }

@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen>
-    <div class="product-banner-image">
+    <div class="product-banner-image" ion-fixed>
         <img src="assets/imgs/banner2.jpg" alt="" />
        <div class="product-banner-text">
             <h1>Today's Special</h1>   
@@ -27,15 +27,15 @@
                             </div>
                         </ion-col>
                         <ion-col col-6>
-                            <div class="product-image" (click)="gotoDetails(product.id)">
-                                <img [src]="product.image_small != ''? imageBaseUrl+ product.image_small : 'assets/imgs/no-image.png'">
-                               <button class="price-trend-up" *ngIf="product.price_status==1">
+                            <div class="product-image" >
+                                <img (click)="gotoDetails(product.id)" [src]="product.image_small != ''? imageBaseUrl+ product.image_small : 'assets/imgs/no-image.png'">
+                               <button (click)="gotoPriceTrend(product.id)" class="price-trend-up" *ngIf="product.price_status==1">
                                     <ion-icon name="arrow-round-up"></ion-icon>
                                 </button>
-                                <button class="price-trend-down" *ngIf="product.price_status==2">
+                                <button (click)="gotoPriceTrend(product.id)" class="price-trend-down" *ngIf="product.price_status==2">
                                     <ion-icon name="arrow-round-down"></ion-icon>
                                 </button>
-                                <button class="price-trend-same" *ngIf="product.price_status==3"><i class="fa fa-arrows-h" aria-hidden="true"></i></button>
+                                <button (click)="gotoPriceTrend(product.id)" class="price-trend-same" *ngIf="product.price_status==3"><i class="fa fa-arrows-h" aria-hidden="true"></i></button>
 
                                 <button class="market-price" ion-button round><span><i class="fa fa-rupee"></i>{{product.market_price}} /
                                     {{product.quantity_count}}  {{product.unit}}

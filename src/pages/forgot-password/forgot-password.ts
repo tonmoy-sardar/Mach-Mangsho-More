@@ -59,6 +59,9 @@ export class ForgotPasswordPage {
   gotoSignin() {
     this.navCtrl.push('LoginPage');
   }
+  gotoPage(page) {
+    this.navCtrl.push(page);
+  }
   resetPassword(data) {
     this.useContactEmail = data.contact_or_email;
 
@@ -109,7 +112,7 @@ export class ForgotPasswordPage {
       this.forgotpasswordService.updatePassword(data).subscribe(
         res => {
           this.isShow = 0;
-          this.navCtrl.setRoot('LoginPage');
+          this.navCtrl.setRoot('WelcomePage');
           this.spinnerDialog.hide();
         },
         error => {
@@ -122,6 +125,12 @@ export class ForgotPasswordPage {
       this.presentToast("New & Confirm Password should be same");
       this.spinnerDialog.hide();
     }
+  }
+
+  reset() {
+    this.otpForm.reset();
+    this.forgotForm.reset();
+    this.newPasswordForm.reset();
   }
 
   presentToast(msg) {

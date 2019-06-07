@@ -93,6 +93,7 @@ export class ProductlistPage {
   }
 
   doInfinite(infiniteScroll) {
+    // alert(1);
     console.log('Begin async operation');
     this.spinnerDialog.show();
     this.defaultPagination = this.defaultPagination + 1;

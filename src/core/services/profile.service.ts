@@ -34,6 +34,7 @@ export class ProfileService {
     return this.http.post(environment.apiEndpoint + 'userprofileimageupdate/' + id, option)
   }
   submitAddress(data): Observable<any> {
+    console.log("My address Data ==>",data);
     return this.http.post(environment.apiEndpoint + 'addcustomeraddress/', data)
   }
 

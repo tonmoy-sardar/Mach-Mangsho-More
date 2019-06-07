@@ -68,7 +68,7 @@ export class LoginPage {
           localStorage.setItem('userImage', res['result']['profile_image']);
           this.loginService.loginStatus(true);
           this.presentToast("Succesfully Login");
-          if(this.lastPage.id =='ForgotPasswordPage' || this.lastPage.id =='SignupPage' || this.lastPage.id =='ProductdetailsPage' || this.lastPage.id =='RecipedetailsPage'  ) {
+          if(this.lastPage.id =='WelcomePage' || this.lastPage.id =='ForgotPasswordPage' || this.lastPage.id =='SignupPage' || this.lastPage.id =='ProductdetailsPage' || this.lastPage.id =='RecipedetailsPage'  ) {
             this.lastPage.id ='HomePage';
           }
           if(this.isCart ==null || this.isCart.length==0) {
@@ -76,7 +76,7 @@ export class LoginPage {
             this.navCtrl.setRoot(this.lastPage.id);
             
           }
-          else if(this.lastPage.id =='ForgotPasswordPage' || this.lastPage.id =='SignupPage' || this.lastPage.id =='ProductdetailsPage' || this.lastPage.id =='RecipedetailsPage'  ) {
+          else if(this.lastPage.id =='WelcomePage' || this.lastPage.id =='ForgotPasswordPage' || this.lastPage.id =='SignupPage' || this.lastPage.id =='ProductdetailsPage' || this.lastPage.id =='RecipedetailsPage'  ) {
             this.navCtrl.setRoot('HomePage');
           }
           else {

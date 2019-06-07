@@ -42,7 +42,7 @@ export class MyaddressPage {
   customer_data:any;
   todayDate;
   userId: any;
-
+  type:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -56,9 +56,12 @@ export class MyaddressPage {
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.userId = +localStorage.getItem('userId');
     this.imageBaseUrl = environment.imageBaseUrl;
+    this.type = "Home";
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
+      customer_name: ["", Validators.required],
       address: ["", Validators.required],
+      street_no: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
     });
@@ -125,7 +128,9 @@ export class MyaddressPage {
   getProfileDetails(id) {
     this.profileService.getProfile(id).subscribe(
       res => {
+        console.log("Profile Details==>",res);
         this.profileDetails = res['result'];
+        
       },
       error => {
       }
@@ -184,10 +189,12 @@ export class MyaddressPage {
   }
 
   submitAddress() {
+   // alert(1);
     if (this.addressForm.valid) {
       this.spinnerDialog.show();
       this.addressForm.value.customer_id = this.userId;
       this.addressForm.value.state_id = '';
+      console.log(this.addressForm.value);
       this.profileService.submitAddress(this.addressForm.value).subscribe(
         res => {
           this.presentToast("Address added succesfully.");
@@ -197,6 +204,7 @@ export class MyaddressPage {
           this.myAddressList(this.userId);
         },
         error => {
+          console.log(error);
           this.presentToast("Please enter valid login credentials");
           this.spinnerDialog.hide();
         }

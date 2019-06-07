@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen>
-  <div class="profile-banner">
+  <div class="profile-banner" ion-fixed>
     <div class="profile-pic" (click)="presentActionSheet()">
       <i class="fa fa-camera" aria-hidden="true"></i>
       <img
@@ -73,7 +73,8 @@
     <ion-card *ngFor="let myAddress of allAddressList; let i = index">
       <ion-row class="profile-edit-title">
         <ion-col col-8>
-          <h3>{{myAddress.type}}</h3>
+          <!-- <h3>{{myAddress.type}}</h3> -->
+          <h3>Savings Address {{i +1}}</h3>
         </ion-col>
         <ion-col col-4>
             <h3 (click)="showAddressForm(myAddress.id)">Edit</h3>
@@ -82,7 +83,14 @@
       </ion-row>
       <ion-row>
         <ion-col col-12>
-          <ion-item>{{myAddress.address}} , {{myAddress.pincode}}</ion-item>
+        
+          <ion-item>
+            <h3 style="font-weight:bold;line-height: 30px;">{{myAddress.type}}</h3>
+            <!-- {{myAddress.address}} , {{myAddress.pincode}} -->
+            <span >{{myAddress.customer_name}}</span>
+            <br>
+           <span text-wrap> {{myAddress.address}} ,{{myAddress.street_no}},{{myAddress.landmark}} {{myAddress.pincode}}</span>
+          </ion-item>
         </ion-col>
       </ion-row>
       <ion-row >

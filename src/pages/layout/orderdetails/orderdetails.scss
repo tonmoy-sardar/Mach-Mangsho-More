@@ -1,4 +1,11 @@
 page-orderdetails {
+    .product-banner {
+        background: none;
+    }
+    .product-banner span {
+        float: none !important;
+        margin-left:10px;
+    }
 
     .order-list-body {
         margin-top:8%;
@@ -26,7 +33,116 @@ page-orderdetails {
         border-radius: 50%;
         margin: 0 auto;
         overflow: hidden;
-        border: 2px solid #caf5f8;
+        border: 2px solid #586263;
     }
-    
-}
+    .order-details-product {
+        text-align: center;
+    }
+    .address{}
+    .address p{ 
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 21px;
+        padding: 0px 0px;
+        margin: 0px 0px 0px 7px;
+        color: #14a4ef;
+     }
+    .address p span{ 
+        font-size:15px; font-weight: 400;
+     }
+     .address2 {
+     font-size: 16px !important;
+     font-weight: 300;
+     line-height: 21px;
+     padding: 0px 0px;
+     margin: 0px 0px 0px 7px;
+     color: #14a4ef;
+    }
+     .user-text{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 21px;
+        padding: 0px 0px;
+        margin: 0px 0px;
+        color: #14a4ef;
+     }
+     .cart-total-price2 {
+        font-weight: bold;
+        font-size: 16px;
+        color: #14a4ef;
+    }
+    .cart-total-price3 {
+        font-weight: bold;
+        font-size: 15px;
+        color: #14a4ef;
+    }
+    .username1 {
+        font-weight: 300;
+        font-size: 19px;
+        color: #14a4ef;
+    }
+
+     .delivery-text{ 
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 65px;
+        padding: 0px 0px;
+        margin: 0px 0px 0px 7px;
+        color: #14a4ef;
+     }
+    .total-text{ 
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 25px;
+        padding: 0px 0px;
+        margin: 0px 0px 0px 7px;
+        color: #14a4ef;
+    }
+    .print-btn{ 
+        background: #b3c0ce;
+        color: #f4f4f5;
+        padding: 27px 40px;
+        font-weight: 600;
+        font-size: 22px;
+        text-transform: none; 
+        width:150px;
+       } 
+    .continue-btn{ 
+            background: #78c7d4;
+            color: #f4f4f5;
+            margin: 0px 0px 0px -30px;
+            padding: 27px 40px;
+            font-weight: 600;
+            font-size: 22px;
+            text-transform: none; 
+            width:150px;
+           }
+    .back-btn{ 
+            background: #2770f3;
+            color: #ffffff;
+            padding: 27px 40px;
+            font-weight: 600;
+            margin: 0px 0px 0px -28px;
+            font-size: 22px;
+            text-transform: none; 
+            width:150px;
+           } 
+    .adtext{ 
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 30px;
+        padding: 0px 0px;
+        margin: 0px 0px;
+        color: #14a4ef;
+     }
+
+     ion-col.product-image.col {
+        height: 65px;
+        border: 2px solid #a3c6ca;
+    }
+
+    .delivery-total {
+        text-align: right;
+    }
+
+} 

@@ -71,7 +71,7 @@ export class RecipedetailsPage {
 
   shareInfo(recipeDetails) {
 
-    this.socialSharing.share(recipeDetails.blog_content, recipeDetails.blog_title, '').
+    this.socialSharing.share(recipeDetails.blog_content_remove_tag, recipeDetails.blog_title, '').
       then(() => {
         this.presentToast("successfully Share");
       }).catch(() => {

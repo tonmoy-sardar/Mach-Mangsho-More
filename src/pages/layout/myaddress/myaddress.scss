@@ -1,6 +1,7 @@
 page-myaddress {
     .product-banner {
         box-shadow: 0px 15px 10px -15px #111;
+        position: fixed;
     }
     .page-tab ion-col {
         text-align: center;
@@ -31,15 +32,18 @@ page-myaddress {
         color: #4a82d0;
         font-size: 18px;
     }
-    .delivery-slot h3 {
+    .banner-body h3 {
         color: #4a82d0;
         font-size: 18px;
         padding: 15px;
     }
     .delivery-slot p {
         color: #4a82d0;
-        font-size: 14px;
+        font-size: 18px;
         //padding: 15px;
+    }
+    .address1 {
+        font-weight: bold;
     }
     .error-msg {
         color: #ff0000 !important;
@@ -48,5 +52,25 @@ page-myaddress {
     .success-msg {
         color: #008a00 !important;
         text-align: center;
+    }
+
+    .page-tab {
+        margin-top: 44%;
+        background: #fff;
+    }
+    .address-type1 {
+        max-width:100%;
+        color:#000;
+    }
+    // .form-sec button {
+    //     background: none;
+    //     color:#000;
+    // }
+    .address-type1 button {
+        background:none !important;
+        color:#000;
+    }
+    .cart-body {
+        padding-top: 68% !important;
     }
 }

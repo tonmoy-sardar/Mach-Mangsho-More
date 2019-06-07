@@ -27,6 +27,7 @@ export class ProfileviewPage {
   public showAddAddressForm: boolean = false;
 
   allAddressList: any = [];
+  type:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,10 +43,12 @@ export class ProfileviewPage {
     events.publish('hideHeader', { isHeaderHidden: false, isSubHeaderHidden: false });
     this.imageBaseUrl = environment.imageBaseUrl;
     this.userId = +localStorage.getItem('userId');
-   
+   this.type = "Home";
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
+      customer_name: ["", Validators.required],
       address: ["", Validators.required],
+      street_no: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
     });
@@ -113,7 +116,7 @@ export class ProfileviewPage {
           this.showMyAddress();
         },
         error => {
-          this.presentToast("Please enter valid login credentials");
+          this.presentToast("Unable to add address");
           this.spinnerDialog.hide();
         }
       )

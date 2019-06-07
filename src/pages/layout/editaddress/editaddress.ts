@@ -23,6 +23,7 @@ export class EditaddressPage {
   userId:any;
   addressDetails = {};
   addressId:number;
+  type:any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -32,9 +33,13 @@ export class EditaddressPage {
     public toastCtrl: ToastController,
     public viewCtrl: ViewController
     ) {
+
+    this.type = "Home";
     this.addressForm = this.formBuilder.group({
       type: ["", Validators.required],
+      customer_name: ["", Validators.required],
       address: ["", Validators.required],
+      street_no: ["", Validators.required],
       landmark: ["", Validators.required],
       pincode: ["", Validators.required],
     });
@@ -51,7 +56,7 @@ export class EditaddressPage {
     this.profileService.myAddressDetails(id).subscribe(
       res => {
         this.addressDetails = res['result'];
-        console.log(this.addressDetails)
+        console.log("zzzz",this.addressDetails)
       },
       error => {
       }

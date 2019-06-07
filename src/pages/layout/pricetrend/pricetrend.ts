@@ -38,6 +38,7 @@ export class PricetrendPage {
   isMonthShow: number;
   trendDetails:any ={};
   priceStatus:any;
+  priceTrend:any;
 
   constructor(
     public navCtrl: NavController,
@@ -62,18 +63,22 @@ export class PricetrendPage {
   ionViewDidLoad() {
     this.visibleKey = false;
     this.menuCtrl.close();
-    this.getBarChart();
-    
+    //this.getBarChart();
+    this.getPriceTrendChart(this.navParams.get('id'));
     this.priceTrendDetails(this.navParams.get('id'));
     this.isMonthShow = 0;
+    // var d = new Date();
+    // var n = d.getFullYear();
+    //alert(new Date().getFullYear().toString().substr(-2));
+    var currentYear = new Date().getFullYear().toString().substr(-2);
     this.monthList = [
       {
         'id': '01',
-        'name': 'Jan'
+        'name': 'Jan'+currentYear
       },
       {
         'id': '02',
-        'name': 'Feb'
+        'name': 'Feb'+currentYear
       },
       {
         'id': '03',
@@ -170,6 +175,102 @@ export class PricetrendPage {
 
     return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
   }
+
+
+  getPriceTrendChart(id){ 
+    this.spinnerDialog.show();
+    this.productService.getProductSpendAllMonth(id).subscribe(
+      res => {
+        this.priceTrend = res['result'];  
+        console.log("priceTrend==>",this.priceTrend);
+        this.visibleKey = true;
+        //  var monthNames: any = [];
+        // var monthsSpending: any = [];
+        var monthNames = Object.keys(this.priceTrend);
+       // var monthsSpending = Object.values(this.priceTrend);
+        console.log("Month Name",monthNames);
+        var monthsSpending = Object.keys(this.priceTrend).map(key => this.priceTrend[key]);
+        //const commaJoinedValues = values.join(",");
+        console.log("Hello==>",monthsSpending);
+        setTimeout( () => { 
+          const data = {
+            datasets: [{
+              label: 'Bar Dataset',
+              data: monthsSpending,
+              backgroundColor: [
+                'rgba(0,51,255,0.2)',
+                'rgba(204,51,102,0.2)',
+                'rgba(255,0,255,0.2)',
+                'rgba(0,102,51,0.2)',
+                'rgba(153,204,102,0.2)',
+                'rgba(153,51,153,0.2)',
+                'rgba(0,204,255,0.2)',
+                'rgba(51,204,51,0.2)',
+                'rgba(204,51,0,0.2)',
+                'rgba(51,51,102,0.2)',
+                'rgba(255,153,51,0.2)',
+                'rgba(255,0,255,0.2)',
+              ],
+              borderColor: [
+                'rgba(0,51,255,0.2)',
+                'rgba(204,51,102,0.2)',
+                'rgba(255,0,255,0.2)',
+                'rgba(0,102,51,0.2)',
+                'rgba(153,204,102,0.2)',
+                'rgba(153,51,153,0.2)',
+                'rgba(0,204,255,0.2)',
+                'rgba(51,204,51,0.2)',
+                'rgba(204,51,0,0.2)',
+                'rgba(51,51,102,0.2)',
+                'rgba(255,153,51,0.2)',
+                'rgba(255,0,255,0.2)',
+              ],
+            }, {
+              label: 'Line Dataset',
+              data: monthsSpending,
+              borderColor: 'rgba(75,192,192,1)',
+              fill: false,
+              // Changes this dataset to become a line
+              type: 'line'
+            }],
+      
+      
+            labels: monthNames,
+          };
+          const options = {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          };
+      
+          return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
+        }, 3000 );
+
+        this.spinnerDialog.hide();
+  
+      },
+      error => {
+        this.visibleKey = true;
+        this.spinnerDialog.hide();
+      }
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   priceTrendDetails(id) {
     this.productService.getPriceTrendDetails(id).subscribe(

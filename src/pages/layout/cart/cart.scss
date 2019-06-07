@@ -1,6 +1,7 @@
 page-cart {
     .product-banner {
         box-shadow: 0px 15px 10px -15px #111;
+        position: fixed;
     }
     .page-tab ion-col {
         text-align: center;
@@ -112,11 +113,17 @@ page-cart {
         background: #deffbe;
     }
     .btn-submit {
-        border: 4px solid #6baef7;
-        ;
+        border: 8px solid #6baef7;
     }
     .btn-back {
-        border: 4px solid #f35f70;
+        border: 8px solid #f35f70;
+        float:right;
+    }
+    .btn-submit a {
+        font-weight:bold;
+    }
+    .btn-back a {
+        font-weight: bold;
     }
     .remove-cart {
         
@@ -171,5 +178,13 @@ page-cart {
     color: #5a91d5;
     border-radius: 6px;
     padding: 9px 12px;
+    }
+    .page-tab {
+        //margin-top: -2%;
+        margin-top: 44%;
+        background:#fff;
+    }
+    .bag-value-card {
+        background: #eef9fa;
     }
 }

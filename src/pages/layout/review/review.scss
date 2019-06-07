@@ -1,34 +1,84 @@
 page-review {
-    .review-banner img {
-        position: relative;
-        opacity: 0.5;
-    }
-    .review-textarea {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-       
-    }
-    .review-textarea ion-textarea {
-        border: 1px solid #000;
-        height: 250px;
-        width:330px;
-        background: #ffffff;
-    }
-    .review-write{
-         border-radius: 0em 4em 4em 0em;
-         background: #ff9ea8;
-        color:#6983c7;
-        margin-left: -16px;
-        padding: 28px;
-    }
-    .review-submit{
-         float:right;
-         border-radius: 4em 0em 0em 4em;
-         background: #c4ddd9;
-         color:#6983c7;
-         margin-right: -16px;
-         padding: 28px;
-    }
+  .review-banner {
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    height:250px;
+    padding: 20px 0px 0px 0px !important;
+    
+  }
+
+  // .review-banner img {
+  //     position: relative;
+  //     opacity: 0.5;
+  // }
+  background: rgba(255, 255, 255, 0.84);
+  .review-banner-shadow{
+       min-height: 200px;
+    //background-color: #00000052 !important;
+    background: rgba(255, 255, 255, 0.84) !important;
+    padding: 50px 0px 0px 0px;
+    overflow: hidden;
+    margin: 30px 0px 0px 0px;
+    border-radius: 50px 50px 0px 0px;
+}
+  .review-textarea {
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    position: absolute;
+    top: 34%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+
+  }
+  .error-msg {
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: #ff0000;
+    font-size: 25px;
+}
+
+//   .review-textarea ion-textarea {
+//     border: 1px solid #000;
+//     height: 250px;
+//     width: 330px;
+//     background: #ffffff;
+//   }
+  .review-textarea ion-textarea {
+    border: 1px solid #000;
+    height: 250px;
+    width: 80%;
+    background: #ffffff;
+    margin: 0 auto;
+}
+
+  .review-write {
+    border-radius: 0em 4em 4em 0em;
+    background: #ff9ea8;
+    color: #6983c7;
+    margin-left: -16px;
+    padding: 28px;
+  }
+
+  .review-submit {
+    float: right;
+    border-radius: 4em 0em 0em 4em;
+    background: #c4ddd9;
+    color: #6983c7;
+    margin-right: -16px;
+    padding: 28px;
+  }
+  // page-rating .product-banner-rating {
+  //   min-height: 189px;
+  //   background: rgba(255, 255, 255, 0.84);
+  //   padding: 0px 0px;
+  //   overflow: hidden;
+  //   margin: 26px 0px 0px 0px;
+  //   border-radius: 50px 50px 0px 0px;
+  // }
+
+
+
 }

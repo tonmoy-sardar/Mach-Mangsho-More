@@ -129,4 +129,12 @@ export class ProductService {
   getPriceTrendDetails(id): Observable<any> {
     return this.http.get(environment.apiEndpoint + 'productpricedetails/'+id)
   }
+
+  getProductSpendAllMonth(id): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'productspendallmonth/'+id)
+  }
+
+  addFavourite(id,status): Observable<any> {
+    return this.http.get(environment.apiEndpoint + 'favouriteOrder/'+id +'?order_status='+status)
+  }
 }

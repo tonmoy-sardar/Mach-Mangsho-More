@@ -26,7 +26,7 @@
 </ion-header>
 
 <ion-menu [content]="mycontent">
-    <ion-content>
+    <ion-content class="side-menu-custom">
         <ion-toolbar color="orange">
             <div class="left-bar-top-area">
                 <div class="left-top-pic">
@@ -58,7 +58,7 @@
 
         <ion-item *ngIf="loggedIn==true">
             Personal Details
-            <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon>
+            <!-- <ion-icon name="ios-arrow-forward-outline" class="profile-forward"></ion-icon> -->
             <button class="btn-menu" (click)="gotoPage('ProfileeditPage')">Edit</button>
             <button class="btn-menu" (click)="gotoPage('ProfileviewPage')">View</button>
         </ion-item>

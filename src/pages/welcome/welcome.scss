@@ -1,0 +1,68 @@
+page-welcome {
+    // .ion-ios-arrow-back-outline:before {
+    //     width: 25px;
+    //     display:none;
+    // }
+    ion-content {
+        top: 45px !important;
+    }
+        .welcome-page {
+            position: relative;
+            background-image: url("../assets/imgs/welcome.png") !important;
+            background-repeat: no-repeat, repeat;
+        }
+      
+        .footer-bottom-right {
+            position: absolute;
+            bottom: 45px;
+            right: 0px;
+            width: 100px;
+            height: 100px;
+            background: #62c8d4;
+            border-radius: 90px 0 0 0;
+            z-index:9999 !important;
+        }
+        .footer-bottom-right button {
+            font-size: 25px;
+            background: none;
+            float: right;
+            margin-top: 55%;
+        }
+        .dashboard-body img {
+            padding-top: 10px;
+        }
+        .scroll-content {
+          overflow-y: hidden;
+          will-change: hidden;
+        }
+
+        .register-button {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg) !important;
+            background: #e2f5f7;
+            padding: 1px;
+            right: -11%;
+            position: absolute;
+            border-radius: 25px;
+            width: 140px;
+            bottom: 56%;
+            font-size: 20px;
+            height: 50px;
+            color: #000000;
+        }
+        .guest-button {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg) !important;
+            background: #e2f5f7;
+            padding: 1px;
+            right: -11%;
+            position: absolute;
+            border-radius:25px;
+            width: 140px;
+            bottom: 33%;
+            font-size: 20px;
+            height: 50px;
+            color: #000000;
+        }
+       
+}

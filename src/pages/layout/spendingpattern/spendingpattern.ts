@@ -45,7 +45,17 @@ export class SpendingpatternPage {
   selectedQuater:any;
   totalQuater:any;
   totalQuaterSum:any;
-  CatSpendPrice:any;
+  totalQuaterSaving:any;
+  catSpendPrice:any;
+  catSpendPriceMonthly:any;
+  catSpendSavingPrice:any;
+  totalMonthlySum:any;
+  catSavingPriceMonthly:any;
+  totalMonthlySaving:any;
+  catSpendPriceCurrent:any;
+  catSavingPriceCurrent:any;
+  totalCurrentSum:any;
+  totalCurrentSaving:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -153,10 +163,34 @@ export class SpendingpatternPage {
         this.visibleKey = true;
         var categoryNames: any = [];
         var categorySpending: any = [];
+        var categorySavingCurrent: any=[];
         this.spendingPattern.forEach(x => {
           categoryNames.push(x.product_category_name);
-          categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+          //categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+          this.catSpendPriceCurrent = parseFloat(x.order_details.total_price_val);
+          if(isNaN(this.catSpendPriceCurrent)) {
+            this.catSpendPriceCurrent =0;
+          }
+          categorySpending.push(this.catSpendPriceCurrent);
+
+          // Saving monthly
+          this.catSavingPriceCurrent = parseFloat(x.order_details.saving_price_cost_val);
+          if(isNaN(this.catSavingPriceCurrent)) {
+            this.catSavingPriceCurrent =0;
+          }
+          categorySavingCurrent.push(this.catSavingPriceCurrent);
+        
         })
+
+         // For Monthly Spending 
+         console.log("Current Spending ==>",categorySpending);
+         const currrentSum = categorySpending.reduce((partial_sum, a) => partial_sum + a); 
+         this.totalCurrentSum  = currrentSum;
+         //For Monthly Savings 
+         console.log("Current Saving ==>",categorySavingCurrent);
+        const currentsavings = categorySavingCurrent.reduce((partial_sum, a) => partial_sum + a); 
+        this.totalCurrentSaving  = currentsavings;
+        console.log("Current Savings==>",this.totalMonthlySaving); 
 
 
         this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
@@ -338,8 +372,9 @@ export class SpendingpatternPage {
     console.log(data);
   }
 
-  gotoBarChart() {
-    this.navCtrl.push('SpendingbarchartPage');
+  gotoBarChart(data) {
+    console.log(data);
+    this.navCtrl.push('SpendingbarchartPage',{data:data});
   }
 
   selectMonth(data){ 
@@ -354,10 +389,34 @@ export class SpendingpatternPage {
         this.visibleKey = true;
         var categoryNames: any = [];
         var categorySpending: any = [];
+        var categorySavingMonthly :any =[];
         this.spendingPattern.forEach(x => {
           categoryNames.push(x.product_category_name);
-          categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+         // categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0)
+        
+          this.catSpendPriceMonthly = parseFloat(x.order_details.total_price_val);
+          if(isNaN(this.catSpendPriceMonthly)) {
+            this.catSpendPriceMonthly =0;
+          }
+          categorySpending.push(this.catSpendPriceMonthly);
+
+          // Saving monthly
+          this.catSavingPriceMonthly = parseFloat(x.order_details.saving_price_cost_val);
+          if(isNaN(this.catSavingPriceMonthly)) {
+            this.catSavingPriceMonthly =0;
+          }
+          categorySavingMonthly.push(this.catSavingPriceMonthly);
+        
         })
+        console.log("Spending month wise ==>",categorySpending);
+         // For Monthly Spending 
+         console.log("Quater Spending ==>",categorySpending);
+         const monthlySum = categorySpending.reduce((partial_sum, a) => partial_sum + a); 
+         this.totalMonthlySum  = monthlySum;
+         //For Monthly Savings 
+        const monthlysavings = categorySavingMonthly.reduce((partial_sum, a) => partial_sum + a); 
+        this.totalMonthlySaving  = monthlysavings;
+        console.log("Monthly Savings==>",this.totalMonthlySaving); 
 
         setTimeout( () => { 
           this.doughnutChartMonth = new Chart(this.doughnutCanvasMonth.nativeElement, {
@@ -413,21 +472,31 @@ export class SpendingpatternPage {
         this.visibleKey = true;
         var categoryNames: any = [];
         var categorySpending: any = [];
+        var categorySpendingSaving: any= [];
         this.totalQuaterSum =0;
         this.spendingPattern.forEach(x => {
           categoryNames.push(x.product_category_name);
-          console.log("zz",parseFloat(x.order_details.total_price_val));
-          this.CatSpendPrice = parseFloat(x.order_details.total_price_val);
-          if(isNaN(this.CatSpendPrice)) {
-            this.CatSpendPrice =0;
+          // For QUater spending amount
+          this.catSpendPrice = parseFloat(x.order_details.total_price_val);
+          if(isNaN(this.catSpendPrice)) {
+            this.catSpendPrice =0;
           }
-          // categorySpending.push(x.order_details.total_price_val != null ? x.order_details.total_price_val:0);
-          categorySpending.push(this.CatSpendPrice);
+          categorySpending.push(this.catSpendPrice);
+          //Quater savings amount
+          this.catSpendSavingPrice = parseFloat(x.order_details.saving_price_cost_val);
+          if(isNaN(this.catSpendSavingPrice)) {
+            this.catSpendSavingPrice =0;
+          }
+          categorySpendingSaving.push(this.catSpendSavingPrice);
         })
-        console.log(categorySpending);
+        // For Quater Spending 
+        console.log("Quater Spending ==>",categorySpending);
         const sum = categorySpending.reduce((partial_sum, a) => partial_sum + a); 
         this.totalQuaterSum  = sum;
-        console.log("Sum==>",this.totalQuaterSum); 
+        //For Quater Savings 
+        const savings = categorySpendingSaving.reduce((partial_sum, a) => partial_sum + a); 
+        this.totalQuaterSaving  = savings;
+        console.log("Final Savings==>",this.totalQuaterSaving); 
         setTimeout( () => { 
           this.doughnutChartQuater = new Chart(this.doughnutCanvasQuater.nativeElement, {
 

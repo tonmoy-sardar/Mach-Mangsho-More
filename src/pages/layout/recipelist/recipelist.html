@@ -5,15 +5,21 @@
   Ionic pages and navigation.
 -->
 <ion-content fullscreen *ngIf="visibleKey">
+  <div class="top-banner" ion-fixed>
   <div class="product-banner">
     <h5 class="pro-title">{{productName}}</h5>
     <div class="product-pic">
         <img [src]="productImage != ''? imageBaseUrl+ productImage : 'assets/imgs/no-image.png'">
 
     </div>
+    
   </div>
+  <div class ="recipe-title-custom">
+    <h5>Recipe</h5>
+  </div>
+</div>
   <div class="recipe-list-body">
-    <h5 style="color:#5387d2; text-align:center;">Recipe</h5>
+   
     <ion-card (click)="gotoDetails(recipeList.id)" *ngFor="let recipeList of proRecipeList; let i = index">
       <ion-card-content >
         <ion-grid>
@@ -33,7 +39,7 @@
                   <span class="rating" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= recipeList.average_rating.averagerating - 1 ? 'active' : '']" style="margin-right: 2px;"><ion-icon name="star"></ion-icon></span>
               </ion-list>
               <ion-list  style="padding-left: 10px;" *ngIf="recipeList.user_name!=null">
-                  <span class="card-small-headding">Author : </span>
+                  <span class="card-small-headding">By : </span>
                   <span >{{recipeList.user_name.name}}</span>
               </ion-list>
             </ion-col>

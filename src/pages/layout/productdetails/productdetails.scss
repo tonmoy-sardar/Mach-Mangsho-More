@@ -6,6 +6,7 @@ page-productdetails {
         text-align: center;
         display: block;
         line-height: 90px;
+        margin:0 auto;
     }
     .pro-range-slider {
         transform: rotate(270deg);
@@ -101,22 +102,32 @@ page-productdetails {
         color: #1a41ff;
         font-size: 14px;
     }
-    ion-list.list.list-md span {
-        border: 2px solid #1a41ff6b;
-        padding: 4px 11px;
-        font-size: 13px;
-        text-align: center;
-        width: 42px;
-        height: 27px;
-        display: inline-flex;
-        margin-left: 9px;
-    }
+    // ion-list.list.list-md span {
+    //     border: 2px solid #1a41ff6b;
+    //     padding: 4px 11px;
+    //     font-size: 13px;
+    //     text-align: center;
+    //     width: 42px;
+    //     height: 27px;
+    //     display: inline-flex;
+    //     margin-left: 9px;
+    // }
     .price-saving {
         color: #1a41ff;
         font-size: 14px;
     }
-    .price-saving span {
-        border: 2px solid #1a41ff6b;
+    // .price-saving span {
+    //     border: 2px solid #1a41ff6b;
+    //     padding: 4px 11px;
+    //     font-size: 13px;
+    //     text-align: center;
+    //     width: 60px;
+    //     height: 27px;
+    //     display: inline-flex;
+    //     margin-left: 9px;
+    // }
+    .price-saving .text-box {
+        border: 2px solid #1a41ff;
         padding: 4px 11px;
         font-size: 13px;
         text-align: center;
@@ -124,6 +135,10 @@ page-productdetails {
         height: 27px;
         display: inline-flex;
         margin-left: 9px;
+    }
+    .txt-bold {
+        font-weight: bold;
+        font-size:18px;
     }
 
     .price-saving span .fa-rupee
@@ -165,4 +180,11 @@ page-productdetails {
     border-radius: 6px;
     padding: 9px 12px;
     }
+
+    .prodetails-bottom-part {
+        margin-top: 10% !important;
+      }
+      .botton-footer-pro {
+          margin-top:10%;
+      }
 }

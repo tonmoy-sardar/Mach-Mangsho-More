@@ -42,7 +42,15 @@ export class MyApp {
       statusBar.styleLightContent();
       //statusBar.backgroundColorByHexString('#fff');
       splashScreen.hide();
+     // this.rootPage = 'HomePage';
+     if (localStorage.getItem('isLoggedin')) {
       this.rootPage = 'HomePage';
+     }
+     else {
+      this.rootPage = 'WelcomePage';
+     }
+      // this.rootPage = 'WelcomePage';
+     // alert(localStorage.getItem('isLoggedin'));
      // this.backHide =true;
     });
     cartService.getCartNumberStatus.subscribe(status => this.cartNumberStatus(status));
@@ -133,7 +141,8 @@ export class MyApp {
   logOut() {
     localStorage.clear();
     this.loadUserInfo();
-    this.nav.setRoot('LoginPage');
+   // this.nav.setRoot('LoginPage');
+   this.nav.setRoot('WelcomePage');
   }
 
 }

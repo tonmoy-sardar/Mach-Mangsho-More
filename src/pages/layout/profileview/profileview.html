@@ -6,7 +6,7 @@
 -->
 
 <ion-content fullscreen>
-  <div class="profile-banner">
+  <div class="profile-banner" ion-fixed>
     <div class="profile-pic">
       <img
         [src]="profileDetails.profile_image != ''? imageBaseUrl+ profileDetails.profile_image : 'assets/imgs/no-image.png'">
@@ -40,8 +40,9 @@
           <p class="error-msg" *ngIf="allAddressList.length==0">No address found!!!</p>
           <ion-card *ngFor="let myAddress of allAddressList; let i = index">
             <h3 style="text-align: left;">{{myAddress.type}}  <span style="float:right;"><i class="fa fa-trash delete" aria-hidden="true" (click)=deleteAddress(myAddress.id)></i></span></h3>
-            <ion-item>
-              {{myAddress.address}} , {{myAddress.pincode}}
+            <ion-item text-wrap>
+             <p class="address1">{{myAddress.customer_name}}</p>  
+             <p class="address2"> {{myAddress.address}} ,{{myAddress.street_no}},{{myAddress.landmark}} {{myAddress.pincode}}</p>
             </ion-item>
           </ion-card>
         </div>
@@ -57,17 +58,35 @@
             <ion-row>
               <ion-col col-12>
                 <ion-label>Type</ion-label>
-                <ion-input type="text" formControlName="type" name="type" placeholder="Home/Office"
+                <!-- <ion-input type="text" formControlName="type" name="type" placeholder="Home/Office"
                   [ngClass]="displayFieldCss('type')"></ion-input>
-                <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span>
+                <span class="error-msg" *ngIf="isFieldValid('type')">Please enter a Type.</span> -->
+                <ion-select [(ngModel)]="type" formControlName="type" class="address-type1">
+                    <ion-option value="Home">Home</ion-option>
+                    <ion-option value="Work">Work</ion-option>
+                </ion-select>
               </ion-col>
 
               <ion-col col-12>
-                <ion-label>Address</ion-label>
+                  <ion-label>Name</ion-label>
+                  <ion-input type="text" formControlName="customer_name" name="customer_name" [ngClass]="displayFieldCss('customer_name')">
+                  </ion-input>
+                  <span class="error-msg" *ngIf="isFieldValid('customer_name')">Please enter a Name.</span>
+                </ion-col>
+                
+
+              <ion-col col-12>
+                <ion-label>Building Number</ion-label>
                 <ion-input type="text" formControlName="address" name="address" [ngClass]="displayFieldCss('address')">
                 </ion-input>
-                <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Address.</span>
+                <span class="error-msg" *ngIf="isFieldValid('address')">Please enter a Building Number.</span>
               </ion-col>
+              <ion-col col-12>
+                  <ion-label>Street Name</ion-label>
+                  <ion-input type="text" formControlName="street_no" name="street_no" [ngClass]="displayFieldCss('street_no')">
+                  </ion-input>
+                  <span class="error-msg" *ngIf="isFieldValid('street_no')">Please enter a Street Name.</span>
+                </ion-col>
               <ion-col col-12>
                 <ion-label>Land Mark</ion-label>
                 <ion-input type="text" formControlName="landmark" name="landmark"

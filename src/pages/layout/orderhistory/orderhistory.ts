@@ -224,6 +224,19 @@ export class OrderhistoryPage {
     )
   }
 
+  addFav(id,status) {
+   
+    this.productService.addFavourite(id,status).subscribe(
+      res => {
+       // this.getOrderList(this.userId);
+       this.getOrderList(this.userId);
+        this.getFavOrderList(this.userId);
+      },
+      error => {
+      }
+    )
+  }
+
   setCartData() {
     sessionStorage.setItem("cart", JSON.stringify(this.customer_cart_data));
   }
